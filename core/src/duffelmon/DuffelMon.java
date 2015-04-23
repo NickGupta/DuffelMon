@@ -15,7 +15,7 @@ public class DuffelMon extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 	}
-
+        
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
