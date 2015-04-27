@@ -7,10 +7,10 @@ package duffelmon;
 
 public class Species {
     
-    private SpeciesEnum speciesEnum;
+    private String name;
     
-    public Species() {
-        
+    public Species(String n) {
+        name = n;
     }
     
 }
