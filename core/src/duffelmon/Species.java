@@ -5,6 +5,7 @@
  */
 package duffelmon;
 
-enum Species {
-    
+public enum Species {
+    NULL,
+    SHMARMANDER
 }

@@ -11,6 +11,8 @@ package duffelmon;
  */
 public class Mon {
     
+    Species species;
+    
     public Mon(){
        
     }
