@@ -13,4 +13,7 @@ public class Species {
         name = n;
     }
     
+    public String getName() {
+        return name;
+    }
 }

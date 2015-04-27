@@ -26,4 +26,20 @@ public class Mon {
     public double getHealth(){
         return health;
     }
+    
+    public double getMaxHealth() {
+        return stats.getHealth();
+    }
+    
+    public double getAttack() {
+        return stats.getAttack();
+    }
+    
+    public double getSpeed() {
+        return stats.getSpeed();
+    }
+    
+    public double getAttitude() {
+        return stats.getAttitude();
+    }
 }
