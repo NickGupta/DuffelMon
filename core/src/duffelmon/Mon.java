@@ -15,8 +15,13 @@ public class Mon {
     private Stats stats;
     private double health;
     
-    public Mon(Species s) {
+    public Mon(Species s, Stats st) {
        species = s;
+       stats = st;
+       health = st.getHealth();
     }
     
+    public double getHealth(){
+        return health;
+    }
 }
