@@ -23,4 +23,19 @@ public class Stats {
         attitude = tude;
     }
     
+    public double getHealth() {
+        return health;
+    }
+    
+    public double getAttack() {
+        return attack;
+    }
+    
+    public double getSpeed() {
+        return speed;
+    }
+    
+    public double getAttitude() {
+        return attitude;
+    }
 }
