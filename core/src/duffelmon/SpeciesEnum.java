@@ -9,14 +9,9 @@ package duffelmon;
  *
  * @author csstudent
  */
-public class Mon {
-    
-    private Species species;
-    private Stats stats;
-    private double health;
-    
-    public Mon(Species s) {
-       species = s;
-    }
-    
+public enum SpeciesEnum {
+    NULL,
+    SHMARMANDER,
+    SHMULBASAUR,
+    SHMURTLE
 }

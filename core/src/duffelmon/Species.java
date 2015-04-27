@@ -5,7 +5,12 @@
  */
 package duffelmon;
 
-public enum Species {
-    NULL,
-    SHMARMANDER
+public class Species {
+    
+    private SpeciesEnum speciesEnum;
+    
+    public Species() {
+        
+    }
+    
 }

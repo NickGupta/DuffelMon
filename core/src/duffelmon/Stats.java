@@ -9,14 +9,18 @@ package duffelmon;
  *
  * @author csstudent
  */
-public class Mon {
+public class Stats {
     
-    private Species species;
-    private Stats stats;
     private double health;
+    private double attack;
+    private double speed;
+    private double attitude;
     
-    public Mon(Species s) {
-       species = s;
+    public Stats(double h, double a, double s, double tude) {
+        health = h;
+        attack = a;
+        speed = s;
+        attitude = tude;
     }
     
 }
