@@ -11,14 +11,16 @@ package duffelmon;
  */
 public class Mon {
     
+    private String name;
     private Species species;
     private Stats stats;
     private double health;
     
-    public Mon(Species s, Stats st) {
-       species = s;
-       stats = st;
-       health = st.getHealth();
+    public Mon(String n, Species s, Stats st) {
+        name = n;
+        species = s;
+        stats = st;
+        health = st.getHealth();
     }
     
     public double getHealth(){
