@@ -28,9 +28,10 @@ public class DuffelMon extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(img, 0, 0);
-		batch.end();
                 font.setColor(Color.BLUE);
                 font.draw(batch, "Player health" + player.getHealth() + "/" + player.getMaxHealth(), 100, 100);
+		batch.end();
+               
                 
 	}
 }
