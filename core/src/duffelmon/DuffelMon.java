@@ -5,18 +5,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.Color;
 
 public class DuffelMon extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+        BitmapFont font = new BitmapFont();
+        Species crabmon = new Species("CrabMon");
+        Stats stat = new Stats(1, 0, 10, 3, 10, 25);
+        Mon player = new Mon("Bob", crabmon, stat);
 	
-	@Override
+        @Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-                Species crabmon = new Species("CrabMon");
-                Stats stat = new Stats(1, 0, 10, 3, 10, 25);
-                Mon player = new Mon("Bob", crabmon, stat);
 	}
         
 	@Override
@@ -26,5 +29,8 @@ public class DuffelMon extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(img, 0, 0);
 		batch.end();
+                font.setColor(Color.BLUE);
+                font.draw(batch, "Player health" + player.getHealth() + "/" + player.getMaxHealth(), 100, 100);
+                
 	}
 }
