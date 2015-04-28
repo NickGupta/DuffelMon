@@ -51,5 +51,3 @@ public class Stats {
         return attitude;
     }
 }
-
-
