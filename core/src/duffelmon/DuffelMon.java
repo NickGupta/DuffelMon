@@ -14,6 +14,9 @@ public class DuffelMon extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+                Species crabmon = new Species("CrabMon");
+                Stats stat = new Stats(1, 0, 10, 3, 10, 25);
+                Mon player = new Mon("Bob", crabmon, stat);
 	}
         
 	@Override
