@@ -11,16 +11,28 @@ package duffelmon;
  */
 public class Stats {
     
+    private int level;
+    private double xp;
     private double health;
     private double attack;
     private double speed;
     private double attitude;
     
-    public Stats(double h, double a, double s, double tude) {
+    public Stats(int l, double x, double h, double a, double s, double tude) {
+        level = l;
+        xp = x;
         health = h;
         attack = a;
         speed = s;
         attitude = tude;
+    }
+    
+    public int getLevel() {
+        return level;
+    }
+    
+    public int getXP() {
+        return xp;
     }
     
     public double getHealth() {
