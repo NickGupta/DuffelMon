@@ -24,4 +24,8 @@ public class Combatant {
         mons = m;
     }
     
+    public ArrayList<Mon> getMonList() {
+        return mons;
+    }
+    
 }
