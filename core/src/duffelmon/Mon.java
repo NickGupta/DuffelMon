@@ -31,6 +31,14 @@ public class Mon {
         return stats.getHealth();
     }
     
+    public double getLevel() {
+        return stats.getLevel();
+    }
+    
+    public double getXP() {
+        return stats.getXP();
+    }
+    
     public double getAttack() {
         return stats.getAttack();
     }
