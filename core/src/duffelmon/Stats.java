@@ -31,7 +31,7 @@ public class Stats {
         return level;
     }
     
-    public int getXP() {
+    public double getXP() {
         return xp;
     }
     
