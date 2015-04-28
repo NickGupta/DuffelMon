@@ -16,11 +16,18 @@ public class Mon {
     private Stats stats;
     private double health;
     
+    public Mon(String n, Species s, int l) {
+        name = n;
+        species = s;
+        stats = Stats.generateStats(s, l);
+        health = stats.getHealth();
+    }
+    
     public Mon(String n, Species s, Stats st) {
         name = n;
         species = s;
         stats = st;
-        health = st.getHealth();
+        health = stats.getHealth();
     }
     
     public double getHealth(){
