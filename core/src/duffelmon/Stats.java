@@ -54,7 +54,4 @@ public class Stats {
     public double getAttitude() {
         return attitude;
     }
-
 }
-
-

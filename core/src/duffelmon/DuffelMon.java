@@ -13,13 +13,13 @@ public class DuffelMon extends ApplicationAdapter {
 	Texture img;
         BitmapFont font = new BitmapFont();
         Species crabmon = new Species("CrabMon");
-        Stats stat = new Stats(1, 0, 10, 3 ,10, 25);
+        Stats stat = new Stats(1, 0, 10, 3, 10, 25);
         Mon player = new Mon("Bob", crabmon, stat);
-	@Override
+	
+        @Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-                
+		img = new Texture("badlogic.jpg");           
 	}
         
 	@Override
