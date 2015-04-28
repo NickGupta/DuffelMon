@@ -27,6 +27,10 @@ public class Stats {
         attitude = tude;
     }
     
+    public static Stats generateStats(Species s, int l) {
+        return new Stats(1, 0, 50, 50, 50, 50);
+    }
+    
     public int getLevel() {
         return level;
     }
@@ -50,6 +54,7 @@ public class Stats {
     public double getAttitude() {
         return attitude;
     }
+
 }
 
 
