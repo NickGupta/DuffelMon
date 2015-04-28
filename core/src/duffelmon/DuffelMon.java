@@ -12,10 +12,14 @@ public class DuffelMon extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
         BitmapFont font = new BitmapFont();
+        Species crabmon = new Species("CrabMon");
+        Stats stat = new Stats(1, 0, 10, 3 ,10, 25);
+        Mon player = new Mon("Bob", crabmon, stat);
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+                
 	}
         
 	@Override
