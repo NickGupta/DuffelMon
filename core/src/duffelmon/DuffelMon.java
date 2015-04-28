@@ -15,14 +15,14 @@ public class DuffelMon extends ApplicationAdapter {
         BitmapFont font;
         
         // creates the first dufflemon for the battle
-        Species crabmon = new Species("CrabMon");
-        Stats crabmonStat = new Stats(1, 0, 10, 3, 10, 25);
-        Mon player = new Mon("Bob", crabmon, crabmonStat);
+        Species crabmon = Species.makeSpecies("CrabMon");
+        Stats crabmonStat = new Stats(10, 3, 10, 25);
+        Mon player = new Mon("Bob", crabmon, 1, crabmonStat);
         
-	// creates the second difflemon for the battle
-        Species geobro = new Species("Geobro");
-        Stats geobroStat = new Stats(1, 0, 10, 3, 10, 25);
-        Mon enemy = new Mon("Joe", geobro, geobroStat);
+	// creates the second dufflemon for the battle
+        Species geobro = Species.makeSpecies("Geobro");
+        Stats geobroStat = new Stats(10, 3, 10, 25);
+        Mon enemy = new Mon("Joe", geobro, 1, geobroStat);
         
         @Override
 	public void create () {

@@ -10,17 +10,13 @@ package duffelmon;
  * @author csstudent
  */
 public class Stats {
-    
-    private int level;
-    private double xp;
+
     private double health;
     private double attack;
     private double speed;
     private double attitude;
     
-    public Stats(int l, double x, double h, double a, double s, double tude) {
-        level = l;
-        xp = x;
+    public Stats(double h, double a, double s, double tude) {
         health = h;
         attack = a;
         speed = s;
@@ -28,15 +24,7 @@ public class Stats {
     }
     
     public static Stats generateStats(Species s, int l) {
-        return new Stats(1, 0, 50, 50, 50, 50);
-    }
-    
-    public int getLevel() {
-        return level;
-    }
-    
-    public double getXP() {
-        return xp;
+        return new Stats(50, 50, 50, 50);
     }
     
     public double getHealth() {

@@ -14,6 +14,7 @@ import java.util.*;
 public class Combatant {
     
     private ArrayList<Mon> mons;
+    private int currentMon = 0;
     
     public Combatant(Mon m) {
         mons = new ArrayList<Mon>();
@@ -21,7 +22,12 @@ public class Combatant {
     }
     
     public Combatant(ArrayList<Mon> m) {
-        mons = m;
+        if (m.size() > 0) {
+            mons = m;
+        } else {
+            mons = new ArrayList<Mon>();
+            mons.add(Mon.makeDefaultMon());
+        }
     }
     
     public ArrayList<Mon> getMonList() {
