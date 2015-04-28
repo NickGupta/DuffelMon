@@ -5,11 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class DuffelMon extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	
+        BitmapFont font = new BitmapFont();
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -23,5 +24,8 @@ public class DuffelMon extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(img, 0, 0);
 		batch.end();
+                font.setColor(Color.BLUE);
+                font.draw(batch, "Player health" + player.getHealth() + "/" + player.getMaxHealth(), 100, 100);
+                
 	}
 }
