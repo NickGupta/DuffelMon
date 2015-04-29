@@ -40,6 +40,13 @@ public class Mon {
         return new Mon(null, Species.getDefaultSpecies(), 1);
     }
     
+    public String getName() {
+        if (name == null) {
+            return species.getName();
+        }
+        return name;
+    }
+    
     public double getHealth(){
         return health;
     }

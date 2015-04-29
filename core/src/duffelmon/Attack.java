@@ -10,24 +10,23 @@ import java.util.*;
  * @author csstudent
  */
 public class Attack {
-    private static TreeMap<String,Attack> map = new TreeMap<String,Attack>();
+    private static TreeMap<String,Attack> attackMap = new TreeMap<String,Attack>();
     private String name;
     private double damage;
     
-    
-    private Attack(String n, double d){
+    private Attack(String n, double d) {
         name = n;
         damage = d;
     }
     
     public static Attack makeAttack(String n, double d) {
         Attack a = new Attack(n, d);
-        map.put(n, a);
+        attackMap.put(n, a);
         return a;
     }
     
     public static Attack getAttack(String s) {
-        return map.get(s);
+        return attackMap.get(s);
     }
     
     public String getName() {
@@ -37,4 +36,5 @@ public class Attack {
     public double getDamage() {
         return damage;
     }
+    
 }

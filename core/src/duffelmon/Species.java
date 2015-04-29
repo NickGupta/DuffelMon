@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Species {
     
-    private static TreeMap<String,Species> speciesTable = new TreeMap<String,Species>();
+    private static TreeMap<String,Species> speciesMap = new TreeMap<String,Species>();
     private static Species defaultSpecies = new Species("DefaultSpecies");
     
     private String name;
@@ -20,12 +20,12 @@ public class Species {
     
     public static Species makeSpecies(String n) {
         Species s = new Species(n);
-        speciesTable.put(n, s);
+        speciesMap.put(n, s);
         return s;
     }
     
     public static Species getSpecies(String s) {
-        return speciesTable.get(s);
+        return speciesMap.get(s);
     }
     
     public static Species getDefaultSpecies() {
@@ -35,4 +35,5 @@ public class Species {
     public String getName() {
         return name;
     }
+    
 }
