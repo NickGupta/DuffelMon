@@ -10,7 +10,9 @@ import java.util.*;
  * @author csstudent
  */
 public class Attack {
+    
     private static TreeMap<String,Attack> map = new TreeMap<String,Attack>();
+    
     private String name;
     private double damage;
     
