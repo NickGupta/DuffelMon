@@ -29,6 +29,8 @@ public class HealthDisplay extends Actor {
     @Override
     public void draw(Batch batch, float alpha) {
         Mon currentMon = combatant.getCurrentMon();
-        font.draw(batch, "Health: "+currentMon.getHealth()+" / "+currentMon.getMaxHealth(), x, y);
+        long health = Math.round(currentMon.getHealth());
+        long maxHealth = Math.round(currentMon.getMaxHealth());
+        font.draw(batch, "Health: " + health + " / " + maxHealth, x, y);
     }
 }
