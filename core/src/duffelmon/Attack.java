@@ -12,12 +12,16 @@ import java.util.*;
 public class Attack {
     private static TreeMap<String,Attack> map = new TreeMap<String,Attack>();
     private String name;
-    private Attack(String n){
+    private double damage;
+    
+    
+    private Attack(String n, double d){
         name = n;
+        damage = d;
     }
     
-    public static Attack makeAttack(String n) {
-        Attack a = new Attack(n);
+    public static Attack makeAttack(String n, double d) {
+        Attack a = new Attack(n, d);
         map.put(n, a);
         return a;
     }
@@ -28,5 +32,9 @@ public class Attack {
     
     public String getName() {
         return name;
+    }
+    
+    public double getDamage() {
+        return damage;
     }
 }
