@@ -34,4 +34,8 @@ public class Combatant {
         return mons;
     }
     
+    public Mon getCurrentMon() {
+        return mons.get(currentMon);
+    }
+    
 }
