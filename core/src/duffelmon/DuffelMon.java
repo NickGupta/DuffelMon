@@ -18,11 +18,15 @@ public class DuffelMon extends ApplicationAdapter {
         Species crabmon = Species.makeSpecies("CrabMon");
         Stats crabmonStat = new Stats(10, 3, 10, 25);
         Mon player = new Mon("Bob", crabmon, 1, crabmonStat);
+        Combatant goodGuy = new Combatant(player);
         
 	// creates the second dufflemon for the battle
         Species geobro = Species.makeSpecies("Geobro");
         Stats geobroStat = new Stats(10, 3, 10, 25);
         Mon enemy = new Mon("Joe", geobro, 1, geobroStat);
+        Combatant badGuy = new Combatant(enemy);
+        
+        Battle battle = new Battle(goodGuy, badGuy);
         
         @Override
 	public void create () {
@@ -42,9 +46,11 @@ public class DuffelMon extends ApplicationAdapter {
 		batch.begin();
 		//batch.draw(img, 0, 0);
                 font.setColor(Color.WHITE);
-                font.draw(batch, "Player health: " + playerHealth + " / " + playerMaxHealth, 300, 300);
+                font.draw(batch,  "Player health: " + playerHealth + " / " + playerMaxHealth, 300, 300);
                 font.draw(batch, "Enemy health: " + enemyHealth + " / " + enemyMaxHealth, 300, 250);
 		batch.end();
+                
+              
                
                 
 	}
