@@ -10,14 +10,12 @@ public class DuffelMon extends ApplicationAdapter {
         
         // creates the first dufflemon for the battle
         Species crabmon = Species.makeSpecies("CrabMon");
-        Stats crabmonStat = new Stats(10, 3, 10, 25);
-        Mon player = new Mon("Bob", crabmon, 1, crabmonStat);
+        Mon player = new Mon("Bob", crabmon, 1);
         Combatant goodGuy = new Combatant(player);
         
 	// creates the second dufflemon for the battle
         Species geobro = Species.makeSpecies("Geobro");
-        Stats geobroStat = new Stats(10, 3, 10, 25);
-        Mon enemy = new Mon("Joe", geobro, 1, geobroStat);
+        Mon enemy = new Mon("Joe", geobro, 1);
         Combatant badGuy = new Combatant(enemy);
         
         @Override

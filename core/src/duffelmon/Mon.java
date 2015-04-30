@@ -14,26 +14,42 @@ public class Mon {
     private String name;
     private Species species;
     private Stats stats;
+    private Move[] moves = {null, null, null, null};
     private int level;
     private double xp;
     private double health;
-    private Attack attack1;
-    private Attack attack2;
-    private Attack attack3;
-    private Attack attack4;
     
     public Mon(String n, Species s, int l) {
         name = n;
         species = s;
+        Move[] m = Species.generateMoves(s, l);
+        for (int i = 0; i < Math.min(moves.length, m.length); i++) {
+            moves[i] = m[i];
+        }
         stats = Stats.generateStats(s, l);
         health = stats.getHealth();
         level = l;
         xp = 0;
     }
     
-    public Mon(String n, Species s, int l, Stats st) {
+    public Mon(String n, Species s, int l, Move[] m) {
         name = n;
         species = s;
+        for (int i = 0; i < Math.min(moves.length, m.length); i++) {
+            moves[i] = m[i];
+        }
+        stats = Stats.generateStats(s, l);
+        health = stats.getHealth();
+        level = l;
+        xp = 0;
+    }
+    
+    public Mon(String n, Species s, int l, Move[] m, Stats st) {
+        name = n;
+        species = s;
+        for (int i = 0; i < Math.min(moves.length, m.length); i++) {
+            moves[i] = m[i];
+        }
         stats = st;
         health = stats.getHealth();
         level = l;
@@ -79,19 +95,8 @@ public class Mon {
         return stats.getAttitude();
     }
     
-    public Attack getAttack1(){
-        return attack1;
+    public Move getMove(int i) {
+        return moves[i];
     }
-    
-    public Attack getAttack2(){
-        return attack2;
-    }
-    
-    public Attack getAttack3(){
-        return attack3;
-    }
-    
-    public Attack getAttack4(){
-        return attack4;
-    }
+
 }

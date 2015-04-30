@@ -32,6 +32,11 @@ public class Species {
         return defaultSpecies;
     }
     
+    public static Move[] generateMoves(Species s, int l) {
+        Move[] m = {null, null, null, null};
+        return m;
+    }
+    
     public String getName() {
         return name;
     }
