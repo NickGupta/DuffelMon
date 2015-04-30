@@ -21,6 +21,10 @@ public class Mon {
     private int level;
     private double xp;
     private double health;
+    private Attack attack1;
+    private Attack attack2;
+    private Attack attack3;
+    private Attack attack4;
     
     public Mon(String n, Species s, int l) {
         name = n;
@@ -42,6 +46,13 @@ public class Mon {
     
     public static Mon makeDefaultMon() {
         return new Mon(null, Species.getDefaultSpecies(), 1);
+    }
+    
+    public String getName() {
+        if (name == null) {
+            return species.getName();
+        }
+        return name;
     }
     
     public double getHealth(){
@@ -70,5 +81,21 @@ public class Mon {
     
     public double getAttitude() {
         return stats.getAttitude();
+    }
+    
+    public Attack getAttack1(){
+        return attack1;
+    }
+    
+    public Attack getAttack2(){
+        return attack2;
+    }
+    
+    public Attack getAttack3(){
+        return attack3;
+    }
+    
+    public Attack getAttack4(){
+        return attack4;
     }
 }
