@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class HealthDisplay extends Actor {
     
     private BitmapFont font = GlobalData.getFont();
+    private Color fontColor = Color.BLACK;
     private Mon mon;
     private float x;
     private float y;
@@ -39,7 +40,7 @@ public class HealthDisplay extends Actor {
     public void draw(Batch batch, float alpha) {
         long health = Math.round(mon.getHealth());
         long maxHealth = Math.round(mon.getMaxHealth());
-        font.setColor(Color.BLACK);
+        font.setColor(fontColor);
         font.draw(batch, mon.getName() + "'s health: " + health + " / " + maxHealth, x, y);
     }
 }

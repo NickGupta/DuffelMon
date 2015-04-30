@@ -10,18 +10,18 @@ import java.util.*;
 public class Species {
     
     private static TreeMap<String,Species> speciesMap = new TreeMap<String,Species>();
-    private static Species defaultSpecies = new Species("DefaultSpecies", new TreeMap<Integer,Move>());
+    private static Species defaultSpecies = new Species("DefaultSpecies", new TreeMap<Move,Integer>());
     
     private String name;
-    private TreeMap<Integer,Move> moveMap = null;
+    private TreeMap<Move,Integer> moveMap = null;
     
-    private Species(String n, TreeMap<Integer,Move> m) {
+    private Species(String n, TreeMap<Move,Integer> m) {
         name = n;
         moveMap = m;
     }
     
-    public static Species makeSpecies(String n) {
-        Species s = new Species(n, new TreeMap<Integer,Move>());
+    public static Species makeSpecies(String n, TreeMap<Move,Integer> m) {
+        Species s = new Species(n, m);
         speciesMap.put(n, s);
         return s;
     }
