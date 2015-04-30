@@ -13,8 +13,6 @@ import java.util.TreeMap;
  */
 public class Mon {
     
-    private static TreeMap<Integer,Move> moveMap = new TreeMap<Integer,Move>();
-    
     private String name;
     private Species species;
     private Stats stats;
