@@ -9,26 +9,24 @@ import java.util.*;
  *
  * @author csstudent
  */
-public class Attack {
-
-    private static TreeMap<String,Attack> attackMap = new TreeMap<String,Attack>();
-
+public class Move {
+    private static TreeMap<String,Move> moveMap = new TreeMap<String,Move>();
     private String name;
     private double damage;
     
-    private Attack(String n, double d) {
+    private Move(String n, double d) {
         name = n;
         damage = d;
     }
     
-    public static Attack makeAttack(String n, double d) {
-        Attack a = new Attack(n, d);
-        attackMap.put(n, a);
+    public static Move makeMove(String n, double d) {
+        Move a = new Move(n, d);
+        moveMap.put(n, a);
         return a;
     }
     
-    public static Attack getAttack(String s) {
-        return attackMap.get(s);
+    public static Move getMove(String s) {
+        return moveMap.get(s);
     }
     
     public String getName() {
@@ -37,6 +35,6 @@ public class Attack {
     
     public double getDamage() {
         return damage;
-    }  
+    }
     
 }

@@ -5,6 +5,7 @@
  */
 package duffelmon;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,7 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * @author csstudent
  */
 public class HealthDisplay extends Actor {
-
+    
+    private BitmapFont font = GlobalData.getFont();
     private Mon mon;
     private float x;
     private float y;
@@ -37,6 +39,7 @@ public class HealthDisplay extends Actor {
     public void draw(Batch batch, float alpha) {
         long health = Math.round(mon.getHealth());
         long maxHealth = Math.round(mon.getMaxHealth());
-        GlobalData.getFont().draw(batch, mon.getName() + "'s health: " + health + " / " + maxHealth, x, y);
+        font.setColor(Color.BLACK);
+        font.draw(batch, mon.getName() + "'s health: " + health + " / " + maxHealth, x, y);
     }
 }
