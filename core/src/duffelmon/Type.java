@@ -28,6 +28,10 @@ public class Type {
         return t;
     }
     
+    public static Type getType(String s) {
+        return typeMap.get(s);
+    }
+    
     public TreeMap<Type,Double> getRelationships() {
         return relationships;
     }

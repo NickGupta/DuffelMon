@@ -22,12 +22,7 @@ public class Combatant {
     }
     
     public Combatant(ArrayList<Mon> m) {
-        if (m.size() > 0) {
-            mons = m;
-        } else {
-            mons = new ArrayList<Mon>();
-            mons.add(Mon.makeDefaultMon());
-        }
+        mons = m;
     }
     
     public ArrayList<Mon> getMonList() {

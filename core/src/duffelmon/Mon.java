@@ -56,10 +56,6 @@ public class Mon {
         xp = 0;
     }
     
-    public static Mon makeDefaultMon() {
-        return new Mon(null, Species.getDefaultSpecies(), 1);
-    }
-    
     public String getName() {
         if (name == null) {
             return species.getName();

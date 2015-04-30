@@ -5,33 +5,37 @@
  */
 package duffelmon;
 
-import java.util.*;
+import java.util.TreeMap;
 
 public class Species {
     
     private static TreeMap<String,Species> speciesMap = new TreeMap<String,Species>();
-    private static Species defaultSpecies = new Species("DefaultSpecies", new TreeMap<Move,Integer>());
     
     private String name;
+    private Type[] types = null;
     private TreeMap<Move,Integer> moveMap = null;
     
-    private Species(String n, TreeMap<Move,Integer> m) {
+    private Species(String n, Type[] t, TreeMap<Move,Integer> m) {
         name = n;
+        types = t;
         moveMap = m;
     }
     
-    public static Species makeSpecies(String n, TreeMap<Move,Integer> m) {
-        Species s = new Species(n, m);
+    public static Species makeSpecies(String n, Type t, TreeMap<Move,Integer> m) {
+        Type[] tArray = {t};
+        Species s = new Species(n, tArray, m);
+        speciesMap.put(n, s);
+        return s;
+    }
+    
+    public static Species makeSpecies(String n, Type[] t, TreeMap<Move,Integer> m) {
+        Species s = new Species(n, t, m);
         speciesMap.put(n, s);
         return s;
     }
     
     public static Species getSpecies(String s) {
         return speciesMap.get(s);
-    }
-    
-    public static Species getDefaultSpecies() {
-        return defaultSpecies;
     }
     
     public static Move[] generateMoves(Species s, int l) {
@@ -41,6 +45,14 @@ public class Species {
     
     public String getName() {
         return name;
+    }
+    
+    public Type[] getTypes() {
+        return types;
+    }
+    
+    public TreeMap<Move,Integer> getMoveMap() {
+        return moveMap;
     }
     
 }
