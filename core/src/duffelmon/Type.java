@@ -6,7 +6,6 @@
 package duffelmon;
 
 import java.util.TreeMap;
-import java.util.ArrayList;
 
 /**
  *
@@ -17,9 +16,7 @@ public class Type {
     private static TreeMap<String,Type> typeMap = new TreeMap<String,Type>();
     
     private String name;
-    private ArrayList<Type> weaknesses = new ArrayList<Type>();
-    private ArrayList<Type> resistances = new ArrayList<Type>();
-    private ArrayList<Type> immunities = new ArrayList<Type>();
+    private TreeMap<Type,Double> relationships = new TreeMap<Type,Double>();
     
     private Type(String n) {
         name = n;
@@ -31,27 +28,12 @@ public class Type {
         return t;
     }
     
-    public ArrayList<Type> getWeaknesses() {
-        return weaknesses;
+    public TreeMap<Type,Double> getRelationships() {
+        return relationships;
     }
     
-    public ArrayList<Type> getResistances() {
-        return resistances;
+    public void addRelationship(Type t, double m) {
+        relationships.put(t, m);
     }
     
-    public ArrayList<Type> getImmunities() {
-        return immunities;
-    }
-    
-    public void addWeakness(Type t) {
-        weaknesses.add(t);
-    }
-    
-    public void addResistance(Type t) {
-        resistances.add(t);
-    }
-    
-    public void addImmunity(Type t) {
-        immunities.add(t);
-    }
 }
