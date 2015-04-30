@@ -5,11 +5,15 @@
  */
 package duffelmon;
 
+import java.util.TreeMap;
+
 /**
  *
  * @author csstudent
  */
 public class Mon {
+    
+    private static TreeMap<Integer,Move> moveMap = new TreeMap<Integer,Move>();
     
     private String name;
     private Species species;
