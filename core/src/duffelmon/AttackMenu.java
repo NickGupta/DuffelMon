@@ -13,23 +13,4 @@ public class AttackMenu {
         
     }
     
-    public boolean upIsPushed(){
-        return true;
-    
-    }
-    
-    public boolean downIsPushed(){
-        return true;
-    
-    }
-    
-    public boolean leftIsPushed(){
-        return true;
-    
-    }
-    
-    public boolean rightIsPushed(){
-        return true;
-    
-    }
 }

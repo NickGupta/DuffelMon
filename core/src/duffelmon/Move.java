@@ -16,15 +16,17 @@ public class Move {
     private String name;
     private double damage;
     private double accuracy;
+    private int powerPoints;
     
-    private Move(String n, double d, double a) {
+    private Move(String n, double d, double a, int p) {
         name = n;
         damage = d;
         accuracy = a;
+        powerPoints = p;
     }
     
-    public static Move makeMove(String n, double d, double a) {
-        Move m = new Move(n, d, a);
+    public static Move makeMove(String n, double d, double a, int p) {
+        Move m = new Move(n, d, a, p);
         moveMap.put(n, m);
         return m;
     }
@@ -41,4 +43,11 @@ public class Move {
         return damage;
     }
     
+    public double getAccuracy() {
+        return accuracy;
+    }
+    
+    public int getPowerPoints() {
+        return powerPoints;
+    }
 }
