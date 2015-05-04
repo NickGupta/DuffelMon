@@ -9,6 +9,9 @@ import java.util.TreeMap;
 
 public class DuffelMon extends ApplicationAdapter {
         
+        float framesPerSecond = 60;
+        float elapsedTime = 0;
+        
         Type normal = Type.makeType("Normal");
         // creates the first dufflemon for the battle
         Species crabmon = Species.makeSpecies("CrabMon", normal, new TreeMap<Move,Integer>());
@@ -28,9 +31,17 @@ public class DuffelMon extends ApplicationAdapter {
         
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		GlobalData.getStage().draw(); 
+            elapsedTime += Gdx.graphics.getDeltaTime();
+            while (elapsedTime > 0) {
+                frameActions();
+                elapsedTime -= 1.0/framesPerSecond;
+            }
+            Gdx.gl.glClearColor(1, 1, 1, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            GlobalData.getStage().draw(); 
 	}
         
+        private void frameActions() {
+            
+        }
 }
