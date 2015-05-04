@@ -17,6 +17,8 @@ public class GlobalData {
     private static Stage stage;
     private static BitmapFont font;
     
+    private static boolean[] inputs = new boolean[7];
+    
     public static void initialize(Stage s, BitmapFont b) {
         stage = s;
         font = b;
