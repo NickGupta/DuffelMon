@@ -7,8 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.TreeMap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
 public class DuffelMon extends ApplicationAdapter {
         
@@ -23,29 +21,18 @@ public class DuffelMon extends ApplicationAdapter {
         Mon enemy = new Mon("Joe", geobro, 1);
         Combatant badGuy = new Combatant(enemy);
         
-        TextButtonStyle textButtonStyle = new TextButtonStyle();
-        TextButton button;
-        
-        
         @Override
 	public void create () {
                 GlobalData.initialize(new Stage(), new BitmapFont());
                 Battle.startBattle(goodGuy, badGuy);
-            //    button = new TextButton("Button1", textButtonStyle);
-        
 	}
         
 	@Override
 	public void render () {
-                
-                //GlobalData.getStage().addActor(button);
                 SpriteBatch batch = new SpriteBatch();
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		GlobalData.getStage().draw(); 
-                
-                
-                
 	}
         
 }
