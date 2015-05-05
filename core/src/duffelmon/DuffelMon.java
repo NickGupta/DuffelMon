@@ -43,5 +43,6 @@ public class DuffelMon extends ApplicationAdapter {
         
         private void frameActions() {
             GlobalData.updateInputs();
+            GameObject.runFrameActions();
         }
 }
