@@ -5,6 +5,8 @@
  */
 package duffelmon;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 /**
  *
  * @author csstudent
@@ -13,6 +15,7 @@ public class Mon {
     
     private String name;
     private Species species;
+    private MonSprite sprite;
     private Stats stats;
     private Move[] moves = new Move[4];
     private int[] powerPoints = new int[4];
@@ -79,8 +82,16 @@ public class Mon {
         return stats.getAttitude();
     }
     
-    public Sprite getSprite() {
-        return species.getSprite();
+    public MonSprite getMonSprite() {
+        return sprite;
+    }
+    
+    public Sprite getFrontSprite() {
+        return sprite.getFrontSprite();
+    }
+    
+    public Sprite getBackSprite() {
+        return sprite.getBackSprite();
     }
     
     public Move getMove(int i) {

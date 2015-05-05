@@ -43,10 +43,21 @@ public abstract class GameObject extends Actor {
     
     public static void runFrameActions() {
         for(GameObject g : independentObjects) {
-            g.frameActions();
+            g.doFrame();
         }
     }
     
-    public abstract void frameActions();
+    public float x;
+    public float y;
+    public float xspeed;
+    public float yspeed;
+    
+    public void frameActions() {}
+    
+    public void doFrame() {
+        frameActions();
+        x += xspeed;
+        y += yspeed;
+    }
     
 }

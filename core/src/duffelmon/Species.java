@@ -6,18 +6,23 @@
 package duffelmon;
 
 import java.util.TreeMap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Species {
     
     private static TreeMap<String,Species> speciesMap = new TreeMap<String,Species>();
     
     private String name;
+    private MonSprite sprite;
     private Type[] types = null;
     private TreeMap<Move,Integer> moveMap = null;
-    private Sprite sprites;
     
     private Species(String n, Type[] t, TreeMap<Move,Integer> m) {
         name = n;
+        Texture texf = new Texture("monsprites/" + name + "_front.png");
+        Texture texb = new Texture("monsprites/" + name + "_back.png");
+        sprite = new MonSprite(new Sprite(texf), new Sprite(texb));
         types = t;
         moveMap = m;
     }
@@ -28,9 +33,9 @@ public class Species {
     }
     
     public static Species makeSpecies(String n, Type[] t, TreeMap<Move,Integer> m) {
-        Species sp = new Species(n, t, m);
-        speciesMap.put(n, sp);
-        return sp;
+        Species s = new Species(n, t, m);
+        speciesMap.put(n, s);
+        return s;
     }
     
     public static Species getSpecies(String s) {
@@ -54,8 +59,8 @@ public class Species {
         return moveMap;
     }
     
-    public Sprite getSprite() {
-        return sprites;
+    public MonSprite getSprite() {
+        return sprite;
     }
     
 }

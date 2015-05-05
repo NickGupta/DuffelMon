@@ -5,30 +5,32 @@
  */
 package duffelmon;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+
 /**
  *
  * @author Andrew
  */
-public class Battle {
+public class Battle extends GameObject {
     
     private static Battle battle;
     
     private Combatant combatant1;
     private Combatant combatant2;
-    private HealthDisplay h1;
-    private HealthDisplay h2;
-    private AttackMenu a;
+    private MonDisplay m1;
+    private MonDisplay m2;
+    private MonInfoDisplay i1;
+    private MonInfoDisplay i2;
+    private BattleMenu menu;
     
     private Battle(Combatant c1, Combatant c2) {
         combatant1 = c1;
         combatant2 = c2;
-        h1 = new HealthDisplay(combatant1.getCurrentMon(), 400, 100);
-        GlobalData.getStage().addActor(h1);
-        h2 = new HealthDisplay(combatant2.getCurrentMon(), 100, 400);
-        GlobalData.getStage().addActor(h2);
-        a = new AttackMenu();
-        GameObject.makeIndependent(a);
-        
+        m1 = new MonDisplay(combatant1.getCurrentMon(), true, 200, 100);
+        m2 = new MonDisplay(combatant2.getCurrentMon(), false, 300, 400);
+        i1 = new MonInfoDisplay(combatant1.getCurrentMon(), 400, 100);
+        i2 = new MonInfoDisplay(combatant2.getCurrentMon(), 100, 400);
+        menu = new BattleMenu();
     }
     
     public static Battle startBattle(Combatant c1, Combatant c2) {
@@ -46,5 +48,21 @@ public class Battle {
     
     public Combatant getCombatant2() {
         return combatant2;
+    }
+    
+    @Override
+    public void draw(Batch batch, float alpha) {
+        m1.draw(batch, alpha);
+        m2.draw(batch, alpha);
+        i1.draw(batch, alpha);
+        i2.draw(batch, alpha);
+        menu.draw(batch, alpha);
+    }
+    
+    @Override
+    public void doFrame() {
+        m1.doFrame();
+        m2.doFrame();
+        menu.doFrame();
     }
 }

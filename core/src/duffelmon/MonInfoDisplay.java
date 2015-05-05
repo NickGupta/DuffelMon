@@ -14,33 +14,27 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  *
  * @author csstudent
  */
-public class HealthDisplay extends Actor {
+public class MonInfoDisplay extends Actor {
     
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
-    private Mon mon;
+    public Mon mon = null;
     private float x;
     private float y;
     
-    public HealthDisplay(Mon m, float xP, float yP) {
+    public MonInfoDisplay(Mon m, float xP, float yP) {
         mon = m;
         x = xP;
         y = yP;
     }
     
-    public Mon getMon() {
-        return mon;
-    }
-    
-    public void setMon(Mon m) {
-        mon = m;
-    }
-    
     @Override
     public void draw(Batch batch, float alpha) {
-        long health = Math.round(mon.getHealth());
-        long maxHealth = Math.round(mon.getMaxHealth());
-        font.setColor(fontColor);
-        font.draw(batch, mon.getName() + "'s health: " + health + " / " + maxHealth, x, y);
+        if (mon != null) {
+            long health = Math.round(mon.getHealth());
+            long maxHealth = Math.round(mon.getMaxHealth());
+            font.setColor(fontColor);
+            font.draw(batch, mon.getName() + "'s health: " + health + " / " + maxHealth, x, y);
+        }
     }
 }

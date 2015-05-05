@@ -6,40 +6,45 @@
 package duffelmon;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
  *
  * @author csstudent
  */
 
-public class MonDisplay extends Actor{
+public class MonDisplay extends GameObject {
     
-    private Mon mon;
-    private float x;
-    private float y;
-    private Texture monSprite;
-    
-    public MonDisplay(Mon m, float xCord, float yCord){
+    public Mon mon = null;
+    private float front; //If front > 0, you're front-facing; if front < 0, back-facing
+    //This can be used as a multiplier for anything that flips when the mon is facing the other way
+    public MonDisplay(Mon m, boolean f, float x, float y){
         mon = m;
-        x = xCord;
-        y = yCord;
-        monSprite = m.getSprite();
-    }
-    
-    public Mon getMon() {
-        return mon;
-    }
-    
-    public void setMon(Mon m) {
-        mon = m;
-        monSprite = m.getSprite();
+        if (f) {
+            front = 1;
+        } else {
+            front = -1;
+        }
+        this.x = x;
+        this.y = y;
     }
     
     @Override
     public void draw(Batch batch, float alpha) {
-        batch.draw(monSprite, x, y);
+        Sprite s;
+        if (front > 0) {
+            s = mon.getFrontSprite();
+        } else {
+            s = mon.getBackSprite();
+        }
+        batch.draw(s, x - getWidth()/2, y);
     }
     
+    @Override
+    public void doFrame() {
+        frameActions();
+        x += front*xspeed;
+        y += yspeed;
+    }
 }
+

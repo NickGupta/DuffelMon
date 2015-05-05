@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
  *
  * @author csstudent
  */
-public class AttackMenu extends GameObject{
+public class BattleMenu extends GameObject{
     int xValue = 100;
     int yValue = 100;
     int x1 = 100;
@@ -25,7 +25,7 @@ public class AttackMenu extends GameObject{
     
     
     private String m = "m Default Value";
-    public AttackMenu(){
+    public BattleMenu(){
         
     }
     @Override
