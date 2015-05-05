@@ -17,6 +17,7 @@ public class Battle {
     private Combatant combatant2;
     private HealthDisplay h1;
     private HealthDisplay h2;
+    private AttackMenu a;
     
     private Battle(Combatant c1, Combatant c2) {
         combatant1 = c1;
@@ -25,6 +26,9 @@ public class Battle {
         GlobalData.getStage().addActor(h1);
         h2 = new HealthDisplay(combatant2.getCurrentMon(), 100, 400);
         GlobalData.getStage().addActor(h2);
+        a = new AttackMenu();
+        GameObject.makeIndependent(a);
+        
     }
     
     public static Battle startBattle(Combatant c1, Combatant c2) {
