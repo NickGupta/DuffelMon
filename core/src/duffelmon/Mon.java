@@ -94,5 +94,15 @@ public class Mon {
     public Move getMove(int i) {
         return moves[i];
     }
-
+    
+    public boolean giveMove(Move m) {
+        for (int i = 0; i < moves.length; i++){
+            if (moves[i] != null){    
+            }else{
+                moves[i] = m;
+                return true;
+            }
+        }
+        return false;
+    }
 }
