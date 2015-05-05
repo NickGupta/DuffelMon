@@ -16,18 +16,21 @@ public class AttackMenu extends GameObject{
     int x1 = 100;
     int y1 = 100;
     Batch b;
+    
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
     private Mon mon;
     private float x;
     private float y;
     
+    
+    private String m = "m Default Value";
     public AttackMenu(){
         
     }
     @Override
     public void draw(Batch batch, float alpha) {
-        b = batch;
+        
         font.setColor(fontColor);
         font.draw(batch, "Fight", xValue, yValue);
         xValue += 70;
@@ -41,7 +44,9 @@ public class AttackMenu extends GameObject{
         yValue += 40;
         xValue -= 80;
         
-        font.draw(b, "____", x1, y1);
+        font.draw(batch, "____", x1, y1);
+        
+        font.draw(batch, m, 300, 300);
         
         
     }
@@ -61,6 +66,23 @@ public class AttackMenu extends GameObject{
                x1 += 80; 
             }else if(x1 == 180){
                 x1 -= 80;
+            }
+        }
+        
+        if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
+            if(x1 == 100 && y1 == 100){
+                m = "Fight"; 
+            }
+            if(x1 == 100 && y1 == 60){
+                m = "Run"; 
+            }
+            
+            if(x1 == 180 && y1 == 60){
+                m = "Item"; 
+            }
+            
+            if(x1 == 180 && y1 == 100){
+                m = "Change"; 
             }
         }
     }
