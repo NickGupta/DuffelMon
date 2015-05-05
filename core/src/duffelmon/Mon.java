@@ -79,6 +79,10 @@ public class Mon {
         return stats.getAttitude();
     }
     
+    public Sprite getSprite() {
+        return species.getSprite();
+    }
+    
     public Move getMove(int i) {
         return moves[i];
     }
