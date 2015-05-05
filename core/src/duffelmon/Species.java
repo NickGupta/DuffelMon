@@ -14,6 +14,7 @@ public class Species {
     private String name;
     private Type[] types = null;
     private TreeMap<Move,Integer> moveMap = null;
+    private Sprite sprites;
     
     private Species(String n, Type[] t, TreeMap<Move,Integer> m) {
         name = n;
@@ -27,9 +28,9 @@ public class Species {
     }
     
     public static Species makeSpecies(String n, Type[] t, TreeMap<Move,Integer> m) {
-        Species s = new Species(n, t, m);
-        speciesMap.put(n, s);
-        return s;
+        Species sp = new Species(n, t, m);
+        speciesMap.put(n, sp);
+        return sp;
     }
     
     public static Species getSpecies(String s) {
@@ -51,6 +52,10 @@ public class Species {
     
     public TreeMap<Move,Integer> getMoveMap() {
         return moveMap;
+    }
+    
+    public Sprite getSprite() {
+        return sprites;
     }
     
 }
