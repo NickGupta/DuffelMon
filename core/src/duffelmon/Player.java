@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Player {
     
-    private static ArrayList<Mon> mons = new ArrayList<Mon>();
+    private static Mon[] mons = new Mon[3];
     private static int money = 0;
     
-    private static ArrayList<Mon> getMonList() {
+    private static Mon[] getMonList() {
         return mons;
     }
     
@@ -25,10 +25,12 @@ public class Player {
      * @param m Mon to be added
      * @return Whether the addition was successful
      */
-    private static boolean addMon(Mon m) {
-        if (mons.size() < 3) {
-            mons.add(m);
-            return true;
+    public boolean addMon(Mon m) {
+        for(int i = 0; i < mons.length; i++) {
+            if (mons[i] == null) {
+                mons[i] = m;
+                return true;
+            }
         }
         return false;
     }
