@@ -69,16 +69,16 @@ public class GlobalData {
         }
     }
     
-    public static boolean keyPressed(Input i) {
+    public static boolean keyPressed(Inputs i) {
         return inputs.get(i) == InputStatus.PRESSED;
     }
     
-    public static boolean keyHeld(Input i) {
+    public static boolean keyHeld(Inputs i) {
         InputStatus status = inputs.get(i);
         return status == InputStatus.PRESSED || status == InputStatus.HELD;
     }
     
-    public static boolean keyReleased(Input i) {
+    public static boolean keyReleased(Inputs i) {
         return inputs.get(i) == InputStatus.RELEASED;
     }
 }

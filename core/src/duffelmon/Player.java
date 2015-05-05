@@ -5,8 +5,6 @@
  */
 package duffelmon;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author csstudent
