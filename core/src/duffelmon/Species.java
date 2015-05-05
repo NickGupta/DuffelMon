@@ -23,9 +23,7 @@ public class Species {
     
     public static Species makeSpecies(String n, Type t, TreeMap<Move,Integer> m) {
         Type[] tArray = {t};
-        Species s = new Species(n, tArray, m);
-        speciesMap.put(n, s);
-        return s;
+        return makeSpecies(n, tArray, m);
     }
     
     public static Species makeSpecies(String n, Type[] t, TreeMap<Move,Integer> m) {
@@ -39,7 +37,7 @@ public class Species {
     }
     
     public static Move[] generateMoves(Species s, int l) {
-        Move[] m = {null, null, null, null};
+        Move[] m = new Move[4];
         return m;
     }
     
