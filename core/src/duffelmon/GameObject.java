@@ -47,17 +47,31 @@ public abstract class GameObject extends Actor {
         }
     }
     
-    public float x;
-    public float y;
-    public float xspeed;
-    public float yspeed;
+    private float xSpeed;
+    private float ySpeed;
+    
+    public float getXSpeed() {
+        return xSpeed;
+    }
+    
+    public float getYSpeed() {
+        return ySpeed;
+    }
+    
+    public void setXSpeed(float x) {
+        xSpeed = x;
+    }
+    
+    public void setYSpeed(float y) {
+        ySpeed = y;
+    }
     
     public void frameActions() {}
     
     public void doFrame() {
         frameActions();
-        x += xspeed;
-        y += yspeed;
+        setX(getX() + xSpeed);
+        setY(getY() + ySpeed);
     }
     
 }

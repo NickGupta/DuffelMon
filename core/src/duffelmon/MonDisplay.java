@@ -25,8 +25,8 @@ public class MonDisplay extends GameObject {
         } else {
             front = -1;
         }
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
     }
     
     @Override
@@ -37,14 +37,14 @@ public class MonDisplay extends GameObject {
         } else {
             s = mon.getBackSprite();
         }
-        batch.draw(s, x - s.getWidth()/2, y);
+        batch.draw(s, getX() - s.getWidth()/2, getY());
     }
     
     @Override
     public void doFrame() {
         frameActions();
-        x += front*xspeed;
-        y += yspeed;
+        setX(getX() + front*getXSpeed());
+        setY(getY() + getYSpeed());
     }
 }
 
