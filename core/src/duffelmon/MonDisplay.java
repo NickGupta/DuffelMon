@@ -37,7 +37,7 @@ public class MonDisplay extends GameObject {
         } else {
             s = mon.getBackSprite();
         }
-        batch.draw(s, x - getWidth()/2, y);
+        batch.draw(s, x - s.getWidth()/2, y);
     }
     
     @Override
