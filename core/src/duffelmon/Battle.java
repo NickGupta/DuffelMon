@@ -35,6 +35,7 @@ public class Battle extends GameObject {
     
     public static Battle startBattle(Combatant c1, Combatant c2) {
         battle = new Battle(c1, c2);
+        GameObject.makeIndependent(battle);
         return battle;
     }
     

@@ -47,7 +47,7 @@ public class BattleMenu extends GameObject{
             font.draw(batch, "____", x1, y1);
 
             font.draw(batch, m, 300, 300);
-        }else if(m.equals("Fight")){
+        } else if(m.equals("Fight")){
             font.setColor(fontColor);
             font.draw(batch, mon.getMove(0).getName(), xValue, yValue);
             xValue += 70;
@@ -71,7 +71,7 @@ public class BattleMenu extends GameObject{
         }else if(m.equals("Run")){
             //Run
         }
-        }
+    }
   
     @Override
     public void frameActions(){

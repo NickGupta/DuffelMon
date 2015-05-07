@@ -31,6 +31,7 @@ public class MonDisplay extends GameObject {
     
     @Override
     public void draw(Batch batch, float alpha) {
+        /*
         Sprite s;
         if (front > 0) {
             s = mon.getFrontSprite();
@@ -38,6 +39,7 @@ public class MonDisplay extends GameObject {
             s = mon.getBackSprite();
         }
         batch.draw(s, getX() - s.getWidth()/2, getY());
+        */
     }
     
     @Override
