@@ -74,7 +74,7 @@ public class BattleMenu extends GameObject{
     }
   
     @Override
-    public void frameActions(){
+    public void frameActions() {
         if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
             if(m.equals("")){
                 if(y1 == 100){

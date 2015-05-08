@@ -44,6 +44,7 @@ public class MonDisplay extends GameObject {
     
     @Override
     public void doFrame() {
+        decrementTimers();
         frameActions();
         setX(getX() + front*getXSpeed());
         setY(getY() + getYSpeed());
