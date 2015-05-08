@@ -111,7 +111,7 @@ public abstract class GameObject extends Actor {
             int val = timers.get(name);
             if (val > -1) {
                 timers.put(name, val - 1);
-                if (val == 0) {
+                if (val == 1) {
                     triggerTimer(name);
                 }
             } else {
