@@ -106,10 +106,10 @@ public abstract class GameObject extends Actor {
      */
     public void triggerTimer(String s) {}
     
-    public void decrementTimers() {
+    public void handleTimers() {
         for (String name : timers.keySet()) {
             int val = timers.get(name);
-            if (val > -1) {
+            if (val > 0) {
                 timers.put(name, val - 1);
                 if (val == 1) {
                     triggerTimer(name);
@@ -123,7 +123,7 @@ public abstract class GameObject extends Actor {
     public void frameActions() {}
     
     public void doFrame() {
-        decrementTimers();
+        handleTimers();
         frameActions();
         setX(getX() + xSpeed);
         setY(getY() + ySpeed);
