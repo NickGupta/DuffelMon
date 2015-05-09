@@ -15,8 +15,7 @@ task run (dependsOn: classes, type: JavaExec) {
     ignoreExitValue = true
 }
 
-task debug (dependsOn: classes, type: JavaExec) {
-    println "Asset directory: " + project.assetsDir
+task debug(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in

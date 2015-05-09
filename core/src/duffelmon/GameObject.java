@@ -5,6 +5,7 @@
  */
 package duffelmon;
 import java.util.ArrayList;
+import java.util.TreeMap;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
@@ -47,6 +48,7 @@ public abstract class GameObject extends Actor {
         }
     }
     
+    private TreeMap<String,Integer> timers = new TreeMap<String,Integer>();
     private float xSpeed = 0;
     private float ySpeed = 0;
     
@@ -66,9 +68,62 @@ public abstract class GameObject extends Actor {
         ySpeed = y;
     }
     
+    /**
+     * Returns a TreeMap representing all of this object's active timers.
+     * @return A TreeMap representing all of this object's active timers
+     */
+    public TreeMap<String,Integer> getTimers() {
+        return timers;
+    }
+    
+    /**
+     * Returns the value of a specific timer, or -1 if the timer is inactive or
+     * doesn't exist.
+     * @param s Name of the timer
+     * @return Value of the timer
+     */
+    public int getTimer(String s) {
+        Integer timer = timers.get(s);
+        if (timer == null) {
+            return -1;
+        }
+        return timer;
+    }
+    
+    /**
+     * Sets the value of a specific timer to a specified value.
+     * @param s Name of the timer
+     * @param t Desired value of the timer
+     */
+    public void setTimer(String s, int t) {
+        timers.put(s, t);
+    }
+    
+    /**
+     * This method is called whenever a timer reaches 0. You can override it in
+     * order to perform certain actions when this happens.
+     * @param s Name of the timer that has just reached 0
+     */
+    public void triggerTimer(String s) {}
+    
+    public void handleTimers() {
+        for (String name : timers.keySet()) {
+            int val = timers.get(name);
+            if (val > 0) {
+                timers.put(name, val - 1);
+                if (val == 1) {
+                    triggerTimer(name);
+                }
+            } else {
+                timers.remove(name);
+            }
+        }
+    }
+    
     public void frameActions() {}
     
     public void doFrame() {
+        handleTimers();
         frameActions();
         setX(getX() + xSpeed);
         setY(getY() + ySpeed);

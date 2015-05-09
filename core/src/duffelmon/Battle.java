@@ -15,26 +15,31 @@ public class Battle extends GameObject {
     
     private static Battle battle;
     
-    private Combatant combatant1;
-    private Combatant combatant2;
-    private MonDisplay m1;
-    private MonDisplay m2;
-    private MonInfoDisplay i1;
-    private MonInfoDisplay i2;
-    private BattleMenu menu;
+    public enum States {
+        INTRO
+    }
+    private Combatant player;
+    private Combatant enemy;
+    private States state;
+    private MonDisplay mP = null;
+    private MonDisplay mE = null;
+    private MonInfoDisplay iP = null;
+    private MonInfoDisplay iE = null;
+    private BattleMenu menu = null;
     
-    private Battle(Combatant c1, Combatant c2) {
-        combatant1 = c1;
-        combatant2 = c2;
-        m1 = new MonDisplay(combatant1.getCurrentMon(), true, 200, 100);
-        m2 = new MonDisplay(combatant2.getCurrentMon(), false, 300, 400);
-        i1 = new MonInfoDisplay(combatant1.getCurrentMon(), 400, 100);
-        i2 = new MonInfoDisplay(combatant2.getCurrentMon(), 100, 400);
-        menu = new BattleMenu();
+    private Battle(Combatant p, Combatant e) {
+        player = p;
+        enemy = e;
+        state = States.INTRO;
+        //mP = new MonDisplay(player.getCurrentMon(), false, 200, 100);
+        //mE = new MonDisplay(enemy.getCurrentMon(), true, 300, 400);
+        //iP = new MonInfoDisplay(player.getCurrentMon(), 400, 100);
+        //iE = new MonInfoDisplay(enemy.getCurrentMon(), 100, 400);
     }
     
-    public static Battle startBattle(Combatant c1, Combatant c2) {
-        battle = new Battle(c1, c2);
+    public static Battle startBattle(Combatant p, Combatant e) {
+        battle = new Battle(p, e);
+        GameObject.makeIndependent(battle);
         return battle;
     }
     
@@ -42,27 +47,43 @@ public class Battle extends GameObject {
         return battle;
     }
     
-    public Combatant getCombatant1() {
-        return combatant1;
+    public Combatant getPlayerCombatant() {
+        return player;
     }
     
-    public Combatant getCombatant2() {
-        return combatant2;
+    public Combatant getEenemyCombatant() {
+        return enemy;
     }
     
     @Override
     public void draw(Batch batch, float alpha) {
-        m1.draw(batch, alpha);
-        m2.draw(batch, alpha);
-        i1.draw(batch, alpha);
-        i2.draw(batch, alpha);
-        menu.draw(batch, alpha);
+        if (mP != null) {
+            mP.draw(batch, alpha);
+        }
+        if (mE != null) {
+            mE.draw(batch, alpha);
+        }
+        if (iP != null) {
+            iP.draw(batch, alpha);
+        }
+        if (iE != null) {
+            iE.draw(batch, alpha);
+        }
+        if (menu != null) {
+            menu.draw(batch, alpha);
+        }
     }
     
     @Override
     public void doFrame() {
-        m1.doFrame();
-        m2.doFrame();
-        menu.doFrame();
+        if (mP != null) {
+            mP.doFrame();
+        }
+        if (mE != null) {
+            mE.doFrame();
+        }
+        if (menu != null) {
+            menu.doFrame();
+        }
     }
 }

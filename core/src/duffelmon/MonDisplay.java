@@ -29,8 +29,13 @@ public class MonDisplay extends GameObject {
         setY(y);
     }
     
+    public Mon getMon() {
+        return mon;
+    }
+    
     @Override
     public void draw(Batch batch, float alpha) {
+        /*
         Sprite s;
         if (front > 0) {
             s = mon.getFrontSprite();
@@ -38,10 +43,12 @@ public class MonDisplay extends GameObject {
             s = mon.getBackSprite();
         }
         batch.draw(s, getX() - s.getWidth()/2, getY());
+        */
     }
     
     @Override
     public void doFrame() {
+        handleTimers();
         frameActions();
         setX(getX() + front*getXSpeed());
         setY(getY() + getYSpeed());

@@ -10,25 +10,27 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
  *
  * @author csstudent
  */
-public class BattleMenu extends GameObject{
-    int xValue = 100;
-    int yValue = 100;
-    int x1 = 100;
-    int y1 = 100;
-    Batch b;
+public class BattleMenu extends Menu {
+    
+    private Combatant combatant;
+    private int xValue = 100;
+    private int yValue = 100;
+    private int x1 = 100;
+    private int y1 = 100;
     
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
-    private Mon mon;
-    
-    
-    
+
     private String m = "";
-    public BattleMenu(){
-        
+    
+    public BattleMenu(float x, float y, Combatant c) {
+        super(x, y);
+        combatant = c;
     }
+    
     @Override
     public void draw(Batch batch, float alpha) {
+        Mon mon = combatant.getCurrentMon();
         if(m.equals("")){
         
             font.setColor(fontColor);
@@ -47,7 +49,7 @@ public class BattleMenu extends GameObject{
             font.draw(batch, "____", x1, y1);
 
             font.draw(batch, m, 300, 300);
-        }else if(m.equals("Fight")){
+        } else if(m.equals("Fight")){
             font.setColor(fontColor);
             font.draw(batch, mon.getMove(0).getName(), xValue, yValue);
             xValue += 70;
@@ -71,10 +73,11 @@ public class BattleMenu extends GameObject{
         }else if(m.equals("Run")){
             //Run
         }
-        }
+        super.draw(batch, alpha);
+    }
   
     @Override
-    public void frameActions(){
+    public void frameActions() {
         if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
             if(m.equals("")){
                 if(y1 == 100){

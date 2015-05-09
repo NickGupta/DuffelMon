@@ -23,7 +23,7 @@ public class Player {
      * @param m Mon to be added
      * @return Whether the addition was successful
      */
-    public boolean addMon(Mon m) {
+    public static boolean addMon(Mon m) {
         for(int i = 0; i < mons.length; i++) {
             if (mons[i] == null) {
                 mons[i] = m;
