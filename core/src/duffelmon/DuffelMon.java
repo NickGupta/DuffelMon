@@ -11,25 +11,18 @@ public class DuffelMon extends ApplicationAdapter {
         
         float framesPerSecond = 60;
         float elapsedTime = 0;
-        Type fire;
-        Species charmander;
-        Mon player;
-        Combatant goodGuy;
-        Mon enemy;
-        Combatant badGuy;
 
         @Override
 	public void create () {
-                fire = Type.makeType("Fire");
-                charmander = Species.makeSpecies("Charmander", fire, new TreeMap<Move,Integer>());
+                initializeData();
 
                 // creates the first dufflemon for the battle
-                player = new Mon("Bob", charmander, 1);
-                goodGuy = new Combatant(player, null);
+                Mon player = new Mon("Bob", Species.getSpecies("Charmander"), 1);
+                Combatant goodGuy = new Combatant(player, null);
 
                 // creates the second dufflemon for the battle
-                enemy = new Mon("Joe", charmander, 1);
-                badGuy = new Combatant(enemy, new RandomMoveAI());
+                Mon enemy = new Mon("Joe", Species.getSpecies("Charmander"), 1);
+                Combatant badGuy = new Combatant(enemy, new RandomMoveAI());
 
                 GlobalData.initialize(new Stage(), new BitmapFont());
                 Battle.startBattle(goodGuy, badGuy);
@@ -50,5 +43,10 @@ public class DuffelMon extends ApplicationAdapter {
         private void frameActions() {
             GlobalData.updateInputs();
             GameObject.runFrameActions();
+        }
+        
+        private void initializeData() {
+            Type heat = Type.makeType("Heat");
+            Species.makeSpecies("Charmander", heat, new TreeMap<Move,Integer>());
         }
 }
