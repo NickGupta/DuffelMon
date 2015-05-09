@@ -7,7 +7,7 @@ package duffelmon;
 
 import java.util.TreeMap;
 import com.badlogic.gdx.graphics.Texture;
-//import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Species {
     
@@ -21,7 +21,7 @@ public class Species {
     private Species(String n, Type[] t, TreeMap<Move,Integer> m) {
         name = n;
         Texture texf = null; //new Texture("monsprites/" + name + "_front.png");
-        Texture texb = null; //new Texture("monsprites/" + name + "_back.png");
+        Texture texb = null; // Texture("monsprites/" + name + "_back.png");
         sprite = null; //new MonSprite(new Sprite(texf), new Sprite(texb));
         types = t;
         moveMap = m;
