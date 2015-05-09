@@ -50,4 +50,7 @@ public class Move {
     public int getPowerPoints() {
         return powerPoints;
     }
+    
+    public void useInBattle(Mon user, Mon uDisplay, Mon target, MonDisplay tDisplay) {}
+    
 }

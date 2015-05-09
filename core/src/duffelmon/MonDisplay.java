@@ -29,6 +29,10 @@ public class MonDisplay extends GameObject {
         setY(y);
     }
     
+    public Mon getMon() {
+        return mon;
+    }
+    
     @Override
     public void draw(Batch batch, float alpha) {
         /*
