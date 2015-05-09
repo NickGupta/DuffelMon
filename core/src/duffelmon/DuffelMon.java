@@ -25,11 +25,11 @@ public class DuffelMon extends ApplicationAdapter {
 
                 // creates the first dufflemon for the battle
                 player = new Mon("Bob", charmander, 1);
-                goodGuy = new Combatant(player);
+                goodGuy = new Combatant(player, null);
 
                 // creates the second dufflemon for the battle
                 enemy = new Mon("Joe", charmander, 1);
-                badGuy = new Combatant(enemy);
+                badGuy = new Combatant(enemy, new RandomMoveAI());
 
                 GlobalData.initialize(new Stage(), new BitmapFont());
                 Battle.startBattle(goodGuy, badGuy);
