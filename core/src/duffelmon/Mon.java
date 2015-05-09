@@ -5,6 +5,7 @@
  */
 package duffelmon;
 
+import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
@@ -94,8 +95,27 @@ public class Mon {
         return sprite.getBackSprite();
     }
     
+    public Move[] getMoves() {
+        return moves;
+    }
+    
     public Move getMove(int i) {
         return moves[i];
+    }
+    
+    /**
+     * Returns an ArrayList containing all of the positions in this mon's list
+     * of moves that contain currently usable moves.
+     * @return An ArrayList of positions of usable moves
+     */
+    public ArrayList<Integer> getUsableMoves() {
+        ArrayList<Integer> positions = new ArrayList<Integer>();
+        for(int i = 0; i < moves.length; i++) {
+            if (moves[i] != null && powerPoints[i] != 0) {
+                positions.add(i);
+            }
+        }
+        return positions;
     }
     
     /**

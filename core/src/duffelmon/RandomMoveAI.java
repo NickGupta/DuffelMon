@@ -5,6 +5,8 @@
  */
 package duffelmon;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Andrew
@@ -15,7 +17,12 @@ public class RandomMoveAI extends BattleAI {
     
     @Override
     public void chooseAction(Combatant self, Combatant opponent) {
-        int random = (int)(4*Math.random()) + 1;
-        setOutput("MOVE"+random);
+        ArrayList<Integer> positions = self.getCurrentMon().getUsableMoves();
+        if (positions.isEmpty()) {
+            setOutput("MOVE1");
+        } else {
+            int random = (int)(positions.size()*Math.random()) + 1;
+            setOutput("MOVE"+positions.get(random));
+        }
     }
 }
