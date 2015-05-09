@@ -16,25 +16,23 @@ public class Battle extends GameObject {
     private static Battle battle;
     
     public enum States {
-        INTRO
+        INTRO, WAITING, TURN1
     }
     private Combatant player;
     private Combatant enemy;
     private States state;
+    private BattleMenu menu = null;
     private MonDisplay mP = null;
     private MonDisplay mE = null;
     private MonInfoDisplay iP = null;
     private MonInfoDisplay iE = null;
-    private BattleMenu menu = null;
+    private String actionP = null;
+    private String actionE = null;
     
     private Battle(Combatant p, Combatant e) {
         player = p;
         enemy = e;
         state = States.INTRO;
-        //mP = new MonDisplay(player.getCurrentMon(), false, 200, 100);
-        //mE = new MonDisplay(enemy.getCurrentMon(), true, 300, 400);
-        //iP = new MonInfoDisplay(player.getCurrentMon(), 400, 100);
-        //iE = new MonInfoDisplay(enemy.getCurrentMon(), 100, 400);
     }
     
     public static Battle startBattle(Combatant p, Combatant e) {
@@ -57,6 +55,9 @@ public class Battle extends GameObject {
     
     @Override
     public void draw(Batch batch, float alpha) {
+        if (menu != null) {
+            menu.draw(batch, alpha);
+        }
         if (mP != null) {
             mP.draw(batch, alpha);
         }
@@ -69,21 +70,56 @@ public class Battle extends GameObject {
         if (iE != null) {
             iE.draw(batch, alpha);
         }
-        if (menu != null) {
-            menu.draw(batch, alpha);
+    }
+    
+    @Override
+    public void frameActions() {
+        if (state == States.INTRO) {
+            mP = new MonDisplay(player.getCurrentMon(), false, 200, 100);
+            mE = new MonDisplay(enemy.getCurrentMon(), true, 300, 400);
+            iP = new MonInfoDisplay(player.getCurrentMon(), 400, 100);
+            iE = new MonInfoDisplay(enemy.getCurrentMon(), 100, 400);
+            state = States.WAITING;
+            if (player.isPlayer()) {
+                menu = new BattleMenu(0, 100, player);
+            } else {
+                player.getAI().chooseAction(player, enemy);
+            }
+            enemy.getAI().chooseAction(enemy, player);
+        }
+        if (state == States.WAITING) {
+            String outputP = null;
+            if (player.isPlayer()) {
+                outputP = menu.getOutput();
+            } else {
+                outputP = player.getAI().getOutput();
+            }
+            String outputE = enemy.getAI().getOutput();
+            if (outputP != null && outputE != null) {
+                if (player.isPlayer()) {
+                    menu = null;
+                } else {
+                    player.getAI().setOutput(null);
+                }
+                enemy.getAI().setOutput(null);
+                actionP = outputP;
+                actionE = outputE;
+                state = States.TURN1;
+            }
         }
     }
     
     @Override
     public void doFrame() {
+        super.doFrame();
+        if (menu != null) {
+            menu.doFrame();
+        }
         if (mP != null) {
             mP.doFrame();
         }
         if (mE != null) {
             mE.doFrame();
-        }
-        if (menu != null) {
-            menu.doFrame();
         }
     }
 }

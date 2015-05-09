@@ -17,11 +17,11 @@ public class DuffelMon extends ApplicationAdapter {
         
         // creates the first dufflemon for the battle
         Mon player = new Mon("Bob", charmander, 1);
-        Combatant goodGuy = new Combatant(player);
+        Combatant goodGuy = new Combatant(player, null);
         
 	// creates the second dufflemon for the battle
         Mon enemy = new Mon("Joe", charmander, 1);
-        Combatant badGuy = new Combatant(enemy);
+        Combatant badGuy = new Combatant(enemy, new RandomMoveAI());
         
         @Override
 	public void create () {

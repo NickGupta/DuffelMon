@@ -13,24 +13,34 @@ import java.util.ArrayList;
  */
 public class Combatant {
     
-    private ArrayList<Mon> mons;
+    private Mon[] mons;
     private int currentMon = 0;
+    private BattleAI ai = null;
     
-    public Combatant(Mon m) {
-        mons = new ArrayList<Mon>();
-        mons.add(m);
+    public Combatant(Mon m, BattleAI a) {
+        mons = new Mon[1];
+        mons[0] = m;
+        ai = a;
     }
     
-    public Combatant(ArrayList<Mon> m) {
+    public Combatant(Mon[] m, BattleAI a) {
         mons = m;
+        ai = a;
     }
     
-    public ArrayList<Mon> getMonList() {
+    public Mon[] getMons() {
         return mons;
     }
     
     public Mon getCurrentMon() {
-        return mons.get(currentMon);
+        return mons[currentMon];
     }
     
+    public boolean isPlayer() {
+        return ai == null;
+    }
+    
+    public BattleAI getAI() {
+        return ai;
+    }
 }
