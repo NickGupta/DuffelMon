@@ -5,6 +5,8 @@
  */
 package duffelmon;
 
+import java.util.ArrayList;
+import java.util.Set;
 import java.util.TreeMap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -42,11 +44,6 @@ public class Species {
         return speciesMap.get(s);
     }
     
-    public static Move[] generateMoves(Species s, int l) {
-        Move[] m = new Move[4];
-        return m;
-    }
-    
     public String getName() {
         return name;
     }
@@ -61,6 +58,28 @@ public class Species {
     
     public MonSprite getSprite() {
         return sprite;
+    }
+    
+    public Move[] generateMoves(int l) {
+        ArrayList<Move> moveList = new ArrayList<Move>();
+        Set<Move> moveSet = moveMap.keySet();
+        int level = l;
+        while (level > 0 && moveList.size() < 4) {
+            for(Move m : moveSet) {
+                if (moveMap.get(m) == l) {
+                    moveList.add(m);
+                }
+                if (moveList.size() == 4) {
+                    break;
+                }
+            }
+            level--;
+        }
+        Move[] moveArray = new Move[4];
+        for(int i = 0; i < moveList.size(); i++) {
+            moveArray[i] = moveList.get(i);
+        }
+        return moveArray;
     }
     
 }

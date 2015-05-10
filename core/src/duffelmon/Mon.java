@@ -37,7 +37,7 @@ public class Mon {
     }
     
     public Mon(String n, Species s, int l) {
-        initialize(n, s, l, Species.generateMoves(s, l), Stats.generateStats(s, l));
+        initialize(n, s, l, s.generateMoves(l), Stats.generateStats(s, l));
     }
     
     public Mon(String n, Species s, int l, Move[] m) {
