@@ -5,6 +5,7 @@
  */
 package duffelmon;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -15,16 +16,27 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class MonDisplay extends GameObject {
     
-    public Mon mon = null;
+    private Mon mon = null;
     private float front; //If front > 0, you're front-facing; if front < 0, back-facing
     //This can be used as a multiplier for anything that flips when the mon is facing the other way
+    private Sprite sprite;
+    
     public MonDisplay(Mon m, boolean f, float x, float y){
         mon = m;
+        Texture t;
         if (f) {
             front = 1;
+            t = mon.getFrontTexture();
         } else {
             front = -1;
+            t = mon.getBackTexture();
         }
+        sprite = new Sprite(t);
+        sprite.setScale(2);
+        if (front > 0) {
+            sprite.setFlip(true, false);
+        }
+        sprite.setOrigin(t.getWidth(), 0);
         setX(x);
         setY(y);
     }
@@ -35,13 +47,9 @@ public class MonDisplay extends GameObject {
     
     @Override
     public void draw(Batch batch, float alpha) {
-        Sprite s;
-        if (front > 0) {
-            s = mon.getFrontSprite();
-        } else {
-            s = mon.getBackSprite();
-        }
-        batch.draw(s, getX() - s.getWidth()/2, getY());
+        sprite.setX(getX());
+        sprite.setY(getY());
+        sprite.draw(batch);
     }
     
     @Override

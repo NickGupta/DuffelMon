@@ -6,7 +6,7 @@
 package duffelmon;
 
 import java.util.ArrayList;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.Texture;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Mon {
     
     private String name;
     private Species species;
-    private MonSprite sprite;
+    private MonTextures textures;
     private Stats stats;
     private Move[] moves = new Move[4];
     private int[] powerPoints = new int[4];
@@ -27,7 +27,7 @@ public class Mon {
     private void initialize(String n, Species s, int l, Move[] m, Stats st) {
         name = n;
         species = s;
-        sprite = s.getSprite();
+        textures = s.getTextures();
         for (int i = 0; i < Math.min(moves.length, m.length); i++) {
             setMove(m[i], i);
         }
@@ -84,16 +84,16 @@ public class Mon {
         return stats.getAttitude();
     }
     
-    public MonSprite getMonSprite() {
-        return sprite;
+    public MonTextures getMonTextures() {
+        return textures;
     }
     
-    public Sprite getFrontSprite() {
-        return sprite.getFrontSprite();
+    public Texture getFrontTexture() {
+        return textures.getFrontTexture();
     }
     
-    public Sprite getBackSprite() {
-        return sprite.getBackSprite();
+    public Texture getBackTexture() {
+        return textures.getBackTexture();
     }
     
     public Move[] getMoves() {

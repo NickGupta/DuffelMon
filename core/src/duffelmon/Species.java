@@ -9,14 +9,13 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Species {
     
     private static TreeMap<String,Species> speciesMap = new TreeMap<String,Species>();
     
     private String name;
-    private MonSprite sprite;
+    private MonTextures textures;
     private Type[] types = null;
     private TreeMap<Move,Integer> moveMap = null;
     
@@ -24,7 +23,7 @@ public class Species {
         name = n;
         Texture texf = new Texture("monsprites/" + name + "_front.png");
         Texture texb = new Texture("monsprites/" + name + "_back.png");
-        sprite = new MonSprite(new Sprite(texf), new Sprite(texb));
+        textures = new MonTextures(texf, texb);
         types = t;
         moveMap = m;
     }
@@ -56,8 +55,8 @@ public class Species {
         return moveMap;
     }
     
-    public MonSprite getSprite() {
-        return sprite;
+    public MonTextures getTextures() {
+        return textures;
     }
     
     public Move[] generateMoves(int l) {

@@ -75,10 +75,10 @@ public class Battle extends GameObject {
     @Override
     public void frameActions() {
         if (state == States.INTRO) {
-            mP = new MonDisplay(player.getCurrentMon(), false, 200, 100);
-            mE = new MonDisplay(enemy.getCurrentMon(), true, 300, 400);
-            iP = new MonInfoDisplay(player.getCurrentMon(), 400, 100);
-            iE = new MonInfoDisplay(enemy.getCurrentMon(), 100, 400);
+            mP = new MonDisplay(player.getCurrentMon(), false, 96, 128);
+            mE = new MonDisplay(enemy.getCurrentMon(), true, 416, 320);
+            iP = new MonInfoDisplay(player.getCurrentMon(), 384, 192);
+            iE = new MonInfoDisplay(enemy.getCurrentMon(), 32, 384);
             state = States.WAITING;
             if (player.isPlayer()) {
                 menu = new BattleMenu(0, 100, player);
