@@ -22,9 +22,9 @@ public class Species {
     
     private Species(String n, Type[] t, TreeMap<Move,Integer> m) {
         name = n;
-        Texture texf = null; //new Texture("monsprites/" + name + "_front.png");
-        Texture texb = null; // Texture("monsprites/" + name + "_back.png");
-        sprite = null; //new MonSprite(new Sprite(texf), new Sprite(texb));
+        Texture texf = new Texture("monsprites/" + name + "_front.png");
+        Texture texb = new Texture("monsprites/" + name + "_back.png");
+        sprite = new MonSprite(new Sprite(texf), new Sprite(texb));
         types = t;
         moveMap = m;
     }

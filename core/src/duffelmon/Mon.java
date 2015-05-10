@@ -27,6 +27,7 @@ public class Mon {
     private void initialize(String n, Species s, int l, Move[] m, Stats st) {
         name = n;
         species = s;
+        sprite = s.getSprite();
         for (int i = 0; i < Math.min(moves.length, m.length); i++) {
             setMove(m[i], i);
         }

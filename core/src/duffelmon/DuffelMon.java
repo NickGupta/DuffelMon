@@ -11,11 +11,11 @@ public class DuffelMon extends ApplicationAdapter {
         
         float framesPerSecond = 60;
         float elapsedTime = 0;
-
+        
         @Override
 	public void create () {
                 initializeData();
-
+                
                 // creates the first dufflemon for the battle
                 Mon player = new Mon("Bob", Species.getSpecies("Charmander"), 1);
                 Combatant goodGuy = new Combatant(player, null);
@@ -37,7 +37,7 @@ public class DuffelMon extends ApplicationAdapter {
             }
             Gdx.gl.glClearColor(1, 1, 1, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            GlobalData.getStage().draw(); 
+            GlobalData.getStage().draw();
 	}
         
         private void frameActions() {
