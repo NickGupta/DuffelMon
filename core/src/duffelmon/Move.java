@@ -18,17 +18,19 @@ public class Move {
     private double damage;
     private double accuracy;
     private int powerPoints;
+    private double priority;
     
-    private Move(String n, Type t, double d, double a, int p) {
+    private Move(String n, Type t, double d, double a, int p, double pr) {
         name = n;
         type = t;
         damage = d;
         accuracy = a;
         powerPoints = p;
+        priority = pr;
     }
     
-    public static Move makeMove(String n, Type t, double d, double a, int p) {
-        Move m = new Move(n, t, d, a, p);
+    public static Move makeMove(String n, Type t, double d, double a, int p, double pr) {
+        Move m = new Move(n, t, d, a, p, pr);
         moveMap.put(n, m);
         return m;
     }
@@ -55,6 +57,10 @@ public class Move {
     
     public int getPowerPoints() {
         return powerPoints;
+    }
+    
+    public double getPriority() {
+        return priority;
     }
     
     public void useInBattle(MonDisplay uDisplay, MonDisplay tDisplay) {

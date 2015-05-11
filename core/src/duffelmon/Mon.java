@@ -104,6 +104,10 @@ public class Mon {
         return moves[i];
     }
     
+    public int getPowerPoints(int i) {
+        return powerPoints[i];
+    }
+    
     /**
      * Returns an ArrayList containing all of the positions in this mon's list
      * of moves that contain currently usable moves.

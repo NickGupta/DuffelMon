@@ -28,6 +28,7 @@ public class Battle extends GameObject {
     private MonInfoDisplay iE = null;
     private String actionP = null;
     private String actionE = null;
+    private boolean playerMovesFirst = true;
     
     private Battle(Combatant p, Combatant e) {
         player = p;
@@ -49,8 +50,34 @@ public class Battle extends GameObject {
         return player;
     }
     
-    public Combatant getEenemyCombatant() {
+    public Combatant getEnemyCombatant() {
         return enemy;
+    }
+    
+    private Move actionToMove(Combatant actor, String action) {
+        String aType = action.substring(0, 4);
+        if (aType.equals("MOVE")) {
+            int numMove = Integer.parseInt(action.substring(4)) - 1;
+            if (actor.getCurrentMon().getPowerPoints(numMove) > 0) {
+                return actor.getCurrentMon().getMove(numMove);
+            }
+            return null;
+        } else if (aType.equals("CHNG")) {
+            return null;
+        } else if (aType.equals("ITEM")) {
+            return null;
+        } else if (aType.equals("ESCP")) {
+            return null;
+        }
+        return null;
+    }
+    
+    private double actionToPriority(Combatant actor, String action) {
+        return actionToMove(actor, action).getPriority();
+    }
+    
+    private double monToPriority(Mon mon) {
+        return mon.getSpeed();
     }
     
     @Override
@@ -104,7 +131,24 @@ public class Battle extends GameObject {
                 enemy.getAI().setOutput(null);
                 actionP = outputP;
                 actionE = outputE;
-                state = States.TURN1;
+                double priorityP = actionToPriority(player, actionP);
+                double priorityE = actionToPriority(enemy, actionE);
+                if (priorityP > priorityE) {
+                    playerMovesFirst = true;
+                } else if (priorityE > priorityP) {
+                    playerMovesFirst = false;
+                } else {
+                    priorityP = monToPriority(player.getCurrentMon());
+                    priorityE = monToPriority(enemy.getCurrentMon());
+                    if (priorityP > priorityE) {
+                        playerMovesFirst = true;
+                    } else if (priorityE > priorityP) {
+                        playerMovesFirst = false;
+                    } else {
+                        playerMovesFirst = Math.random() < 0.5;
+                    }
+                }
+                
             }
         }
     }
