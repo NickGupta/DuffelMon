@@ -22,24 +22,37 @@ public class Battle extends GameObject {
     private Combatant enemy;
     private States state;
     private BattleMenu menu = null;
-    private MonDisplay mP = null;
-    private MonDisplay mE = null;
-    private MonInfoDisplay iP = null;
-    private MonInfoDisplay iE = null;
-    private String actionP = null;
-    private String actionE = null;
-    private boolean playerMovesFirst = true;
+    private Combatant toMoveFirst = null;
+    private Combatant toMoveSecond = null;
     
-    private Battle(Combatant p, Combatant e) {
-        player = p;
-        enemy = e;
+    private Battle(Mon[] p, BattleAI pA, Mon[] e, BattleAI eA) {
+        player = Combatant.makeCombatant(p, pA, false);
+        enemy = Combatant.makeCombatant(e, eA, true);
         state = States.INTRO;
     }
     
-    public static Battle startBattle(Combatant p, Combatant e) {
-        battle = new Battle(p, e);
+    public static Battle startBattle(Mon[] p, BattleAI pA, Mon[] e, BattleAI eA) {
+        battle = new Battle(p, pA, e, eA);
         GameObject.makeIndependent(battle);
         return battle;
+    }
+    
+    public static Battle startBattle(Mon[] p, BattleAI pA, Mon e, BattleAI eA) {
+        Mon[] mArray = new Mon[1];
+        mArray[0] = e;
+        return startBattle(p, pA, mArray, eA);
+    }
+    
+    public static Battle startBattle(Mon p, BattleAI pA, Mon[] e, BattleAI eA) {
+        Mon[] mArray = new Mon[1];
+        mArray[0] = p;
+        return startBattle(mArray, pA, e, eA);
+    }
+    
+    public static Battle startBattle(Mon p, BattleAI pA, Mon e, BattleAI eA) {
+        Mon[] mArray = new Mon[1];
+        mArray[0] = p;
+        return startBattle(mArray, pA, e, eA);
     }
     
     public static Battle getBattle() {
@@ -72,10 +85,6 @@ public class Battle extends GameObject {
         return null;
     }
     
-    private double actionToPriority(Combatant actor, String action) {
-        return actionToMove(actor, action).getPriority();
-    }
-    
     private double monToPriority(Mon mon) {
         return mon.getSpeed();
     }
@@ -85,27 +94,15 @@ public class Battle extends GameObject {
         if (menu != null) {
             menu.draw(batch, alpha);
         }
-        if (mP != null) {
-            mP.draw(batch, alpha);
-        }
-        if (mE != null) {
-            mE.draw(batch, alpha);
-        }
-        if (iP != null) {
-            iP.draw(batch, alpha);
-        }
-        if (iE != null) {
-            iE.draw(batch, alpha);
-        }
+        enemy.draw(batch, alpha);
+        player.draw(batch, alpha);
     }
     
     @Override
     public void frameActions() {
         if (state == States.INTRO) {
-            mP = new MonDisplay(player.getCurrentMon(), false, 96, 128);
-            mE = new MonDisplay(enemy.getCurrentMon(), true, 416, 320);
-            iP = new MonInfoDisplay(player.getCurrentMon(), 384, 192);
-            iE = new MonInfoDisplay(enemy.getCurrentMon(), 32, 384);
+            player.showInfoDisplay();
+            enemy.showInfoDisplay();
             state = States.WAITING;
             if (player.isPlayer()) {
                 menu = new BattleMenu(0, 100, player);
@@ -115,7 +112,7 @@ public class Battle extends GameObject {
             enemy.getAI().chooseAction(enemy, player);
         }
         if (state == States.WAITING) {
-            String outputP = null;
+            String outputP;
             if (player.isPlayer()) {
                 outputP = menu.getOutput();
             } else {
@@ -129,26 +126,35 @@ public class Battle extends GameObject {
                     player.getAI().setOutput(null);
                 }
                 enemy.getAI().setOutput(null);
-                actionP = outputP;
-                actionE = outputE;
-                double priorityP = actionToPriority(player, actionP);
-                double priorityE = actionToPriority(enemy, actionE);
+                player.setMoveToUse(actionToMove(player, outputP));
+                enemy.setMoveToUse(actionToMove(enemy, outputP));
+                double priorityP = player.getMoveToUse().getPriority();
+                double priorityE = enemy.getMoveToUse().getPriority();
                 if (priorityP > priorityE) {
-                    playerMovesFirst = true;
+                    toMoveFirst = player;
                 } else if (priorityE > priorityP) {
-                    playerMovesFirst = false;
+                    toMoveFirst = enemy;
                 } else {
                     priorityP = monToPriority(player.getCurrentMon());
                     priorityE = monToPriority(enemy.getCurrentMon());
                     if (priorityP > priorityE) {
-                        playerMovesFirst = true;
+                        toMoveFirst = player;
                     } else if (priorityE > priorityP) {
-                        playerMovesFirst = false;
+                        toMoveFirst = enemy;
+                    } else if (Math.random() < 0.5) {
+                        toMoveFirst = player;
                     } else {
-                        playerMovesFirst = Math.random() < 0.5;
+                        toMoveFirst = enemy;
                     }
                 }
-                
+                if (toMoveFirst == player) {
+                    toMoveSecond = enemy;
+                } else {
+                    toMoveSecond = player;
+                }
+                state = States.TURN1;
+                MonDisplay u, t;
+                toMoveFirst.getMoveToUse().useInBattle(toMoveFirst.getMonDisplay(), toMoveSecond.getMonDisplay());
             }
         }
     }
@@ -159,11 +165,7 @@ public class Battle extends GameObject {
         if (menu != null) {
             menu.doFrame();
         }
-        if (mP != null) {
-            mP.doFrame();
-        }
-        if (mE != null) {
-            mE.doFrame();
-        }
+        player.doFrame();
+        enemy.doFrame();
     }
 }

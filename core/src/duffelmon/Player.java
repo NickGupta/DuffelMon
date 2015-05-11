@@ -18,6 +18,10 @@ public class Player {
         return mons;
     }
     
+    private static Mon getMon(int i) {
+        return mons[i];
+    }
+    
     /**
      * Attempts to add a mon to the player's party.
      * @param m Mon to be added
