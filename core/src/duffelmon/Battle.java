@@ -127,7 +127,7 @@ public class Battle extends GameObject {
                 }
                 enemy.getAI().setOutput(null);
                 player.setMoveToUse(actionToMove(player, outputP));
-                enemy.setMoveToUse(actionToMove(enemy, outputP));
+                enemy.setMoveToUse(actionToMove(enemy, outputE));
                 double priorityP = player.getMoveToUse().getPriority();
                 double priorityE = enemy.getMoveToUse().getPriority();
                 if (priorityP > priorityE) {
