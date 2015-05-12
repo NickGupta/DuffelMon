@@ -52,6 +52,15 @@ public class DuffelMon extends ApplicationAdapter {
                     switch(step) {
                         case 0:
                             uDisplay.setXSpeed(4);
+                            waitUntilNextMoveStep(uDisplay, 30);
+                            break;
+                        case 1:
+                            uDisplay.setXSpeed(-4);
+                            waitUntilNextMoveStep(uDisplay, 30);
+                            break;
+                        case 2:
+                            uDisplay.setXSpeed(0);
+                            finishMove(uDisplay);
                             break;
                     }
                 }

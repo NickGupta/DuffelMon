@@ -16,7 +16,7 @@ public class Battle extends GameObject {
     private static Battle battle;
     
     public enum States {
-        INTRO, WAITING, TURN1
+        INTRO, WAITING, TURN1, BETWEEN
     }
     private Combatant player;
     private Combatant enemy;
@@ -153,8 +153,13 @@ public class Battle extends GameObject {
                     toMoveSecond = player;
                 }
                 state = States.TURN1;
-                MonDisplay u, t;
                 toMoveFirst.getMoveToUse().useInBattle(toMoveFirst.getMonDisplay(), toMoveSecond.getMonDisplay());
+            }
+        }
+        if (state == States.TURN1) {
+            if (toMoveFirst.getMonDisplay().getMoveFinished()) {
+                state = States.BETWEEN;
+                setTimer("waitBetweenTurns", 60);
             }
         }
     }
@@ -167,5 +172,12 @@ public class Battle extends GameObject {
         }
         player.doFrame();
         enemy.doFrame();
+    }
+    
+    @Override
+    public void triggerTimer(String s) {
+        if (s.equals("waitBetweenTurns")) {
+            
+        }
     }
 }
