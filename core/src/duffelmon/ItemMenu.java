@@ -13,9 +13,12 @@ public class ItemMenu extends Menu{
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
     
-    public ItemMenu(float x, float y){
-        super();
-        
+    public ItemMenu(BattleMenu m, float x, float y){
+        super(m, x, y);
+         
     }
+    
+    
+    
 }
 

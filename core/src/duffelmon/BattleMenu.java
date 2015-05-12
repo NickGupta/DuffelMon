@@ -23,9 +23,11 @@ public class BattleMenu extends Menu {
 
     private String m = "";
     
+    
     public BattleMenu(float x, float y, Combatant c) {
         super(x, y);
         combatant = c;
+        
     }
     
     @Override
@@ -67,7 +69,9 @@ public class BattleMenu extends Menu {
 
             font.draw(batch, m, 300, 300);
         }else if(m.equals("Item")){
-            //Item menu
+            setServant(new ItemMenu(this, x1, y1));
+            
+            
         }else if(m.equals("Change")){
             //Change menu
         }else if(m.equals("Run")){
@@ -114,7 +118,14 @@ public class BattleMenu extends Menu {
                 if(x1 == 180 && y1 == 100){
                     m = "Change"; 
                 }
+               
             }
+            
+        }
+        
+        if(GlobalData.keyPressed(GlobalData.Inputs.BACK)){
+            m = "";
+        }
         }
     }
-}
+
