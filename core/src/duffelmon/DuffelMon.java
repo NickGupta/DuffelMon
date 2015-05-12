@@ -49,6 +49,11 @@ public class DuffelMon extends ApplicationAdapter {
             Move tackle = Move.makeMove(new Move("Tackle", normal, 40, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            uDisplay.setXSpeed(4);
+                            break;
+                    }
                 }
             });
             HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();

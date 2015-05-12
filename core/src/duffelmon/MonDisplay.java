@@ -119,7 +119,7 @@ public class MonDisplay extends GameObject {
     public void doFrame() {
         handleTimers();
         frameActions();
-        setX(getX() + front*getXSpeed());
+        setX(getX() - front*getXSpeed());
         setY(getY() + getYSpeed());
     }
     
