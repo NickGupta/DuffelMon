@@ -46,7 +46,11 @@ public class DuffelMon extends ApplicationAdapter {
         private void initializeData() {
             Type normal = Type.makeType("Normal");
             Type heat = Type.makeType("Heat");
-            Move tackle = Move.makeMove("Tackle", normal, 40, 1, 35, 0);
+            Move tackle = Move.makeMove(new Move("Tackle", normal, 40, 1, 35, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                }
+            });
             HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             Species.makeSpecies("Charmander", heat, moveset);
