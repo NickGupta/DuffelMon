@@ -19,9 +19,9 @@ public class RandomMoveAI extends BattleAI {
     public void chooseAction(Combatant self, Combatant opponent) {
         ArrayList<Integer> positions = self.getCurrentMon().getUsableMoves();
         if (positions.isEmpty()) {
-            setOutput("MOVE1");
+            setOutput("MOVE0");
         } else {
-            int random = (int)(positions.size()*Math.random()) + 1;
+            int random = (int)(positions.size()*Math.random());
             setOutput("MOVE"+positions.get(random));
         }
     }

@@ -5,7 +5,7 @@
  */
 package duffelmon;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 
 /**
  *
@@ -13,10 +13,10 @@ import java.util.TreeMap;
  */
 public class Type {
     
-    private static TreeMap<String,Type> typeMap = new TreeMap<String,Type>();
+    private static HashMap<String,Type> typeMap = new HashMap<String,Type>();
     
     private String name;
-    private TreeMap<Type,Double> relationships = new TreeMap<Type,Double>();
+    private HashMap<Type,Double> relationships = new HashMap<Type,Double>();
     
     private Type(String n) {
         name = n;
@@ -32,7 +32,7 @@ public class Type {
         return typeMap.get(s);
     }
     
-    public TreeMap<Type,Double> getRelationships() {
+    public HashMap<Type,Double> getRelationships() {
         return relationships;
     }
     

@@ -5,7 +5,7 @@
  */
 package duffelmon;
 import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.HashMap;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
@@ -48,7 +48,7 @@ public abstract class GameObject extends Actor {
         }
     }
     
-    private TreeMap<String,Integer> timers = new TreeMap<String,Integer>();
+    private HashMap<String,Integer> timers = new HashMap<String,Integer>();
     private float xSpeed = 0;
     private float ySpeed = 0;
     
@@ -69,10 +69,10 @@ public abstract class GameObject extends Actor {
     }
     
     /**
-     * Returns a TreeMap representing all of this object's active timers.
-     * @return A TreeMap representing all of this object's active timers
+     * Returns a HashMap representing all of this object's active timers.
+     * @return A HashMap representing all of this object's active timers
      */
-    public TreeMap<String,Integer> getTimers() {
+    public HashMap<String,Integer> getTimers() {
         return timers;
     }
     

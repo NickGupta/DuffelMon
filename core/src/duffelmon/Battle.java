@@ -70,7 +70,7 @@ public class Battle extends GameObject {
     private Move actionToMove(Combatant actor, String action) {
         String aType = action.substring(0, 4);
         if (aType.equals("MOVE")) {
-            int numMove = Integer.parseInt(action.substring(4)) - 1;
+            int numMove = Integer.parseInt(action.substring(4));
             if (actor.getCurrentMon().getPowerPoints(numMove) > 0) {
                 return actor.getCurrentMon().getMove(numMove);
             }

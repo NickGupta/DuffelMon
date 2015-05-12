@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 package duffelmon;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 /**
  *
  * @author csstudent
  */
 public class Move {
-    private static TreeMap<String,Move> moveMap = new TreeMap<String,Move>();
+    private static HashMap<String,Move> moveMap = new HashMap<String,Move>();
     
     private String name;
     private Type type;

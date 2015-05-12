@@ -9,7 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.Input;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 /**
  *
@@ -26,13 +26,13 @@ public class GlobalData {
     private enum InputStatus {
         NOTHELD, PRESSED, HELD, RELEASED
     }
-    private static TreeMap<Inputs,InputStatus> inputs = new TreeMap<Inputs,InputStatus>();
-    private static TreeMap<Inputs,Integer> inputKeys = null;
+    private static HashMap<Inputs,InputStatus> inputs = new HashMap<Inputs,InputStatus>();
+    private static HashMap<Inputs,Integer> inputKeys = null;
     
     public static void initialize(Stage s, BitmapFont b) {
         stage = s;
         font = b;
-        inputKeys = new TreeMap<Inputs,Integer>();
+        inputKeys = new HashMap<Inputs,Integer>();
         inputKeys.put(Inputs.UP, Input.Keys.UP);
         inputKeys.put(Inputs.DOWN, Input.Keys.DOWN);
         inputKeys.put(Inputs.LEFT, Input.Keys.LEFT);
