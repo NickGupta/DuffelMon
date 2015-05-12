@@ -111,6 +111,12 @@ public class Mon {
         return powerPoints[i];
     }
     
+    public void lowerHealth(double damage){
+        health -= damage;
+    }
+    
+    
+    
     /**
      * Returns an ArrayList containing all of the positions in this mon's list
      * of moves that contain currently usable moves.

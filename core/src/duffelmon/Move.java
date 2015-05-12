@@ -20,6 +20,7 @@ public class Move {
     private int powerPoints;
     private double priority;
     
+    
     public Move(String n, Type t, double d, double a, int p, double pr) {
         name = n;
         type = t;
@@ -108,5 +109,11 @@ public class Move {
      */
     public void waitUntilNextMoveStep(MonDisplay uDisplay, int frames) {
         uDisplay.setTimer("MoveStep", frames);
+    }
+    
+    public void reduceHP(MonDisplay attacked){
+        Mon attackedMon = attacked.getMon();
+        attackedMon.lowerHealth(damage);
+        
     }
 }

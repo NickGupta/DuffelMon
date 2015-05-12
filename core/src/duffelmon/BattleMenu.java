@@ -52,7 +52,7 @@ public class BattleMenu extends Menu {
 
             font.draw(batch, "____", x1, y1);
 
-            font.draw(batch, m, 300, 300);
+            
         } else if(m.equals("Fight")){
             font.setColor(fontColor);
             font.draw(batch, mon.getMoveName(0), xValue, yValue);
@@ -69,7 +69,8 @@ public class BattleMenu extends Menu {
 
             font.draw(batch, "____", x1, y1);
 
-            font.draw(batch, m, 300, 300);
+            
+            
             
         }else if(m.equals("Item")){
             setServant(new ItemMenu(this, xItem, yItem));
