@@ -20,6 +20,7 @@ public class Combatant {
     private MonInfoDisplay infoDisplay = null;
     private boolean showInfoDisplay = false;
     private Move moveToUse = null;
+    private ItemMenu items;
     
     private Combatant(Mon[] m, BattleAI a) {
         mons = m;
@@ -121,5 +122,10 @@ public class Combatant {
         if (monDisplay != null) {
             monDisplay.doFrame();
         }
+    }
+    
+    public void addItem(Item i){
+        items.addItem(i);
+        
     }
 }
