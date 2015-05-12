@@ -7,19 +7,19 @@ package duffelmon;
 
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.TreeMap;
+import java.util.HashMap;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Species {
     
-    private static TreeMap<String,Species> speciesMap = new TreeMap<String,Species>();
+    private static HashMap<String,Species> speciesMap = new HashMap<String,Species>();
     
     private String name;
     private MonTextures textures;
     private Type[] types = null;
-    private TreeMap<Move,Integer> moveMap = null;
+    private HashMap<Move,Integer> moveMap = null;
     
-    private Species(String n, Type[] t, TreeMap<Move,Integer> m) {
+    private Species(String n, Type[] t, HashMap<Move,Integer> m) {
         name = n;
         Texture texf = new Texture("monsprites/" + name + "_front.png");
         Texture texb = new Texture("monsprites/" + name + "_back.png");
@@ -28,12 +28,12 @@ public class Species {
         moveMap = m;
     }
     
-    public static Species makeSpecies(String n, Type t, TreeMap<Move,Integer> m) {
+    public static Species makeSpecies(String n, Type t, HashMap<Move,Integer> m) {
         Type[] tArray = {t};
         return makeSpecies(n, tArray, m);
     }
     
-    public static Species makeSpecies(String n, Type[] t, TreeMap<Move,Integer> m) {
+    public static Species makeSpecies(String n, Type[] t, HashMap<Move,Integer> m) {
         Species s = new Species(n, t, m);
         speciesMap.put(n, s);
         return s;
@@ -51,7 +51,7 @@ public class Species {
         return types;
     }
     
-    public TreeMap<Move,Integer> getMoveMap() {
+    public HashMap<Move,Integer> getMoveMap() {
         return moveMap;
     }
     

@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class DuffelMon extends ApplicationAdapter {
         
@@ -18,14 +18,12 @@ public class DuffelMon extends ApplicationAdapter {
                 
                 // creates the first dufflemon for the battle
                 Mon player = new Mon("Bob", Species.getSpecies("Charmander"), 1);
-                Combatant goodGuy = new Combatant(player, null);
 
                 // creates the second dufflemon for the battle
                 Mon enemy = new Mon("Joe", Species.getSpecies("Charmander"), 1);
-                Combatant badGuy = new Combatant(enemy, new RandomMoveAI());
 
                 GlobalData.initialize(new Stage(), new BitmapFont());
-                Battle.startBattle(goodGuy, badGuy);
+                Battle.startBattle(player, null, enemy, new RandomMoveAI());
 	}
         
 	@Override
@@ -46,7 +44,11 @@ public class DuffelMon extends ApplicationAdapter {
         }
         
         private void initializeData() {
+            Type normal = Type.makeType("Normal");
             Type heat = Type.makeType("Heat");
-            Species.makeSpecies("Charmander", heat, new TreeMap<Move,Integer>());
+            Move tackle = Move.makeMove("Tackle", normal, 40, 1, 35, 0);
+            HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();
+            moveset.put(tackle, 1);
+            Species.makeSpecies("Charmander", heat, moveset);
         }
 }

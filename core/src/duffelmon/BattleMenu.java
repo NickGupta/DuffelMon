@@ -51,15 +51,15 @@ public class BattleMenu extends Menu {
             font.draw(batch, m, 300, 300);
         } else if(m.equals("Fight")){
             font.setColor(fontColor);
-            font.draw(batch, mon.getMove(0).getName(), xValue, yValue);
+            font.draw(batch, mon.getMoveName(0), xValue, yValue);
             xValue += 70;
-            font.draw(batch, mon.getMove(1).getName(), xValue, yValue);
+            font.draw(batch, mon.getMoveName(1), xValue, yValue);
             xValue -= 70;
             yValue -= 40;
-            font.draw(batch, mon.getMove(2).getName(), xValue, yValue);
+            font.draw(batch, mon.getMoveName(2), xValue, yValue);
 
             xValue += 80;
-            font.draw(batch, mon.getMove(3).getName(), xValue, yValue);
+            font.draw(batch, mon.getMoveName(3), xValue, yValue);
             yValue += 40;
             xValue -= 80;
 

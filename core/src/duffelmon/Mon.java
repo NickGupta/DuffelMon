@@ -96,12 +96,19 @@ public class Mon {
         return textures.getBackTexture();
     }
     
-    public Move[] getMoves() {
-        return moves;
-    }
-    
     public Move getMove(int i) {
         return moves[i];
+    }
+    
+    public String getMoveName(int i) {
+        if (moves[i] == null) {
+            return "---";
+        }
+        return moves[i].getName();
+    }
+    
+    public int getPowerPoints(int i) {
+        return powerPoints[i];
     }
     
     /**

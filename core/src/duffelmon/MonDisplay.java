@@ -16,24 +16,43 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class MonDisplay extends GameObject {
     
+    private Combatant combatant = null;
     private Mon mon = null;
     private MonDisplay opponent = null;
     private float front; //If front > 0, you're front-facing; if front < 0, back-facing
     //This can be used as a multiplier for anything that flips when the mon is facing the other way
-    private Sprite sprite;
+    private Sprite sprite = null;
     private Move currentMove = null;
     private int moveStep = 0;
     private boolean moveFinished = false;
     private int[] customMoveVars = new int[3];
     
-    public MonDisplay(Mon m, boolean f, float x, float y){
-        mon = m;
-        Texture t;
+    public MonDisplay(Combatant c, boolean f, float x, float y){
+        combatant = c;
         if (f) {
             front = 1;
-            t = mon.getFrontTexture();
         } else {
             front = -1;
+        }
+        setX(x);
+        setY(y);
+        privateSetMon(c.getCurrentMon());
+    }
+    
+    public Combatant getCombatant() {
+        return combatant;
+    }
+    
+    public Mon getMon() {
+        return mon;
+    }
+    
+    private void privateSetMon(Mon m) {
+        mon = m;
+        Texture t;
+        if (front > 0) {
+            t = mon.getFrontTexture();
+        } else {
             t = mon.getBackTexture();
         }
         sprite = new Sprite(t);
@@ -42,12 +61,10 @@ public class MonDisplay extends GameObject {
             sprite.setFlip(true, false);
         }
         sprite.setOrigin(t.getWidth(), 0);
-        setX(x);
-        setY(y);
     }
     
-    public Mon getMon() {
-        return mon;
+    public void setMon(Mon m) {
+        privateSetMon(m);
     }
     
     public MonDisplay getOpponent() {
@@ -91,9 +108,11 @@ public class MonDisplay extends GameObject {
     
     @Override
     public void draw(Batch batch, float alpha) {
-        sprite.setX(getX());
-        sprite.setY(getY());
-        sprite.draw(batch);
+        if (sprite != null) {
+            sprite.setX(getX());
+            sprite.setY(getY());
+            sprite.draw(batch);
+        }
     }
     
     @Override

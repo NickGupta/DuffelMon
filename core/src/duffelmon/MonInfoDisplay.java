@@ -18,18 +18,19 @@ public class MonInfoDisplay extends Actor {
     
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
-    public Mon mon = null;
+    public Combatant combatant;
     private float x;
     private float y;
     
-    public MonInfoDisplay(Mon m, float xP, float yP) {
-        mon = m;
+    public MonInfoDisplay(Combatant c, float xP, float yP) {
+        combatant = c;
         x = xP;
         y = yP;
     }
     
     @Override
     public void draw(Batch batch, float alpha) {
+        Mon mon = combatant.getCurrentMon();
         if (mon != null) {
             long health = Math.round(mon.getHealth());
             long maxHealth = Math.round(mon.getMaxHealth());
