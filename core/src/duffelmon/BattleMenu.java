@@ -85,8 +85,8 @@ public class BattleMenu extends Menu {
   
     @Override
     public void frameActions() {
-        Mon mon = combatant.getCurrentMon();
-       if(m.equals("")){ 
+       Mon mon = combatant.getCurrentMon();
+    if(m.equals("")){ 
         
         if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
             
@@ -113,24 +113,24 @@ public class BattleMenu extends Menu {
                 if(x1 == 100 && y1 == 100){
                     m = "Fight"; 
                 }
-                if(x1 == 100 && y1 == 60){
+                else if(x1 == 100 && y1 == 60){
                     m = "Run"; 
                 }
 
-                if(x1 == 180 && y1 == 60){
+                else if(x1 == 180 && y1 == 60){
                     m = "Item"; 
                 }
 
-                if(x1 == 180 && y1 == 100){
+                else if(x1 == 180 && y1 == 100){
                     m = "Change"; 
                 }
                
             
             
         }
-       }
+    }
        
-       if(m.equals("Fight")){
+    else if(m.equals("Fight")){
            if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
             
                 if(y1 == 100){
@@ -173,7 +173,7 @@ public class BattleMenu extends Menu {
             
         }
            
-       }
+    }
         if(GlobalData.keyPressed(GlobalData.Inputs.BACK)){
             m = "";
         }
