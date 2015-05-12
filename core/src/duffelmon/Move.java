@@ -96,6 +96,7 @@ public class Move {
      * @param uDisplay Mon display to have its move finished
      */
     public void finishMove(MonDisplay uDisplay) {
+        uDisplay.resetMoveVars();
         uDisplay.setMoveFinished(true);
     }
     
@@ -112,9 +113,4 @@ public class Move {
         uDisplay.setTimer("MoveStep", frames);
     }
     
-    public void reduceHP(MonDisplay attacked){
-        Mon attackedMon = attacked.getMon();
-        attackedMon.lowerHealth(damage);
-        
-    }
 }

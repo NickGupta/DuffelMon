@@ -111,11 +111,13 @@ public class Mon {
         return powerPoints[i];
     }
     
-    public void lowerHealth(double damage){
-        health -= damage;
+    public void decreaseHealth(double d){
+        health = Math.max(health - d, 0);
     }
     
-    
+    public void increaseHealth(double h) {
+        health = Math.min(health + h, getMaxHealth());
+    }
     
     /**
      * Returns an ArrayList containing all of the positions in this mon's list

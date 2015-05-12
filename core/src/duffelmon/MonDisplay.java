@@ -26,6 +26,7 @@ public class MonDisplay extends GameObject {
     private int moveStep = 0;
     private boolean moveFinished = false;
     private int[] customMoveVars = new int[3];
+    private boolean fainting = false;
     
     public MonDisplay(Combatant c, boolean f, float x, float y){
         combatant = c;
@@ -110,8 +111,12 @@ public class MonDisplay extends GameObject {
     public void resetMoveVars() {
         currentMove = null;
         moveStep = 0;
-        moveFinished = false;
         customMoveVars = new int[customMoveVars.length];
+    }
+    
+    public void faint() {
+        setYSpeed(-2);
+        fainting = true;
     }
     
     @Override
@@ -120,6 +125,16 @@ public class MonDisplay extends GameObject {
             sprite.setX(getX());
             sprite.setY(getY());
             sprite.draw(batch);
+        }
+    }
+    
+    @Override
+    public void frameActions() {
+        if (fainting) {
+            sprite.setScale(sprite.getScaleX() - 1/30);
+            if (sprite.getScaleX() == 0) {
+                fainting = false;
+            }
         }
     }
     
