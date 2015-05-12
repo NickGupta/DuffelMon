@@ -1,7 +1,10 @@
 /*
-*Methods that return booleans to determine if a key is being pushed 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package duffelmon;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
  *
  * @author csstudent
  */
-public class BattleMenu extends Menu {
+public class FightMenu extends Menu {
     
     private Combatant combatant;
     private int xValue = 100;
@@ -23,7 +26,7 @@ public class BattleMenu extends Menu {
 
     private String m = "";
     
-    public BattleMenu(float x, float y, Combatant c) {
+    public FightMenu(int x, int y, Combatant c) {
         super(x, y);
         combatant = c;
     }
@@ -75,49 +78,5 @@ public class BattleMenu extends Menu {
         }
         super.draw(batch, alpha);
     }
-  
-    @Override
-    public void frameActions() {
-        if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
-            if(m.equals("")){
-                if(y1 == 100){
-                   y1 -= 40; 
-                }else if(y1 == 60){
-                    y1 += 40;
-                }
-            }
-        }
-        
-        if(GlobalData.keyPressed(GlobalData.Inputs.RIGHT)||GlobalData.keyPressed(GlobalData.Inputs.LEFT)){
-            if(m.equals("")){
-                if(x1 == 100){
-                   x1 += 80; 
-                }else if(x1 == 180){
-                    x1 -= 80;
-                }
-            }
-        }
-        
-        if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
-            if(m.equals("")){
-                if(x1 == 100 && y1 == 100){
-                    m = "Fight"; 
-                }
-                if(x1 == 100 && y1 == 60){
-                    m = "Run"; 
-                }
-
-                if(x1 == 180 && y1 == 60){
-                    m = "Item"; 
-                }
-
-                if(x1 == 180 && y1 == 100){
-                    m = "Change"; 
-                }
-            }
-            if (m.equals("Fight")) {
-                setServant(new FightMenu(x1, y1, combatant));
-            }
-        }
-    }
+    
 }
