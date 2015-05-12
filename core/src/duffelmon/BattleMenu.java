@@ -115,9 +115,6 @@ public class BattleMenu extends Menu {
                     m = "Change"; 
                 }
             }
-            if (m.equals("Fight")) {
-                setServant(new FightMenu(x1, y1, combatant));
-            }
         }
     }
 }
