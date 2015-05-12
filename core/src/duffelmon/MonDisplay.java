@@ -18,15 +18,19 @@ public class MonDisplay extends GameObject {
     
     private Combatant combatant = null;
     private Mon mon = null;
-    private MonDisplay opponent = null;
     private float front; //If front > 0, you're front-facing; if front < 0, back-facing
     //This can be used as a multiplier for anything that flips when the mon is facing the other way
     private Sprite sprite = null;
+    boolean visible = true;
     private Move currentMove = null;
+    private MonDisplay moveTarget = null;
     private int moveStep = 0;
     private boolean moveFinished = false;
     private int[] customMoveVars = new int[3];
-    private boolean fainting = false;
+    private enum States {
+        ALIVE, FAINTING, FAINTED
+    }
+    private States state = States.ALIVE;
     
     public MonDisplay(Combatant c, boolean f, float x, float y){
         combatant = c;
@@ -68,20 +72,20 @@ public class MonDisplay extends GameObject {
         privateSetMon(m);
     }
     
-    public MonDisplay getOpponent() {
-        return opponent;
-    }
-    
-    public void setOpponent(MonDisplay o) {
-        opponent = o;
-    }
-    
     public Move getCurrentMove() {
         return currentMove;
     }
     
     public void setCurrentMove(Move c) {
         currentMove = c;
+    }
+    
+    public MonDisplay getMoveTarget() {
+        return moveTarget;
+    }
+    
+    public void setMoveTarget(MonDisplay m) {
+        moveTarget = m;
     }
     
     public int getMoveStep() {
@@ -110,18 +114,18 @@ public class MonDisplay extends GameObject {
     
     public void resetMoveVars() {
         currentMove = null;
+        moveTarget = null;
         moveStep = 0;
         customMoveVars = new int[customMoveVars.length];
     }
     
     public void faint() {
-        setYSpeed(-2);
-        fainting = true;
+        state = States.FAINTING;
     }
     
     @Override
     public void draw(Batch batch, float alpha) {
-        if (sprite != null) {
+        if (visible && sprite != null) {
             sprite.setX(getX());
             sprite.setY(getY());
             sprite.draw(batch);
@@ -130,11 +134,9 @@ public class MonDisplay extends GameObject {
     
     @Override
     public void frameActions() {
-        if (fainting) {
-            sprite.setScale(sprite.getScaleX() - 1/30);
-            if (sprite.getScaleX() == 0) {
-                fainting = false;
-            }
+        if (state == States.FAINTING) {
+            visible = false;
+            state = States.FAINTED;
         }
     }
     
@@ -149,7 +151,7 @@ public class MonDisplay extends GameObject {
     @Override
     public void triggerTimer(String s) {
         if (s.equals("MoveStep")) {
-            currentMove.doMoveStep(this, opponent, moveStep);
+            currentMove.doMoveStep(this, moveTarget, moveStep);
         }
     }
 }

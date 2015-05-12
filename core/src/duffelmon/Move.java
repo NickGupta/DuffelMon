@@ -65,6 +65,7 @@ public class Move {
     
     public void useInBattle(MonDisplay uDisplay, MonDisplay tDisplay) {
         uDisplay.setCurrentMove(this);
+        uDisplay.setMoveTarget(tDisplay);
         doMoveStep(uDisplay, tDisplay, 0);
     }
     
@@ -113,4 +114,7 @@ public class Move {
         uDisplay.setTimer("MoveStep", frames);
     }
     
+    public void absoluteDamage(MonDisplay tDisplay, double damage) {
+        tDisplay.getMon().decreaseHealth(damage);
+    }
 }

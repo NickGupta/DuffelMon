@@ -15,13 +15,13 @@ public class Battle extends GameObject {
     
     private static Battle battle;
     
-    public enum States {
-        INTRO, WAITING, TURN1, BETWEEN, TURN2, AFTER
+    private enum States {
+        INTRO, BEFORE, TURN1, BETWEEN, TURN2, AFTER
     }
     private Combatant player;
     private Combatant enemy;
     private States state;
-    private BattleMenu menu = null;
+    private Menu menu = null;
     private Combatant toMoveFirst = null;
     private Combatant toMoveSecond = null;
     
@@ -90,7 +90,7 @@ public class Battle extends GameObject {
     }
     
     private void startNewTurn() {
-        state = States.WAITING;
+        state = States.BEFORE;
         if (player.isPlayer()) {
             menu = new BattleMenu(0, 100, player);
         } else {
@@ -130,11 +130,13 @@ public class Battle extends GameObject {
     @Override
     public void frameActions() {
         if (state == States.INTRO) {
+            player.showMonDisplay();
             player.showInfoDisplay();
+            enemy.showMonDisplay();
             enemy.showInfoDisplay();
             startNewTurn();
         }
-        if (state == States.WAITING) {
+        if (state == States.BEFORE) {
             String outputP;
             if (player.isPlayer()) {
                 outputP = menu.getOutput();

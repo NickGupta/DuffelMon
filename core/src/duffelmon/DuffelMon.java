@@ -56,6 +56,7 @@ public class DuffelMon extends ApplicationAdapter {
                             waitUntilNextMoveStep(uDisplay, 30);
                             break;
                         case 1:
+                            absoluteDamage(tDisplay, getDamage());
                             uDisplay.setXSpeed(-4);
                             nextMoveStep(uDisplay);
                             waitUntilNextMoveStep(uDisplay, 30);

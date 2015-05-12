@@ -18,6 +18,7 @@ public class Combatant {
     private BattleAI ai = null;
     private MonDisplay monDisplay = null;
     private MonInfoDisplay infoDisplay = null;
+    private boolean showMonDisplay = false;
     private boolean showInfoDisplay = false;
     private Move moveToUse = null;
     private ItemMenu items;
@@ -91,6 +92,14 @@ public class Combatant {
     
     public void setInfoDisplay(MonInfoDisplay i) {
         infoDisplay = i;
+    }
+    
+    public void showMonDisplay() {
+        showMonDisplay = true;
+    }
+    
+    public void hideMonDisplay() {
+        showMonDisplay = false;
     }
     
     public void showInfoDisplay() {
