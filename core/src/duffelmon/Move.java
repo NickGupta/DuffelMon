@@ -63,6 +63,7 @@ public class Move {
     }
     
     public void useInBattle(MonDisplay uDisplay, MonDisplay tDisplay) {
+        uDisplay.setCurrentMove(this);
         doMoveStep(uDisplay, tDisplay, 0);
     }
     

@@ -75,6 +75,14 @@ public class MonDisplay extends GameObject {
         opponent = o;
     }
     
+    public Move getCurrentMove() {
+        return currentMove;
+    }
+    
+    public void setCurrentMove(Move c) {
+        currentMove = c;
+    }
+    
     public int getMoveStep() {
         return moveStep;
     }
