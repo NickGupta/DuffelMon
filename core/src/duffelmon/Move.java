@@ -115,6 +115,8 @@ public class Move {
     }
     
     public void absoluteDamage(MonDisplay tDisplay, double damage) {
-        tDisplay.getMon().decreaseHealth(damage);
+        if (damage > 0) {
+            tDisplay.getMon().decreaseHealth(damage);
+        }
     }
 }

@@ -17,7 +17,7 @@ public class DuffelMon extends ApplicationAdapter {
                 initializeData();
                 
                 // creates the first dufflemon for the battle
-                Mon player = new Mon("Bob", Species.getSpecies("Charmander"), 5);
+                Mon player = new Mon("Bob", Species.getSpecies("Charmander"), 10);
 
                 // creates the second dufflemon for the battle
                 Mon enemy = new Mon("Joe", Species.getSpecies("Kingdra"), 5);
@@ -55,6 +55,7 @@ public class DuffelMon extends ApplicationAdapter {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
+                        /*
                         case 0:
                             uDisplay.setXSpeed(4);
                             nextMoveStep(uDisplay);
@@ -70,13 +71,18 @@ public class DuffelMon extends ApplicationAdapter {
                             uDisplay.setXSpeed(0);
                             finishMove(uDisplay);
                             break;
+                        */
+                        case 0:
+                            absoluteDamage(tDisplay, getDamage());
+                            finishMove(uDisplay);
+                            break;
                     }
                 }
             });
             HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             Type[] typeset = {water, dragon};
-            Species.makeSpecies("Charmander", heat, moveset);
-            Species.makeSpecies("Kingdra", typeset, moveset);
+            Species.makeSpecies("Charmander", new Stats(40, 55, 65, 50), heat, moveset);
+            Species.makeSpecies("Kingdra", new Stats(75, 80, 65, 80), typeset, moveset);
         }
 }
