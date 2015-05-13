@@ -31,10 +31,10 @@ public class Combatant {
     public static Combatant makeCombatant(Mon[] m, BattleAI a, boolean front) {
         float monX, monY, infoX, infoY;
         if (front) {
-            monX = 448;
-            monY = 320;
+            monX = 416;
+            monY = 304;
             infoX = 32;
-            infoY = 384;
+            infoY = 368;
         } else {
             monX = 96;
             monY = 128;
