@@ -83,7 +83,7 @@ public class DuffelMon extends ApplicationAdapter {
             HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             Type[] typeset = {water, dragon};
-            Species.makeSpecies("Charmander", new Stats(40, 55, 65, 50), heat, moveset);
-            Species.makeSpecies("Kingdra", new Stats(75, 80, 65, 80), typeset, moveset);
+            Species.makeSpecies("Charmander", new Stats(55, 40, 65, 50), heat, moveset);
+            Species.makeSpecies("Kingdra", new Stats(80, 75, 65, 80), typeset, moveset);
         }
 }

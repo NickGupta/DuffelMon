@@ -33,10 +33,9 @@ public class MonInfoDisplay extends Actor {
         Mon mon = combatant.getCurrentMon();
         if (mon != null) {
             long health = Math.round(mon.getHealth());
-            long maxHealth = Math.round(mon.getMaxHealth());
             font.setColor(fontColor);
             font.draw(batch, mon.getName(), x, y);
-            font.draw(batch, "Health: " + health + " / " + maxHealth, x, y - 20);
+            font.draw(batch, "Health: " + health + "%", x, y - 20);
         }
     }
 }
