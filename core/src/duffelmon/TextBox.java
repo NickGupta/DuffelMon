@@ -16,8 +16,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class TextBox extends Menu{
     
     private String s;
-    private float xValue;
-    private float yValue;
     
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
@@ -27,10 +25,17 @@ public class TextBox extends Menu{
         s = string;
     }
     
-    
+ 
     @Override
     public void draw(Batch batch, float alpha) {
         font.setColor(fontColor);
-        font.draw(batch, s, xValue, yValue);
+        font.draw(batch, s, getX(), getY());
+    }
+    
+    @Override
+    public void frameActions() {
+        if (GlobalData.keyPressed(GlobalData.Inputs.SELECT)) {
+            setOutput("done");
+        }
     }
 }
