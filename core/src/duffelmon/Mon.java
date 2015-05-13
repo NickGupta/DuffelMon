@@ -32,7 +32,7 @@ public class Mon {
             setMove(m[i], i);
         }
         stats = st;
-        health = stats.getHealth();
+        health = 100;
         level = l;
         xp = 0;
     }
@@ -61,7 +61,7 @@ public class Mon {
     }
     
     public double getMaxHealth() {
-        return stats.getHealth();
+        return 100;
     }
     
     public int getLevel() {
@@ -74,6 +74,10 @@ public class Mon {
     
     public double getAttack() {
         return stats.getAttack();
+    }
+    
+    public double getDefense() {
+        return stats.getDefense();
     }
     
     public double getSpeed() {

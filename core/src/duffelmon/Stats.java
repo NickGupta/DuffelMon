@@ -10,29 +10,29 @@ package duffelmon;
  * @author csstudent
  */
 public class Stats {
-
-    private double health;
+    
     private double attack;
+    private double defense;
     private double speed;
     private double attitude;
     
-    public Stats(double h, double a, double s, double tude) {
-        health = h;
+    public Stats(double a, double d, double s, double tude) {
         attack = a;
+        defense = d;
         speed = s;
         attitude = tude;
     }
     
     public Stats getCopy() {
-        return new Stats(health, attack, speed, attitude);
-    }
-    
-    public double getHealth() {
-        return health;
+        return new Stats(attack, defense, speed, attitude);
     }
     
     public double getAttack() {
         return attack;
+    }
+    
+    public double getDefense() {
+        return defense;
     }
     
     public double getSpeed() {
