@@ -14,7 +14,7 @@ public class ItemMenu extends Menu{
     private Color fontColor = Color.BLACK;
     
     public ItemMenu(float x, float y){
-        super();
+        super(x, y);
         
     }
 }
