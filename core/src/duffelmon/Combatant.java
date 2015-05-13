@@ -18,8 +18,10 @@ public class Combatant {
     private BattleAI ai = null;
     private MonDisplay monDisplay = null;
     private MonInfoDisplay infoDisplay = null;
+    private boolean showMonDisplay = false;
     private boolean showInfoDisplay = false;
     private Move moveToUse = null;
+    private ItemMenu items;
     
     private Combatant(Mon[] m, BattleAI a) {
         mons = m;
@@ -29,10 +31,10 @@ public class Combatant {
     public static Combatant makeCombatant(Mon[] m, BattleAI a, boolean front) {
         float monX, monY, infoX, infoY;
         if (front) {
-            monX = 448;
-            monY = 320;
+            monX = 416;
+            monY = 304;
             infoX = 32;
-            infoY = 384;
+            infoY = 368;
         } else {
             monX = 96;
             monY = 128;
@@ -92,6 +94,14 @@ public class Combatant {
         infoDisplay = i;
     }
     
+    public void showMonDisplay() {
+        showMonDisplay = true;
+    }
+    
+    public void hideMonDisplay() {
+        showMonDisplay = false;
+    }
+    
     public void showInfoDisplay() {
         showInfoDisplay = true;
     }
@@ -121,5 +131,10 @@ public class Combatant {
         if (monDisplay != null) {
             monDisplay.doFrame();
         }
+    }
+    
+    public void addItem(Item i){
+        items.addItem(i);
+        
     }
 }

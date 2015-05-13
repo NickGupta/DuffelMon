@@ -17,10 +17,10 @@ public class DuffelMon extends ApplicationAdapter {
                 initializeData();
                 
                 // creates the first dufflemon for the battle
-                Mon player = new Mon("Bob", Species.getSpecies("Charmander"), 1);
+                Mon player = new Mon("Bob", Species.getSpecies("Charmander"), 10);
 
                 // creates the second dufflemon for the battle
-                Mon enemy = new Mon("Joe", Species.getSpecies("Charmander"), 1);
+                Mon enemy = new Mon("Joe", Species.getSpecies("Kingdra"), 5);
 
                 GlobalData.initialize(new Stage(), new BitmapFont());
                 TextBox blah = new TextBox(50, 50, "Hello World");
@@ -47,9 +47,43 @@ public class DuffelMon extends ApplicationAdapter {
         private void initializeData() {
             Type normal = Type.makeType("Normal");
             Type heat = Type.makeType("Heat");
-            Move tackle = Move.makeMove("Tackle", normal, 40, 1, 35, 0);
+            Type water = Type.makeType("Water");
+            Type dragon = Type.makeType("Dragon");
+            heat.addRelationship(water, 2);
+            water.addRelationship(heat, 0.5);
+            dragon.addRelationship(heat, 0.5);
+            Move tackle = Move.makeMove(new Move("Tackle", normal, 40, 1, 35, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        /*
+                        case 0:
+                            uDisplay.setXSpeed(4);
+                            nextMoveStep(uDisplay);
+                            waitUntilNextMoveStep(uDisplay, 30);
+                            break;
+                        case 1:
+                            absoluteDamage(tDisplay, getDamage());
+                            uDisplay.setXSpeed(-4);
+                            nextMoveStep(uDisplay);
+                            waitUntilNextMoveStep(uDisplay, 30);
+                            break;
+                        case 2:
+                            uDisplay.setXSpeed(0);
+                            finishMove(uDisplay);
+                            break;
+                        */
+                        case 0:
+                            absoluteDamage(tDisplay, getDamage());
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
-            Species.makeSpecies("Charmander", heat, moveset);
+            Type[] typeset = {water, dragon};
+            Species.makeSpecies("Charmander", new Stats(40, 55, 65, 50), heat, moveset);
+            Species.makeSpecies("Kingdra", new Stats(75, 80, 65, 80), typeset, moveset);
         }
 }

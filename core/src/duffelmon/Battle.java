@@ -15,13 +15,13 @@ public class Battle extends GameObject {
     
     private static Battle battle;
     
-    public enum States {
-        INTRO, WAITING, TURN1
+    private enum States {
+        INTRO, BEFORE, TURN1, BETWEEN, TURN2, AFTER
     }
     private Combatant player;
     private Combatant enemy;
     private States state;
-    private BattleMenu menu = null;
+    private Menu menu = null;
     private Combatant toMoveFirst = null;
     private Combatant toMoveSecond = null;
     
@@ -89,6 +89,35 @@ public class Battle extends GameObject {
         return mon.getSpeed();
     }
     
+    private void startNewTurn() {
+        state = States.BEFORE;
+        if (player.isPlayer()) {
+            menu = new BattleMenu(0, 100, player);
+        } else {
+            player.getAI().chooseAction(player, enemy);
+        }
+        enemy.getAI().chooseAction(enemy, player);
+    }
+    
+    private void faintCurrentMon(Combatant c) {
+        c.getMonDisplay().faint();
+    }
+    
+    private boolean faintDeadMons() {
+        Mon playerMon = player.getCurrentMon();
+        Mon enemyMon = enemy.getCurrentMon();
+        boolean anyoneFainted = false;
+        if (playerMon.getHealth() == 0) {
+            faintCurrentMon(player);
+            anyoneFainted = true;
+        }
+        if (enemyMon.getHealth() == 0) {
+            faintCurrentMon(enemy);
+            anyoneFainted = true;
+        }
+        return anyoneFainted;
+    }
+    
     @Override
     public void draw(Batch batch, float alpha) {
         if (menu != null) {
@@ -101,17 +130,13 @@ public class Battle extends GameObject {
     @Override
     public void frameActions() {
         if (state == States.INTRO) {
+            player.showMonDisplay();
             player.showInfoDisplay();
+            enemy.showMonDisplay();
             enemy.showInfoDisplay();
-            state = States.WAITING;
-            if (player.isPlayer()) {
-                menu = new BattleMenu(0, 100, player);
-            } else {
-                player.getAI().chooseAction(player, enemy);
-            }
-            enemy.getAI().chooseAction(enemy, player);
+            startNewTurn();
         }
-        if (state == States.WAITING) {
+        if (state == States.BEFORE) {
             String outputP;
             if (player.isPlayer()) {
                 outputP = menu.getOutput();
@@ -153,8 +178,21 @@ public class Battle extends GameObject {
                     toMoveSecond = player;
                 }
                 state = States.TURN1;
-                MonDisplay u, t;
                 toMoveFirst.getMoveToUse().useInBattle(toMoveFirst.getMonDisplay(), toMoveSecond.getMonDisplay());
+            }
+        }
+        if (state == States.TURN1) {
+            if (toMoveFirst.getMonDisplay().getMoveFinished()) {
+                toMoveFirst.getMonDisplay().setMoveFinished(false);
+                state = States.BETWEEN;
+                setTimer("waitAfterTurn", 30);
+            }
+        }
+        if (state == States.TURN2) {
+            if (toMoveSecond.getMonDisplay().getMoveFinished()) {
+                toMoveSecond.getMonDisplay().setMoveFinished(false);
+                state = States.AFTER;
+                setTimer("waitAfterTurn", 30);
             }
         }
     }
@@ -167,5 +205,21 @@ public class Battle extends GameObject {
         }
         player.doFrame();
         enemy.doFrame();
+    }
+    
+    @Override
+    public void triggerTimer(String s) {
+        if (s.equals("waitAfterTurn")) {
+            if (faintDeadMons()) {
+                
+            } else {
+                if (state == States.BETWEEN) {
+                    state = States.TURN2;
+                    toMoveSecond.getMoveToUse().useInBattle(toMoveSecond.getMonDisplay(), toMoveFirst.getMonDisplay());
+                } else if (state == States.AFTER) {
+                    startNewTurn();
+                }
+            }
+        }
     }
 }

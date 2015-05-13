@@ -38,11 +38,11 @@ public class Mon {
     }
     
     public Mon(String n, Species s, int l) {
-        initialize(n, s, l, s.generateMoves(l), Stats.generateStats(s, l));
+        initialize(n, s, l, s.generateMoves(l), Species.generateStats(s, l));
     }
     
     public Mon(String n, Species s, int l, Move[] m) {
-        initialize(n, s, l, m, Stats.generateStats(s, l));
+        initialize(n, s, l, m, Species.generateStats(s, l));
     }
     
     public Mon(String n, Species s, int l, Move[] m, Stats st) {
@@ -109,6 +109,14 @@ public class Mon {
     
     public int getPowerPoints(int i) {
         return powerPoints[i];
+    }
+    
+    public void decreaseHealth(double d){
+        health = Math.max(health - d, 0);
+    }
+    
+    public void increaseHealth(double h) {
+        health = Math.min(health + h, getMaxHealth());
     }
     
     /**

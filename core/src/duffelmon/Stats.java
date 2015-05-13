@@ -23,8 +23,8 @@ public class Stats {
         attitude = tude;
     }
     
-    public static Stats generateStats(Species s, int l) {
-        return new Stats(50, 50, 50, 50);
+    public Stats getCopy() {
+        return new Stats(health, attack, speed, attitude);
     }
     
     public double getHealth() {
@@ -42,4 +42,5 @@ public class Stats {
     public double getAttitude() {
         return attitude;
     }
+    
 }

@@ -16,11 +16,13 @@ public class Species {
     
     private String name;
     private MonTextures textures;
+    private Stats baseStats;
     private Type[] types = null;
     private HashMap<Move,Integer> moveMap = null;
     
-    private Species(String n, Type[] t, HashMap<Move,Integer> m) {
+    private Species(String n, Stats s, Type[] t, HashMap<Move,Integer> m) {
         name = n;
+        baseStats = s;
         Texture texf = new Texture("monsprites/" + name + "_front.png");
         Texture texb = new Texture("monsprites/" + name + "_back.png");
         textures = new MonTextures(texf, texb);
@@ -28,23 +30,35 @@ public class Species {
         moveMap = m;
     }
     
-    public static Species makeSpecies(String n, Type t, HashMap<Move,Integer> m) {
+    public static Species makeSpecies(String n, Stats s, Type t, HashMap<Move,Integer> m) {
         Type[] tArray = {t};
-        return makeSpecies(n, tArray, m);
+        return makeSpecies(n, s, tArray, m);
     }
     
-    public static Species makeSpecies(String n, Type[] t, HashMap<Move,Integer> m) {
-        Species s = new Species(n, t, m);
-        speciesMap.put(n, s);
-        return s;
+    public static Species makeSpecies(String n, Stats s, Type[] t, HashMap<Move,Integer> m) {
+        Species sp = new Species(n, s, t, m);
+        speciesMap.put(n, sp);
+        return sp;
     }
     
     public static Species getSpecies(String s) {
         return speciesMap.get(s);
     }
     
+    public static Stats generateStats(Species s, int l) {
+        return s.getBaseStats().getCopy();
+    }
+    
     public String getName() {
         return name;
+    }
+    
+    public MonTextures getTextures() {
+        return textures;
+    }
+    
+    public Stats getBaseStats() {
+        return baseStats;
     }
     
     public Type[] getTypes() {
@@ -55,17 +69,13 @@ public class Species {
         return moveMap;
     }
     
-    public MonTextures getTextures() {
-        return textures;
-    }
-    
     public Move[] generateMoves(int l) {
         ArrayList<Move> moveList = new ArrayList<Move>();
         Set<Move> moveSet = moveMap.keySet();
         int level = l;
         while (level > 0 && moveList.size() < 4) {
             for(Move m : moveSet) {
-                if (moveMap.get(m) == l) {
+                if (moveMap.get(m) == level) {
                     moveList.add(m);
                 }
                 if (moveList.size() == 4) {
@@ -75,8 +85,10 @@ public class Species {
             level--;
         }
         Move[] moveArray = new Move[4];
-        for(int i = 0; i < moveList.size(); i++) {
-            moveArray[i] = moveList.get(i);
+        int arrayPos = 0;
+        for(int i = moveList.size() - 1; i >= 0; i--) {
+            moveArray[arrayPos] = moveList.get(i);
+            arrayPos++;
         }
         return moveArray;
     }

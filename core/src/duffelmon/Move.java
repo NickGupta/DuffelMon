@@ -20,7 +20,8 @@ public class Move {
     private int powerPoints;
     private double priority;
     
-    private Move(String n, Type t, double d, double a, int p, double pr) {
+    
+    public Move(String n, Type t, double d, double a, int p, double pr) {
         name = n;
         type = t;
         damage = d;
@@ -29,9 +30,8 @@ public class Move {
         priority = pr;
     }
     
-    public static Move makeMove(String n, Type t, double d, double a, int p, double pr) {
-        Move m = new Move(n, t, d, a, p, pr);
-        moveMap.put(n, m);
+    public static Move makeMove(Move m) {
+        moveMap.put(m.getName(), m);
         return m;
     }
     
@@ -64,6 +64,8 @@ public class Move {
     }
     
     public void useInBattle(MonDisplay uDisplay, MonDisplay tDisplay) {
+        uDisplay.setCurrentMove(this);
+        uDisplay.setMoveTarget(tDisplay);
         doMoveStep(uDisplay, tDisplay, 0);
     }
     
@@ -95,6 +97,7 @@ public class Move {
      * @param uDisplay Mon display to have its move finished
      */
     public void finishMove(MonDisplay uDisplay) {
+        uDisplay.resetMoveVars();
         uDisplay.setMoveFinished(true);
     }
     
@@ -109,5 +112,11 @@ public class Move {
      */
     public void waitUntilNextMoveStep(MonDisplay uDisplay, int frames) {
         uDisplay.setTimer("MoveStep", frames);
+    }
+    
+    public void absoluteDamage(MonDisplay tDisplay, double damage) {
+        if (damage > 0) {
+            tDisplay.getMon().decreaseHealth(damage);
+        }
     }
 }
