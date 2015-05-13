@@ -65,7 +65,7 @@ public class Species {
         int level = l;
         while (level > 0 && moveList.size() < 4) {
             for(Move m : moveSet) {
-                if (moveMap.get(m) == l) {
+                if (moveMap.get(m) == level) {
                     moveList.add(m);
                 }
                 if (moveList.size() == 4) {
