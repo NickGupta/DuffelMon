@@ -15,15 +15,17 @@ public class Move {
     
     private String name;
     private Type type;
+    private boolean targets;
     private double damage;
     private double accuracy;
     private int powerPoints;
     private double priority;
     
     
-    public Move(String n, Type t, double d, double a, int p, double pr) {
+    public Move(String n, Type t, boolean ta, double d, double a, int p, double pr) {
         name = n;
         type = t;
+        targets = ta;
         damage = d;
         accuracy = a;
         powerPoints = p;
@@ -45,6 +47,10 @@ public class Move {
     
     public Type getType() {
         return type;
+    }
+    
+    public boolean targetsOpponent() {
+        return targets;
     }
     
     public double getDamage() {
@@ -114,9 +120,35 @@ public class Move {
         uDisplay.setTimer("MoveStep", frames);
     }
     
-    public void absoluteDamage(MonDisplay tDisplay, double damage) {
+    public void absoluteDamage(MonDisplay uDisplay, MonDisplay tDisplay, double damage) {
         if (damage > 0) {
+            uDisplay.registerHit(damage);
             tDisplay.getMon().decreaseHealth(damage);
         }
+    }
+    
+    public void basicDamage(MonDisplay uDisplay, MonDisplay tDisplay, Type type, double damage) {
+        double damageToDeal = damage;
+        damageToDeal *= uDisplay.getMon().getAttack()/tDisplay.getMon().getDefense();
+        for (Type t : tDisplay.getMon().getTypes()) {
+            damageToDeal *= t.getRelationship(type);
+        }
+        absoluteDamage(uDisplay, tDisplay, damageToDeal);
+    }
+    
+    public void basicDamage(MonDisplay uDisplay, MonDisplay tDisplay) {
+        basicDamage(uDisplay, tDisplay, getType(), getDamage());
+    }
+    
+    public boolean basicDamageAttempt(MonDisplay uDisplay, MonDisplay tDisplay, Type type, double damage, double accuracy) {
+        if (Math.random() < Math.min(accuracy * (uDisplay.getMon().getAccuracy()/tDisplay.getMon().getEvasion()), 1)) {
+            basicDamage(uDisplay, tDisplay, type, damage);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean basicDamageAttempt(MonDisplay uDisplay, MonDisplay tDisplay) {
+        return basicDamageAttempt(uDisplay, tDisplay, getType(), getDamage(), getAccuracy());
     }
 }

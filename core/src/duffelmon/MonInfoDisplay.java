@@ -32,7 +32,7 @@ public class MonInfoDisplay extends Actor {
     public void draw(Batch batch, float alpha) {
         Mon mon = combatant.getCurrentMon();
         if (mon != null) {
-            long health = Math.round(mon.getHealth());
+            int health = (int)Math.ceil(mon.getHealth());
             font.setColor(fontColor);
             font.draw(batch, mon.getName(), x, y);
             font.draw(batch, "Health: " + health + "%", x, y - 20);

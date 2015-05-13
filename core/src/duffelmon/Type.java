@@ -32,8 +32,12 @@ public class Type {
         return typeMap.get(s);
     }
     
-    public HashMap<Type,Double> getRelationships() {
-        return relationships;
+    public double getRelationship(Type t) {
+        Double r = relationships.get(t);
+        if (r == null) {
+            return 1;
+        }
+        return r;
     }
     
     public void addRelationship(Type t, double m) {

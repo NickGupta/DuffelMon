@@ -53,7 +53,7 @@ public class DuffelMon extends ApplicationAdapter {
             heat.addRelationship(water, 2);
             water.addRelationship(heat, 0.5);
             dragon.addRelationship(heat, 0.5);
-            Move tackle = Move.makeMove(new Move("Tackle", normal, 40, 1, 35, 0) {
+            Move tackle = Move.makeMove(new Move("Tackle", normal, true, 40, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -75,7 +75,7 @@ public class DuffelMon extends ApplicationAdapter {
                             break;
                         */
                         case 0:
-                            absoluteDamage(tDisplay, getDamage());
+                            basicDamageAttempt(uDisplay, tDisplay);
                             finishMove(uDisplay);
                             break;
                     }

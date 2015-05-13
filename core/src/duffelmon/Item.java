@@ -14,5 +14,8 @@ public class Item {
         this.type = type;
     }
     
+    public String getType() {
+        return type;
+    }
     
 }

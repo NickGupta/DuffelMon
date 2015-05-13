@@ -56,6 +56,10 @@ public class Mon {
         return name;
     }
     
+    public Type[] getTypes() {
+        return species.getTypes();
+    }
+    
     public double getHealth(){
         return health;
     }
@@ -86,6 +90,16 @@ public class Mon {
     
     public double getAttitude() {
         return stats.getAttitude();
+    }
+    
+    public double getAccuracy() {
+        double acc = 1;
+        return acc;
+    }
+    
+    public double getEvasion() {
+        double ev = 1;
+        return ev;
     }
     
     public MonTextures getMonTextures() {
