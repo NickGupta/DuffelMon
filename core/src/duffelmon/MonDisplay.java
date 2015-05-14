@@ -25,6 +25,8 @@ public class MonDisplay extends GameObject {
     private Move currentMove = null;
     private MonDisplay moveTarget = null;
     private int moveStep = 0;
+    private double damageDealt = 0;
+    private boolean hitTarget = false;
     private boolean moveFinished = false;
     private int[] customMoveVars = new int[3];
     private enum States {
@@ -96,6 +98,19 @@ public class MonDisplay extends GameObject {
         moveStep = m;
     }
     
+    public double getDamageDealt() {
+        return damageDealt;
+    }
+    
+    public boolean getHitTarget() {
+        return hitTarget;
+    }
+    
+    public void registerHit(double d) {
+        damageDealt += d;
+        hitTarget = true;
+    }
+    
     public boolean getMoveFinished() {
        return moveFinished; 
     }
@@ -116,6 +131,8 @@ public class MonDisplay extends GameObject {
         currentMove = null;
         moveTarget = null;
         moveStep = 0;
+        damageDealt = 0;
+        hitTarget = false;
         customMoveVars = new int[customMoveVars.length];
     }
     

@@ -51,7 +51,7 @@ public class DuffelMon extends ApplicationAdapter {
             heat.addRelationship(water, 2);
             water.addRelationship(heat, 0.5);
             dragon.addRelationship(heat, 0.5);
-            Move tackle = Move.makeMove(new Move("Tackle", normal, 40, 1, 35, 0) {
+            Move tackle = Move.makeMove(new Move("Tackle", normal, true, 40, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -73,7 +73,7 @@ public class DuffelMon extends ApplicationAdapter {
                             break;
                         */
                         case 0:
-                            absoluteDamage(tDisplay, getDamage());
+                            basicDamageAttempt(uDisplay, tDisplay);
                             finishMove(uDisplay);
                             break;
                     }
@@ -82,7 +82,7 @@ public class DuffelMon extends ApplicationAdapter {
             HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             Type[] typeset = {water, dragon};
-            Species.makeSpecies("Charmander", new Stats(55, 40, 65, 50), heat, moveset);
-            Species.makeSpecies("Kingdra", new Stats(80, 75, 65, 80), typeset, moveset);
+            Species.makeSpecies("Charmander", new BaseStats(55, 40, 65, 50), heat, moveset);
+            Species.makeSpecies("Kingdra", new BaseStats(80, 75, 65, 80), typeset, moveset);
         }
 }

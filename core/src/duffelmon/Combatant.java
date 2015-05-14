@@ -137,4 +137,9 @@ public class Combatant {
         items.addItem(i);
         
     }
+    
+    public ItemMenu getItemMenu(){
+        return items;
+        
+    }
 }

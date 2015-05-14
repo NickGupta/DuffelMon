@@ -78,7 +78,9 @@ public class Battle extends GameObject {
         } else if (aType.equals("CHNG")) {
             return null;
         } else if (aType.equals("ITEM")) {
-            return null;
+            int numMove = Integer.parseInt(action.substring(4));
+            return actor.getItemMenu().getItem(numMove).getMove();
+            
         } else if (aType.equals("ESCP")) {
             return null;
         }
@@ -120,11 +122,11 @@ public class Battle extends GameObject {
     
     @Override
     public void draw(Batch batch, float alpha) {
+        enemy.draw(batch, alpha);
+        player.draw(batch, alpha);
         if (menu != null) {
             menu.draw(batch, alpha);
         }
-        enemy.draw(batch, alpha);
-        player.draw(batch, alpha);
     }
     
     @Override

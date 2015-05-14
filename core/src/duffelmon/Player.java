@@ -19,7 +19,9 @@ public class Player {
     }
     
     public static Mon[] getMons() {
-        return mons;
+
+    public static int getMoney() {
+        return money;
     }
     
     /**

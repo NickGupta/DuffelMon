@@ -2,17 +2,29 @@
 */
 package duffelmon;
 
+
 /**
  *
  * @author Jonathan
  */
 public class Item {
     
-    String type;
+    ItemType type;
+  
     
-    public Item(String type){
+    
+    
+   
+    
+    public Item(ItemType type){
         this.type = type;
     }
+   
+    public ItemType getType() {
+        return type;
+    }
     
-    
+    public Move getMove(){
+        return move;
+    }
 }

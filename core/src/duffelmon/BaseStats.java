@@ -9,30 +9,22 @@ package duffelmon;
  *
  * @author csstudent
  */
-public class Stats {
+public class BaseStats {
     
     private double attack;
     private double defense;
     private double speed;
     private double attitude;
-    private int level;
-    private double xp;
     
-    public Stats(double a, double d, double s, double tude, int l, double x) {
+    public BaseStats(double a, double d, double s, double tude) {
         attack = a;
         defense = d;
         speed = s;
         attitude = tude;
-        level = l;
-        xp = x;
     }
     
-    public Stats(double a, double d, double s, double tude) {
-        this(a, d, s, tude, 1, 0);
-    }
-    
-    public Stats getCopy() {
-        return new Stats(attack, defense, speed, attitude, level, xp);
+    public Stats getInitialStats() {
+        return new Stats(attack/10, defense/10, speed/10, attitude/10);
     }
     
     public double getAttack() {
@@ -51,11 +43,4 @@ public class Stats {
         return attitude;
     }
     
-    public int getLevel() {
-        return level;
-    }
-    
-    public double getXP() {
-        return xp;
-    }
 }
