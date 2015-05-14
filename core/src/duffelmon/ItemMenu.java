@@ -19,8 +19,8 @@ public class ItemMenu extends Menu {
     
     public ItemMenu(Menu m, float x, float y){
         super(m, x, y);
-         items.add(new Item("Potion"));
-         items.add(new Item("Potion"));
+         items.add(new Item(new ItemType("Potion"));
+        
     }
     
     public void addItem(Item i){
@@ -30,6 +30,13 @@ public class ItemMenu extends Menu {
             //Print out an error message that they have too many items
         } 
     }
+    
+    public Item getItem(int i){
+        return items.get(i);
+        
+    }
+    
+   
     
     @Override
     public void draw(Batch batch, float alpha){
@@ -57,6 +64,10 @@ public class ItemMenu extends Menu {
                 selection = 0;
             }
         }
+        
+        if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
+            setOutput("ITEM" + selection);
+        }   
     }
     
 }
