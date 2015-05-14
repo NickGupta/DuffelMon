@@ -23,8 +23,6 @@ public class DuffelMon extends ApplicationAdapter {
                 Mon enemy = new Mon("Joe", Species.getSpecies("Kingdra"), 5);
 
                 GlobalData.initialize(new Stage(), new BitmapFont());
-                TextBox blah = new TextBox(275, 100, "Hello World");
-                GameObject.makeIndependent(blah);
                 Battle.startBattle(player, null, enemy, new RandomMoveAI());
 	}
         

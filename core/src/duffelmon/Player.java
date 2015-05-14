@@ -14,12 +14,12 @@ public class Player {
     private static Mon[] mons = new Mon[3];
     private static int money = 0;
     
-    private static Mon[] getMonList() {
-        return mons;
+    public static Mon getMon(int i) {
+        return mons[i];
     }
     
-    private static Mon getMon(int i) {
-        return mons[i];
+    public static Mon[] getMons() {
+        return mons;
     }
     
     /**
