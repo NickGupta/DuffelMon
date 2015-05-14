@@ -17,8 +17,8 @@ public class BattleMenu extends Menu {
     private int yValue = 100;
     private int x1 = 100;
     private int y1 = 100;
-    private int xItem = 64;
-    private int yItem = 256;
+    private int xItem = 250;
+    private int yItem = 100;
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
     private String m = "";
