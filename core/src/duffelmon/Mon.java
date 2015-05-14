@@ -20,11 +20,9 @@ public class Mon {
     private Stats stats;
     private Move[] moves = new Move[4];
     private int[] powerPoints = new int[4];
-    private int level;
-    private double xp;
     private double health;
     
-    private void initialize(String n, Species s, int l, Move[] m, Stats st) {
+    private void initialize(String n, Species s, Move[] m, Stats st) {
         name = n;
         species = s;
         textures = s.getTextures();
@@ -33,20 +31,18 @@ public class Mon {
         }
         stats = st;
         health = 100;
-        level = l;
-        xp = 0;
     }
     
     public Mon(String n, Species s, int l) {
-        initialize(n, s, l, s.generateMoves(l), Species.generateStats(s, l));
+        initialize(n, s, s.generateMoves(l), Species.generateStats(s, l));
     }
     
     public Mon(String n, Species s, int l, Move[] m) {
-        initialize(n, s, l, m, Species.generateStats(s, l));
+        initialize(n, s, m, Species.generateStats(s, l));
     }
     
     public Mon(String n, Species s, int l, Move[] m, Stats st) {
-        initialize(n, s, l, m, st);
+        initialize(n, s, m, st);
     }
     
     public String getName() {
@@ -69,11 +65,11 @@ public class Mon {
     }
     
     public int getLevel() {
-        return level;
+        return stats.getLevel();
     }
     
     public double getXP() {
-        return xp;
+        return stats.getXP();
     }
     
     public double getAttack() {

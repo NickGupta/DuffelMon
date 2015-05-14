@@ -16,13 +16,13 @@ public class Species {
     
     private String name;
     private MonTextures textures;
-    private Stats baseStats;
+    private BaseStats baseStats;
     private Type[] types = null;
     private HashMap<Move,Integer> moveMap = null;
     
-    private Species(String n, Stats s, Type[] t, HashMap<Move,Integer> m) {
+    private Species(String n, BaseStats b, Type[] t, HashMap<Move,Integer> m) {
         name = n;
-        baseStats = s;
+        baseStats = b;
         Texture texf = new Texture("monsprites/" + name + "_front.png");
         Texture texb = new Texture("monsprites/" + name + "_back.png");
         textures = new MonTextures(texf, texb);
@@ -30,13 +30,13 @@ public class Species {
         moveMap = m;
     }
     
-    public static Species makeSpecies(String n, Stats s, Type t, HashMap<Move,Integer> m) {
+    public static Species makeSpecies(String n, BaseStats b, Type t, HashMap<Move,Integer> m) {
         Type[] tArray = {t};
-        return makeSpecies(n, s, tArray, m);
+        return makeSpecies(n, b, tArray, m);
     }
     
-    public static Species makeSpecies(String n, Stats s, Type[] t, HashMap<Move,Integer> m) {
-        Species sp = new Species(n, s, t, m);
+    public static Species makeSpecies(String n, BaseStats b, Type[] t, HashMap<Move,Integer> m) {
+        Species sp = new Species(n, b, t, m);
         speciesMap.put(n, sp);
         return sp;
     }
@@ -46,7 +46,8 @@ public class Species {
     }
     
     public static Stats generateStats(Species s, int l) {
-        return s.getBaseStats().getCopy();
+        Stats st = s.getBaseStats().getInitialStats();
+        return st;
     }
     
     public String getName() {
@@ -57,7 +58,7 @@ public class Species {
         return textures;
     }
     
-    public Stats getBaseStats() {
+    public BaseStats getBaseStats() {
         return baseStats;
     }
     
