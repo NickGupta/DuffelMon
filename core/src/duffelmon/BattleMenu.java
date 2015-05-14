@@ -17,19 +17,15 @@ public class BattleMenu extends Menu {
     private int yValue = 100;
     private int x1 = 100;
     private int y1 = 100;
-    private int xItem = 100;
-    private int yItem = 200;
-    
+    private int xItem = 64;
+    private int yItem = 256;
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
-
     private String m = "";
-    
     
     public BattleMenu(float x, float y, Combatant c) {
         super(x, y);
         combatant = c;
-        
     }
     
     @Override
@@ -51,8 +47,6 @@ public class BattleMenu extends Menu {
             xValue -= 80;
 
             font.draw(batch, "____", x1, y1);
-
-            
         } else if(m.equals("Fight")){
             font.setColor(fontColor);
             font.draw(batch, mon.getMoveName(0), xValue, yValue);
@@ -68,14 +62,6 @@ public class BattleMenu extends Menu {
             xValue -= 80;
 
             font.draw(batch, "____", x1, y1);
-
-            
-            
-            
-        }else if(m.equals("Item")){
-            setServant(new ItemMenu(this, xItem, yItem));
-            
-            
         }else if(m.equals("Change")){
             //Change menu
         }else if(m.equals("Run")){
@@ -86,99 +72,68 @@ public class BattleMenu extends Menu {
   
     @Override
     public void frameActions() {
-       Mon mon = combatant.getCurrentMon();
-    if(m.equals("")){ 
-        
-        if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
-            
+        Mon mon = combatant.getCurrentMon();
+        if(m.equals("")){ 
+            if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
                 if(y1 == 100){
-                   y1 -= 40; 
-                }else if(y1 == 60){
+                    y1 -= 40; 
+                } else if(y1 == 60){
                     y1 += 40;
-                
+                }
             }
-        }
-        
-        if(GlobalData.keyPressed(GlobalData.Inputs.RIGHT)||GlobalData.keyPressed(GlobalData.Inputs.LEFT)){
-            
+            if(GlobalData.keyPressed(GlobalData.Inputs.RIGHT)||GlobalData.keyPressed(GlobalData.Inputs.LEFT)){
                 if(x1 == 100){
-                   x1 += 80; 
+                    x1 += 80; 
                 }else if(x1 == 180){
                     x1 -= 80;
                 }
-            
-        }
-        
-        if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
-            
+            }
+            if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
                 if(x1 == 100 && y1 == 100){
                     m = "Fight"; 
                 }
                 else if(x1 == 100 && y1 == 60){
                     m = "Run"; 
                 }
-
                 else if(x1 == 180 && y1 == 60){
-                    m = "Item"; 
+                    setServant(new ItemMenu(this, xItem, yItem));
                 }
-
                 else if(x1 == 180 && y1 == 100){
                     m = "Change"; 
                 }
-               
-            
-            
-        }
-    }
-       
-    else if(m.equals("Fight")){
-           if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
-            
-                if(y1 == 100){
-                   y1 -= 40; 
-                }else if(y1 == 60){
-                    y1 += 40;
-                
             }
-        }
-        
-        if(GlobalData.keyPressed(GlobalData.Inputs.RIGHT)||GlobalData.keyPressed(GlobalData.Inputs.LEFT)){
-            
+        } else if (m.equals("Fight")) {
+            if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
+                if(y1 == 100) {
+                    y1 -= 40; 
+                } else if(y1 == 60) {
+                    y1 += 40;
+                }
+            }
+            if(GlobalData.keyPressed(GlobalData.Inputs.RIGHT)||GlobalData.keyPressed(GlobalData.Inputs.LEFT)){
                 if(x1 == 100){
-                   x1 += 80; 
+                    x1 += 80; 
                 }else if(x1 == 180){
                     x1 -= 80;
                 }
-            
-        }
-        
-        if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
-            
+            }
+            if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
                 if(x1 == 100 && y1 == 100){
                     setOutput("MOVE0"); 
-                    
                 }
                 if(x1 == 100 && y1 == 60){
                     setOutput("MOVE2");
                 }
-
                 if(x1 == 180 && y1 == 60){
                     setOutput("MOVE3"); 
                 }
-
                 if(x1 == 180 && y1 == 100){
                     setOutput("MOVE1");
                 }
-               
-            
-            
+            }   
         }
-           
-    }
         if(GlobalData.keyPressed(GlobalData.Inputs.BACK)){
             m = "";
         }
-        
     }
-    }
-
+}

@@ -120,11 +120,11 @@ public class Battle extends GameObject {
     
     @Override
     public void draw(Batch batch, float alpha) {
+        enemy.draw(batch, alpha);
+        player.draw(batch, alpha);
         if (menu != null) {
             menu.draw(batch, alpha);
         }
-        enemy.draw(batch, alpha);
-        player.draw(batch, alpha);
     }
     
     @Override
