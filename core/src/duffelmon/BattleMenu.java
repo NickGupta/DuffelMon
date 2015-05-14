@@ -19,6 +19,8 @@ public class BattleMenu extends Menu {
     private int y1 = 100;
     private int xItem = 250;
     private int yItem = 100;
+    private int xMon = 256;
+    private int yMon = 224;
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
     private String m = "";
@@ -62,10 +64,6 @@ public class BattleMenu extends Menu {
             xValue -= 80;
 
             font.draw(batch, "____", x1, y1);
-        }else if(m.equals("Change")){
-            //Change menu
-        }else if(m.equals("Run")){
-            //Run
         }
         super.draw(batch, alpha);
     }
@@ -99,7 +97,7 @@ public class BattleMenu extends Menu {
                     setServant(new ItemMenu(this, xItem, yItem));
                 }
                 else if(x1 == 180 && y1 == 100){
-                    m = "Change"; 
+                    setServant(new MonMenu(this, xMon, yMon, combatant.getMons()));
                 }
             }
         } else if (m.equals("Fight")) {

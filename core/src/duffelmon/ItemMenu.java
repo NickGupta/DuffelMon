@@ -19,11 +19,10 @@ public class ItemMenu extends Menu {
     
     public ItemMenu(Menu m, float x, float y){
         super(m, x, y);
-         items.add(new Item(new ItemType("Potion"));
-        
+        items.add(new Item("Potion"));
     }
     
-    public void addItem(Item i){
+    public void addItem(Item i) {
         if(items.size() < 6){
             items.add(i);
         }else{
@@ -31,19 +30,16 @@ public class ItemMenu extends Menu {
         } 
     }
     
-    public Item getItem(int i){
+    public Item getItem(int i) {
         return items.get(i);
-        
     }
-    
-   
     
     @Override
     public void draw(Batch batch, float alpha){
           int yOffset = 20;
           font.setColor(fontColor);
           for(int i = 0; i < items.size(); i++) {
-              font.draw(batch, items.get(i).getType(), getX(), getY() - (yOffset * i));
+              font.draw(batch, items.get(i).getName(), getX(), getY() - (yOffset * i));
           }
           font.draw(batch, "______", getX(), getY() - (yOffset * selection));
     }
@@ -64,10 +60,9 @@ public class ItemMenu extends Menu {
                 selection = 0;
             }
         }
-        
         if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
             setOutput("ITEM" + selection);
-        }   
+        }
     }
     
 }

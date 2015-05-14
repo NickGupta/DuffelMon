@@ -28,7 +28,7 @@ public class MonDisplay extends GameObject {
     private double damageDealt = 0;
     private boolean hitTarget = false;
     private boolean moveFinished = false;
-    private int[] customMoveVars = new int[3];
+    private double[] customMoveVars = new double[3];
     private enum States {
         ALIVE, FAINTING, FAINTED
     }
@@ -119,7 +119,7 @@ public class MonDisplay extends GameObject {
        moveFinished = m;
     }
     
-    public int getMoveVar(int pos) {
+    public double getMoveVar(int pos) {
         return customMoveVars[pos];
     }
     
@@ -133,7 +133,7 @@ public class MonDisplay extends GameObject {
         moveStep = 0;
         damageDealt = 0;
         hitTarget = false;
-        customMoveVars = new int[customMoveVars.length];
+        customMoveVars = new double[customMoveVars.length];
     }
     
     public void faint() {
@@ -143,8 +143,7 @@ public class MonDisplay extends GameObject {
     @Override
     public void draw(Batch batch, float alpha) {
         if (visible && sprite != null) {
-            sprite.setX(getX());
-            sprite.setY(getY());
+            sprite.setPosition(getX(), getY());
             sprite.draw(batch);
         }
     }

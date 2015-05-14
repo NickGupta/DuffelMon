@@ -9,22 +9,32 @@ package duffelmon;
  */
 public class Item {
     
-    ItemType type;
-  
+    private String name;
+    private int amount;
     
-    
-    
-   
-    
-    public Item(ItemType type){
-        this.type = type;
-    }
-   
-    public ItemType getType() {
-        return type;
+    public Item(String n, int a) {
+        name = n;
+        amount = a;
     }
     
-    public Move getMove(){
-        return move;
+    public Item(String n) {
+        this(n, 1);
     }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public Move getMove() {
+        return Move.getMove("Item_" + name);
+    }
+    
+    public void incrementAmount() {
+        amount++;
+    }
+    
+    public void decrementAmount() {
+        amount--;
+    }
+    
 }

@@ -53,6 +53,9 @@ public class Combatant {
         return makeCombatant(mArray, a, front);
     }
     
+    public Mon[] getMons() {
+        return mons;
+    }
     public Mon getMon(int i) {
         return mons[i];
     }

@@ -6,7 +6,10 @@
 package duffelmon;
 
 import java.util.ArrayList;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
  *
@@ -173,5 +176,12 @@ public class Mon {
             }
         }
         return false;
+    }
+    
+    public void drawInfo(Batch batch, float alpha, BitmapFont font, Color color, float x, float y) {
+        int healthToDraw = (int)Math.ceil(getHealth());
+        font.setColor(color);
+        font.draw(batch, getName(), x, y);
+        font.draw(batch, "Health: " + healthToDraw + "%", x, y - 20);
     }
 }

@@ -51,6 +51,17 @@ public class DuffelMon extends ApplicationAdapter {
             heat.addRelationship(water, 2);
             water.addRelationship(heat, 0.5);
             dragon.addRelationship(heat, 0.5);
+            Move.makeMove(new Move("Item_Potion", normal, false, 0, 1, 0, 100) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            uDisplay.getMon().increaseHealth(20);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move tackle = Move.makeMove(new Move("Tackle", normal, true, 40, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
