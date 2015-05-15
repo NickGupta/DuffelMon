@@ -5,11 +5,12 @@
  */
 package duffelmon;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.Input;
 import java.util.HashMap;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  *
@@ -19,6 +20,7 @@ public class GlobalData {
     
     private static Stage stage;
     private static BitmapFont font;
+    private static Texture whiteTexture, blackTexture;
 
     public enum Inputs {
         UP, DOWN, LEFT, RIGHT, SELECT, BACK, MENU
@@ -32,6 +34,8 @@ public class GlobalData {
     public static void initialize(Stage s, BitmapFont b) {
         stage = s;
         font = b;
+        whiteTexture = new Texture("white.png");
+        blackTexture = new Texture("black.png");
         inputKeys = new HashMap<Inputs,Integer>();
         inputKeys.put(Inputs.UP, Input.Keys.UP);
         inputKeys.put(Inputs.DOWN, Input.Keys.DOWN);
@@ -48,6 +52,14 @@ public class GlobalData {
     
     public static BitmapFont getFont() {
         return font;
+    }
+    
+    public static Texture getWhiteTexture() {
+        return whiteTexture;
+    }
+    
+    public static Texture getBlackTexture() {
+        return blackTexture;
     }
     
     public static void updateInputs() {

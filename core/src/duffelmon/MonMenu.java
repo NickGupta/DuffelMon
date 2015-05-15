@@ -34,6 +34,7 @@ public class MonMenu extends Menu {
     }
     @Override
     public void draw(Batch batch, float alpha) {
+        Menu.drawBox(batch, alpha, getX(), getY() - 96*3, getX() + 256, getY());
         float yPos = getY();
         for(int i = 0; i < mons.length; i++) {
             Sprite sprite = monSprites[i];

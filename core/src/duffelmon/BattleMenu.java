@@ -17,10 +17,10 @@ public class BattleMenu extends Menu {
     private int yValue = 100;
     private int x1 = 100;
     private int y1 = 100;
-    private int xItem = 250;
-    private int yItem = 100;
+    private int xItem = 256;
+    private int yItem = 118;
     private int xMon = 256;
-    private int yMon = 224;
+    private int yMon = 288;
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
     private String m = "";
@@ -32,6 +32,7 @@ public class BattleMenu extends Menu {
     
     @Override
     public void draw(Batch batch, float alpha) {
+        Menu.drawBox(batch, alpha, 0, 0, 512, 128);
         Mon mon = combatant.getCurrentMon();
         if(m.equals("")){
         

@@ -30,9 +30,10 @@ public class MonInfoDisplay extends Actor {
     
     @Override
     public void draw(Batch batch, float alpha) {
+        Menu.drawBox(batch, alpha, x, y - 48, x + 128, y);
         Mon mon = combatant.getCurrentMon();
         if (mon != null) {
-            mon.drawInfo(batch, alpha, font, fontColor, x, y);
+            mon.drawInfo(batch, alpha, font, fontColor, x + 4, y - 4);
         }
     }
 }

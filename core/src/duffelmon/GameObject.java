@@ -15,8 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public abstract class GameObject extends Actor {
 
-    public static ArrayList<GameObject> independentObjects = new ArrayList<GameObject>();
-    
+    private static ArrayList<GameObject> independentObjects = new ArrayList<GameObject>();
     /**
      * Makes a GameObject independent. Independent GameObjects will run their
      * frame actions automatically, will be drawn every render-frame, and will

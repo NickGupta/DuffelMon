@@ -36,12 +36,13 @@ public class ItemMenu extends Menu {
     
     @Override
     public void draw(Batch batch, float alpha){
-          int yOffset = 20;
-          font.setColor(fontColor);
-          for(int i = 0; i < items.size(); i++) {
-              font.draw(batch, items.get(i).getName(), getX(), getY() - (yOffset * i));
-          }
-          font.draw(batch, "______", getX(), getY() - (yOffset * selection));
+         int yOffset = 20;
+         Menu.drawBox(batch, alpha, getX(), getY() - (yOffset*5 + 8), getX() + 128, getY());
+         font.setColor(fontColor);
+         for(int i = 0; i < items.size(); i++) {
+            font.draw(batch, items.get(i).getName() + " x " + items.get(i).getAmount(), getX() + 4, getY() - ((i * yOffset) + 4));
+        }
+        font.draw(batch, "______", getX(), getY() - ((selection * yOffset) + 4));
     }
     
     @Override

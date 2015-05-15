@@ -5,6 +5,7 @@
  */
 package duffelmon;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
@@ -16,6 +17,12 @@ public abstract class Menu extends GameObject {
     private Menu master = null;
     private Menu servant = null;
     private String output = null;
+    
+    public Menu() {}
+    
+    public Menu(Menu m) {
+        master = m;
+    }
     
     public Menu(float x, float y) {
         setX(x);
@@ -84,6 +91,26 @@ public abstract class Menu extends GameObject {
      */
     public boolean readServantOutput(String o) {
         return true;
+    }
+    
+    public static void drawBox(Batch batch, float alpha, float x1, float y1, float x2, float y2, boolean outline) {
+        Texture white = GlobalData.getWhiteTexture();
+        Texture black = GlobalData.getBlackTexture();
+        float xl = Math.min(x1, x2);
+        float yl = Math.min(y1, y2);
+        float xh = Math.max(x1, x2);
+        float yh = Math.max(y1, y2);
+        batch.draw(white, xl, yl, xh - xl, y2 - y1);
+        if (outline) {
+            batch.draw(black, xl, yl, xh - xl, 2);
+            batch.draw(black, xl, yh - 2, xh - xl, 2);
+            batch.draw(black, xl, yl, 2, yh - yl);
+            batch.draw(black, xh - 2, yl, 2, yh - yl);
+        }
+    }
+    
+    public static void drawBox(Batch batch, float alpha, float x1, float y1, float x2, float y2) {
+        drawBox(batch, alpha, x1, y1, x2, y2, true);
     }
     
     @Override

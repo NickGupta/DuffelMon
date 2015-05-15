@@ -29,6 +29,10 @@ public class Item {
         return Move.getMove("Item_" + name);
     }
     
+    public int getAmount() {
+        return amount;
+    }
+    
     public void incrementAmount() {
         amount++;
     }

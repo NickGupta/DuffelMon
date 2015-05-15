@@ -15,27 +15,31 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
  */
 public class TextBox extends Menu{
     
-    private String s;
+    private String message;
     
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
     
-    public TextBox(float x, float y, String string){
-        super(x, y);
-        s = string;
+    public TextBox(Menu m, String me) {
+        super(m);
+        message = me;
     }
     
- 
+    public TextBox(String me) {
+        this(null, me);
+    }
+    
     @Override
     public void draw(Batch batch, float alpha) {
+        Menu.drawBox(batch, alpha, 0, 0, 512, 128);
         font.setColor(fontColor);
-        font.draw(batch, s, getX(), getY());
+        font.draw(batch, message, 16, 224);
     }
     
     @Override
     public void frameActions() {
         if (GlobalData.keyPressed(GlobalData.Inputs.SELECT)) {
-            setOutput("done");
+            setOutput("Done");
         }
     }
 }
