@@ -20,32 +20,28 @@ public class Mon {
     private String name;
     private Species species;
     private MonTextures textures;
-    private Stats stats;
+    private MonStats stats;
     private Move[] moves = new Move[4];
     private int[] powerPoints = new int[4];
     private double health;
     
-    private void initialize(String n, Species s, Move[] m, Stats st) {
+    public Mon(String n, Species s, Move[] m, MonStats st) {
         name = n;
         species = s;
         textures = s.getTextures();
         for (int i = 0; i < Math.min(moves.length, m.length); i++) {
-            setMove(m[i], i);
+            privateSetMove(m[i], i);
         }
         stats = st;
         health = 100;
     }
     
     public Mon(String n, Species s, int l) {
-        initialize(n, s, s.generateMoves(l), Species.generateStats(s, l));
+        this(n, s, s.generateMoves(l), new MonStats(s, l));
     }
     
     public Mon(String n, Species s, int l, Move[] m) {
-        initialize(n, s, m, Species.generateStats(s, l));
-    }
-    
-    public Mon(String n, Species s, int l, Move[] m, Stats st) {
-        initialize(n, s, m, st);
+        this(n, s, m, new MonStats(s, l));
     }
     
     public String getName() {
@@ -71,8 +67,8 @@ public class Mon {
         return stats.getLevel();
     }
     
-    public double getXP() {
-        return stats.getXP();
+    public double getStatTotal() {
+        return stats.getStatTotal();
     }
     
     public double getAttack() {
@@ -151,16 +147,20 @@ public class Mon {
         return positions;
     }
     
+    private void privateSetMove(Move m, int i) {
+        moves[i] = m;
+        if (moves[i] != null) {
+            powerPoints[i] = moves[i].getPowerPoints();
+        }
+    }
+    
     /**
      * Inserts a move into a particular move slot, regardless of what was in there before.
      * @param m Move to be inserted
      * @param i Move slot to insert it at
      */
     public void setMove(Move m, int i) {
-        moves[i] = m;
-        if (moves[i] != null) {
-            powerPoints[i] = moves[i].getPowerPoints();
-        }
+        privateSetMove(m, i);
     }
     
     /**
@@ -181,7 +181,7 @@ public class Mon {
     public void drawInfo(Batch batch, float alpha, BitmapFont font, Color color, float x, float y) {
         int healthToDraw = (int)Math.ceil(getHealth());
         font.setColor(color);
-        font.draw(batch, getName(), x, y);
+        font.draw(batch, getName() + " lv. " + getLevel(), x, y);
         font.draw(batch, "Health: " + healthToDraw + "%", x, y - 20);
     }
 }

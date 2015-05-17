@@ -36,18 +36,15 @@ public class Species {
     }
     
     public static Species makeSpecies(String n, BaseStats b, Type[] t, HashMap<Move,Integer> m) {
-        Species sp = new Species(n, b, t, m);
-        speciesMap.put(n, sp);
-        return sp;
+        BaseStats permanentStats = b.getCopy();
+        Species s = new Species(n, permanentStats, t, m);
+        permanentStats.setSpecies(s);
+        speciesMap.put(n, s);
+        return s;
     }
     
     public static Species getSpecies(String s) {
         return speciesMap.get(s);
-    }
-    
-    public static Stats generateStats(Species s, int l) {
-        Stats st = s.getBaseStats().getInitialStats();
-        return st;
     }
     
     public String getName() {
@@ -60,6 +57,26 @@ public class Species {
     
     public BaseStats getBaseStats() {
         return baseStats;
+    }
+    
+    public double getStatTotal() {
+        return baseStats.getStatTotal();
+    }
+    
+    public double getAttack() {
+        return baseStats.getAttack();
+    }
+    
+    public double getDefense() {
+        return baseStats.getDefense();
+    }
+    
+    public double getSpeed() {
+        return baseStats.getSpeed();
+    }
+    
+    public double getAttitude() {
+        return baseStats.getAttitude();
     }
     
     public Type[] getTypes() {

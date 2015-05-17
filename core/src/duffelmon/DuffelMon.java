@@ -17,10 +17,10 @@ public class DuffelMon extends ApplicationAdapter {
                 initializeData();
                 
                 // creates the first dufflemon for the battle
-                Mon player = new Mon("Bob", Species.getSpecies("Charmander"), 10);
+                Mon player = new Mon(null, Species.getSpecies("Charmander"), 10);
 
                 // creates the second dufflemon for the battle
-                Mon enemy = new Mon("Joe", Species.getSpecies("Kingdra"), 5);
+                Mon enemy = new Mon(null, Species.getSpecies("Kingdra"), 8);
 
                 GlobalData.initialize(new Stage(), new BitmapFont());
                 Battle.startBattle(player, null, enemy, new RandomMoveAI());

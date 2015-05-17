@@ -11,6 +11,7 @@ package duffelmon;
  */
 public class BaseStats {
     
+    private Species species = null;
     private double attack;
     private double defense;
     private double speed;
@@ -23,8 +24,22 @@ public class BaseStats {
         attitude = tude;
     }
     
-    public Stats getInitialStats() {
-        return new Stats(attack/10, defense/10, speed/10, attitude/10);
+    public BaseStats getCopy() {
+        BaseStats b = new BaseStats(attack, defense, speed, attitude);
+        b.setSpecies(species);
+        return b;
+    }
+    
+    public Species getSpecies() {
+        return species;
+    }
+    
+    public void setSpecies(Species s) {
+        species = s;
+    }
+    
+    public double getStatTotal() {
+        return attack + defense + speed + attitude;
     }
     
     public double getAttack() {

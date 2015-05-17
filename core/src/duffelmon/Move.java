@@ -133,7 +133,7 @@ public class Move {
         for (Type t : tDisplay.getMon().getTypes()) {
             damageToDeal *= t.getRelationship(type);
         }
-        absoluteDamage(uDisplay, tDisplay, damageToDeal);
+        absoluteDamage(uDisplay, tDisplay, damageToDeal*(Math.random()*0.2 + 0.9));
     }
     
     public void basicDamage(MonDisplay uDisplay, MonDisplay tDisplay) {
