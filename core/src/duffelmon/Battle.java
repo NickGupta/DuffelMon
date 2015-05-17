@@ -78,7 +78,8 @@ public class Battle extends GameObject {
         } else if (aType.equals("CHNG")) {
             return null;
         } else if (aType.equals("ITEM")) {
-            
+            int numItem = Integer.parseInt(action.substring(4));
+            return actor.getItemMenu().getItem(numItem).getMove();
         } else if (aType.equals("ESCP")) {
             return null;
         }

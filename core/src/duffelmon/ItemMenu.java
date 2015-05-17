@@ -62,7 +62,7 @@ public class ItemMenu extends Menu {
             }
         }
         if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
-            setOutput("ITEM" + selection);
+                setOutput("ITEM" + selection);
         }
     }
     
