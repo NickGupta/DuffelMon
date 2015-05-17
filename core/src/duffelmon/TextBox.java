@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
  *
  * @author csstudent
  */
-public class TextBox extends Menu{
+public class TextBox extends Menu {
     
     private String message;
     
