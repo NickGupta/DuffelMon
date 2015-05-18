@@ -100,6 +100,17 @@ public class Battle extends GameObject {
         enemy.getAI().chooseAction(enemy, player);
     }
     
+    private void useMove(Combatant user, Combatant target) {
+        user.getMoveToUse().useInBattle(user.getMonDisplay(), target.getMonDisplay());
+    }
+    
+    private void waitAfterTurnForTextBox() {
+        if (getTimer("waitAfterTurn") == -1 && (menu == null || menu.getOutput() != null)) {
+            menu = null;
+            setTimer("waitAfterTurn", 30);
+        }
+    }
+    
     private void faintCurrentMon(Combatant c) {
         c.getMonDisplay().faint();
     }
@@ -125,6 +136,8 @@ public class Battle extends GameObject {
         player.draw(batch, alpha);
         if (menu != null) {
             menu.draw(batch, alpha);
+        } else {
+            Menu.drawBox(batch, alpha, 0, 0, 512, 128);
         }
     }
     
@@ -179,22 +192,28 @@ public class Battle extends GameObject {
                     toMoveSecond = player;
                 }
                 state = States.TURN1;
-                toMoveFirst.getMoveToUse().useInBattle(toMoveFirst.getMonDisplay(), toMoveSecond.getMonDisplay());
+                useMove(toMoveFirst, toMoveSecond);
             }
         }
         if (state == States.TURN1) {
             if (toMoveFirst.getMonDisplay().getMoveFinished()) {
                 toMoveFirst.getMonDisplay().setMoveFinished(false);
+                menu = null;
                 state = States.BETWEEN;
-                setTimer("waitAfterTurn", 30);
             }
+        }
+        if (state == States.BETWEEN) {
+            waitAfterTurnForTextBox();
         }
         if (state == States.TURN2) {
             if (toMoveSecond.getMonDisplay().getMoveFinished()) {
                 toMoveSecond.getMonDisplay().setMoveFinished(false);
+                menu = null;
                 state = States.AFTER;
-                setTimer("waitAfterTurn", 30);
             }
+        }
+        if (state == States.AFTER) {
+            waitAfterTurnForTextBox();
         }
     }
     
@@ -216,7 +235,7 @@ public class Battle extends GameObject {
             } else {
                 if (state == States.BETWEEN) {
                     state = States.TURN2;
-                    toMoveSecond.getMoveToUse().useInBattle(toMoveSecond.getMonDisplay(), toMoveFirst.getMonDisplay());
+                    useMove(toMoveSecond, toMoveFirst);
                 } else if (state == States.AFTER) {
                     startNewTurn();
                 }

@@ -16,17 +16,19 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class TextBox extends Menu {
     
     private String message;
+    private boolean pressToFinish;
     
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
     
-    public TextBox(Menu m, String me) {
+    public TextBox(Menu m, String me, boolean p) {
         super(m);
         message = me;
+        pressToFinish = p;
     }
     
-    public TextBox(String me) {
-        this(null, me);
+    public TextBox(String me, boolean p) {
+        this(null, me, p);
     }
     
     @Override
@@ -38,7 +40,7 @@ public class TextBox extends Menu {
     
     @Override
     public void frameActions() {
-        if (GlobalData.keyPressed(GlobalData.Inputs.SELECT)) {
+        if (pressToFinish || GlobalData.keyPressed(GlobalData.Inputs.SELECT)) {
             setOutput("Done");
         }
     }
