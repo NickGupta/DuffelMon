@@ -44,51 +44,32 @@ public class DuffelMon extends ApplicationAdapter {
         }
         
         private void initializeData() {
+            //Types
             Type normal = Type.makeType("Normal");
-            Type heat = Type.makeType("Heat");
+            Type fire = Type.makeType("Fire");
             Type water = Type.makeType("Water");
-            Type dragon = Type.makeType("Dragon");
-            Type electricity = Type.makeType("Electricity");
-            Type rock = Type.makeType("Rock");
-            Type flying = Type.makeType("Flying");
-            Type bug = Type.makeType("Bug");
-            Type fight = Type.makeType("Fight");
+            Type ice = Type.makeType("Ice");
+            Type earth = Type.makeType("Earth");
+            Type air = Type.makeType("Air");
+            Type electric = Type.makeType("Electric");
+            Type steel = Type.makeType("Steel");
             Type poison = Type.makeType("Poison");
+            Type flying = Type.makeType("Flying");
+            Type plant = Type.makeType("Plant");
+            Type bug = Type.makeType("Bug");
             
+            //Type effectiveness
+            fire.addRelationship(fire, 0);
+            fire.addRelationship(water, 2);
+            fire.addRelationship(ice, 2);
+            fire.addRelationship(air, 2);
+            fire.addRelationship(electric, 0);
+            fire.addRelationship(plant, 0.5);
+            water.addRelationship(fire, 0.5);
+            water.addRelationship(electric, 2);
+            water.addRelationship(poison, 2);
             
-            
-            fight.addRelationship(rock, 0.8);
-            fight.addRelationship(bug, 1.2);
-            flying.addRelationship(fight, 0.7);
-            flying.addRelationship(rock, 1.7);
-            flying.addRelationship(bug, 0.6);
-            flying.addRelationship(electricity, 1.8);
-            poison.addRelationship(poison, 0.5);
-            rock.addRelationship(normal, 0.5);
-            rock.addRelationship(flying, 0.5);
-            rock.addRelationship(poison, 0.5);
-            rock.addRelationship(heat, 0.5);
-            rock.addRelationship(water, 1.2);
-            bug.addRelationship(fight, 0.9);
-            bug.addRelationship(flying, 1.6);
-            bug.addRelationship(rock, 2);
-            bug.addRelationship(heat, 2);
-            heat.addRelationship(water, 2);
-            heat.addRelationship(normal, 1.7);
-            heat.addRelationship(rock, 1.6);
-            heat.addRelationship(bug, 0.7);
-            heat.addRelationship(heat, 0.7);
-            water.addRelationship(water, 0.5);
-            water.addRelationship(electricity, 1.5);
-            water.addRelationship(heat, 0.5);
-            electricity.addRelationship(flying, 0.5);
-            electricity.addRelationship(rock, 0.8);
-            electricity.addRelationship(electricity, 0.7);
-            dragon.addRelationship(heat, 0.5);
-            dragon.addRelationship(water, 0.5);
-            dragon.addRelationship(electricity, 0.5);
-            dragon.addRelationship(dragon, 0.7);
-            
+            //Item moves
             Move.makeMove(new Move("Item_Potion", normal, false, 0, 1, 0, 100) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
@@ -100,8 +81,9 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            
+            //Moves
             Move tackle = Move.makeMove(new Move("Tackle", normal, true, 25, 1, 35, 0) {
-             
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -129,7 +111,7 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
-            Move thunderbolt = Move.makeMove(new Move("Winter Static Shock", electricity, true, 25, 1, 35, 0) {
+            Move spark = Move.makeMove(new Move("Spark", fire, true, 25, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -140,13 +122,13 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            //Mons
             HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();
-            HashMap<Move,Integer> pikamoveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
-            Type[] typeset = {water, dragon};
-            Species.makeSpecies("Charmander", new BaseStats(55, 40, 65, 50), heat, moveset);
-            Species.makeSpecies("Kingdra", new BaseStats(80, 75, 65, 80), typeset, moveset);
-            pikamoveset.put(thunderbolt, 2);
-            
+            moveset.put(spark, 5);
+            Species.makeSpecies("Charmander", new BaseStats(55, 40, 65, 50), fire, moveset);
+            moveset = new HashMap<Move,Integer>();
+            moveset.put(tackle, 1);
+            Species.makeSpecies("Kingdra", new BaseStats(80, 75, 65, 80), water, moveset);
         }
 }

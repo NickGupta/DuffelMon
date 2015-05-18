@@ -25,8 +25,7 @@ public class BattleMenu extends Menu {
     private Color fontColor = Color.BLACK;
     private String m = "";
     
-    public BattleMenu(float x, float y, Combatant c) {
-        super(x, y);
+    public BattleMenu(Combatant c) {
         combatant = c;
     }
     

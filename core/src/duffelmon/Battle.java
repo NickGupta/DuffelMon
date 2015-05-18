@@ -93,7 +93,7 @@ public class Battle extends GameObject {
     private void startNewTurn() {
         state = States.BEFORE;
         if (player.isPlayer()) {
-            menu = new BattleMenu(0, 100, player);
+            menu = new BattleMenu(player);
         } else {
             player.getAI().chooseAction(player, enemy);
         }
@@ -101,6 +101,7 @@ public class Battle extends GameObject {
     }
     
     private void useMove(Combatant user, Combatant target) {
+        menu = new TextBox(user.getCurrentMon().getName() + " used " + user.getMoveToUse().getName() + "!", true);
         user.getMoveToUse().useInBattle(user.getMonDisplay(), target.getMonDisplay());
     }
     
@@ -118,16 +119,29 @@ public class Battle extends GameObject {
     private boolean faintDeadMons() {
         Mon playerMon = player.getCurrentMon();
         Mon enemyMon = enemy.getCurrentMon();
-        boolean anyoneFainted = false;
+        boolean playerFainted = false;
+        boolean enemyFainted = false;
         if (playerMon.getHealth() == 0) {
             faintCurrentMon(player);
-            anyoneFainted = true;
+            playerFainted = true;
         }
         if (enemyMon.getHealth() == 0) {
             faintCurrentMon(enemy);
-            anyoneFainted = true;
+            enemyFainted = true;
         }
-        return anyoneFainted;
+        String message = null;
+        if (playerFainted && enemyFainted) {
+            message = "Both mons fainted!";
+        } else if (playerFainted) {
+            message = playerMon.getName() + " fainted!";
+        } else if (enemyFainted) {
+            message = enemyMon.getName() + " fainted!";
+        }
+        if (playerFainted || enemyFainted) {
+            menu = new TextBox(message, false);
+            return true;
+        }
+        return false;
     }
     
     @Override
@@ -198,7 +212,6 @@ public class Battle extends GameObject {
         if (state == States.TURN1) {
             if (toMoveFirst.getMonDisplay().getMoveFinished()) {
                 toMoveFirst.getMonDisplay().setMoveFinished(false);
-                menu = null;
                 state = States.BETWEEN;
             }
         }
@@ -208,7 +221,6 @@ public class Battle extends GameObject {
         if (state == States.TURN2) {
             if (toMoveSecond.getMonDisplay().getMoveFinished()) {
                 toMoveSecond.getMonDisplay().setMoveFinished(false);
-                menu = null;
                 state = States.AFTER;
             }
         }
