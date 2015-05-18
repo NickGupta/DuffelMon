@@ -81,8 +81,18 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
-            
             //Moves
+            Move struggle = Move.makeMove(new Move("Struggle", normal, true, 12.5, 0.5, 35, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move tackle = Move.makeMove(new Move("Tackle", normal, true, 25, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {

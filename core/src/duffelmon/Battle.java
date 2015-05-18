@@ -74,7 +74,7 @@ public class Battle extends GameObject {
             if (actor.getCurrentMon().getPowerPoints(numMove) > 0) {
                 return actor.getCurrentMon().getMove(numMove);
             }
-            return null;
+            return Move.getMove("Struggle");
         } else if (aType.equals("CHNG")) {
             return null;
         } else if (aType.equals("ITEM")) {
