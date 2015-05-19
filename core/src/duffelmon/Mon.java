@@ -121,14 +121,11 @@ public class Mon {
     }
     
     public int getPowerPoints(int i) {
-       
-            return powerPoints[i];
-        
+        return powerPoints[i];
     }
     
-    public void decrementPowerPoints(int i){
-        if(powerPoints[i] > 0)
-            powerPoints[i]--;
+    public void decrementPowerPoints(int pos) {
+        powerPoints[pos] = Math.max(powerPoints[pos] - 1, 0);
     }
     
     public void decreaseHealth(double d){

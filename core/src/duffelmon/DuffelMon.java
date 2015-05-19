@@ -101,26 +101,19 @@ public class DuffelMon extends ApplicationAdapter {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
-                        /*
                         case 0:
                             uDisplay.setXSpeed(4);
                             nextMoveStep(uDisplay);
-                            waitUntilNextMoveStep(uDisplay, 30);
+                            waitUntilNextMoveStep(uDisplay, 10);
                             break;
                         case 1:
-                            absoluteDamage(tDisplay, getDamage());
                             basicDamageAttempt(uDisplay, tDisplay);
                             uDisplay.setXSpeed(-4);
                             nextMoveStep(uDisplay);
-                            waitUntilNextMoveStep(uDisplay, 30);
+                            waitUntilNextMoveStep(uDisplay, 10);
                             break;
                         case 2:
                             uDisplay.setXSpeed(0);
-                            finishMove(uDisplay);
-                            break;
-                        */
-                        case 0:
-                            basicDamageAttempt(uDisplay, tDisplay);
                             finishMove(uDisplay);
                             break;
                     }
@@ -358,6 +351,7 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            
             //Mons
             HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);

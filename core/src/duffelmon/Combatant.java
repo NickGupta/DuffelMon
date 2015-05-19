@@ -22,6 +22,7 @@ public class Combatant {
     private boolean showMonDisplay = false;
     private boolean showInfoDisplay = false;
     private Move moveToUse = null;
+    private int moveSlotToUse = -1;
     
     private Combatant(Mon[] m, Item[] i, BattleAI a) {
         mons = m;
@@ -128,6 +129,14 @@ public class Combatant {
     
     public void setMoveToUse(Move m) {
         moveToUse = m;
+    }
+    
+    public int getMoveSlotToUse() {
+        return moveSlotToUse;
+    }
+    
+    public void setMoveSlotToUse(int m) {
+        moveSlotToUse = m;
     }
     
     public void draw(Batch batch, float alpha) {
