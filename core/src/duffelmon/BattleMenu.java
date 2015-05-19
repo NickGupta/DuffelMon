@@ -134,4 +134,10 @@ public class BattleMenu extends Menu {
             m = "";
         }
     }
+    
+    @Override
+    public boolean readServantOutput(String s) {
+        setOutput(s);
+        return true;
+    }
 }

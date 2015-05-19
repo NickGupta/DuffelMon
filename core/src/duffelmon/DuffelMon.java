@@ -59,11 +59,11 @@ public class DuffelMon extends ApplicationAdapter {
             Type bug = Type.makeType("Bug");
             
             //Type effectiveness
-            fire.addRelationship(fire, 0);
+            fire.addRelationship(fire, 0.5);
             fire.addRelationship(water, 2);
             fire.addRelationship(ice, 2);
             fire.addRelationship(air, 2);
-            fire.addRelationship(electric, 0);
+            fire.addRelationship(electric, 0.5);
             fire.addRelationship(plant, 0.5);
             water.addRelationship(fire, 0.5);
             water.addRelationship(electric, 2);
@@ -97,25 +97,19 @@ public class DuffelMon extends ApplicationAdapter {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
-                        /*
                         case 0:
                             uDisplay.setXSpeed(4);
                             nextMoveStep(uDisplay);
                             waitUntilNextMoveStep(uDisplay, 30);
                             break;
                         case 1:
-                            absoluteDamage(tDisplay, getDamage());
+                            absoluteDamage(uDisplay, tDisplay, getDamage());
                             uDisplay.setXSpeed(-4);
                             nextMoveStep(uDisplay);
                             waitUntilNextMoveStep(uDisplay, 30);
                             break;
                         case 2:
                             uDisplay.setXSpeed(0);
-                            finishMove(uDisplay);
-                            break;
-                        */
-                        case 0:
-                            basicDamageAttempt(uDisplay, tDisplay);
                             finishMove(uDisplay);
                             break;
                     }
