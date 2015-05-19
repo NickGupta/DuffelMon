@@ -17,13 +17,17 @@ public class DuffelMon extends ApplicationAdapter {
                 initializeData();
                 
                 // creates the first dufflemon for the battle
-                Mon player = new Mon(null, Species.getSpecies("Charmander"), 10);
-
+                Mon pMon = new Mon(null, Species.getSpecies("Charmander"), 10);
+                
+                Player player = new Player();
+                player.addMon(pMon);
+                GlobalData.setPlayer(player);
+                
                 // creates the second dufflemon for the battle
                 Mon enemy = new Mon(null, Species.getSpecies("Kingdra"), 8);
 
                 GlobalData.initialize(new Stage(), new BitmapFont());
-                Battle.startBattle(player, null, enemy, new RandomMoveAI());
+                Battle.startBattle(enemy, new RandomMoveAI());
 	}
         
 	@Override
@@ -103,7 +107,7 @@ public class DuffelMon extends ApplicationAdapter {
                             waitUntilNextMoveStep(uDisplay, 30);
                             break;
                         case 1:
-                            absoluteDamage(uDisplay, tDisplay, getDamage());
+                            basicDamageAttempt(uDisplay, tDisplay);
                             uDisplay.setXSpeed(-4);
                             nextMoveStep(uDisplay);
                             waitUntilNextMoveStep(uDisplay, 30);
