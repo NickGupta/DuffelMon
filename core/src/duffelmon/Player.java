@@ -11,18 +11,33 @@ package duffelmon;
  */
 public class Player {
     
-    private static Mon[] mons = new Mon[3];
-    private static int money = 0;
+    private Mon[] mons;
+    private Item[] items;
+    private int money;
     
-    public static Mon[] getMons() {
+    public Player() {
+        mons = new Mon[3];
+        items = new Item[5];
+        money = 0;
+    }
+    
+    public Mon[] getMons() {
         return mons;
     }
     
-    public static Mon getMon(int i) {
+    public Mon getMon(int i) {
         return mons[i];
     }
     
-    public static int getMoney() {
+    public Item[] getItems() {
+        return items;
+    }
+    
+    public Item getItem(int i) {
+        return items[i];
+    }
+    
+    public int getMoney() {
         return money;
     }
     
@@ -31,7 +46,7 @@ public class Player {
      * @param m Mon to be added
      * @return Whether the addition was successful
      */
-    public static boolean addMon(Mon m) {
+    public boolean addMon(Mon m) {
         for(int i = 0; i < mons.length; i++) {
             if (mons[i] == null) {
                 mons[i] = m;

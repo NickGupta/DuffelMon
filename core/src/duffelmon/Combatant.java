@@ -14,21 +14,22 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 public class Combatant {
     
     private Mon[] mons;
-    private int currentPos = 0;
+    private int monsPos = 0;
+    private Item[] items;
     private BattleAI ai = null;
     private MonDisplay monDisplay = null;
     private MonInfoDisplay infoDisplay = null;
     private boolean showMonDisplay = false;
     private boolean showInfoDisplay = false;
     private Move moveToUse = null;
-    private ItemMenu items;
     
-    private Combatant(Mon[] m, BattleAI a) {
+    private Combatant(Mon[] m, Item[] i, BattleAI a) {
         mons = m;
+        items = i;
         ai = a;
     }
     
-    public static Combatant makeCombatant(Mon[] m, BattleAI a, boolean front) {
+    public static Combatant makeCombatant(Mon[] m, Item[] i, BattleAI a, boolean front) {
         float monX, monY, infoX, infoY;
         if (front) {
             monX = 416;
@@ -41,7 +42,7 @@ public class Combatant {
             infoX = 384;
             infoY = 192;
         }
-        Combatant c = new Combatant(m, a);
+        Combatant c = new Combatant(m, i, a);
         c.setMonDisplay(new MonDisplay(c, front, monX, monY));
         c.setInfoDisplay(new MonInfoDisplay(c, infoX, infoY));
         return c;
@@ -50,7 +51,7 @@ public class Combatant {
     public static Combatant makeCombatant(Mon m, BattleAI a, boolean front) {
         Mon[] mArray = new Mon[1];
         mArray[0] = m;
-        return makeCombatant(mArray, a, front);
+        return makeCombatant(mArray, null, a, front);
     }
     
     public Mon[] getMons() {
@@ -61,16 +62,24 @@ public class Combatant {
     }
     
     public Mon getCurrentMon() {
-        return mons[currentPos];
+        return mons[monsPos];
     }
     
-    public int getCurrentPos() {
-        return currentPos;
+    public int getMonsPos() {
+        return monsPos;
     }
     
-    public void setCurrentPos(int pos) {
-        currentPos = pos;
+    public void setMonsPos(int pos) {
+        monsPos = pos;
         monDisplay.setMon(mons[pos]);
+    }
+    
+    public Item[] getItems() {
+        return items;
+    }
+    
+    public Item getItem(int pos) {
+        return items[pos];
     }
     
     public boolean isPlayer() {
@@ -136,13 +145,4 @@ public class Combatant {
         }
     }
     
-    public void addItem(Item i){
-        items.addItem(i);
-        
-    }
-    
-    public ItemMenu getItemMenu(){
-        return items;
-        
-    }
 }

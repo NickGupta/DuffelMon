@@ -14,24 +14,12 @@ public class ItemMenu extends Menu {
     
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
-    private ArrayList<Item> items = new ArrayList<Item>();
+    private Item[] items;
     private int selection = 0;
     
-    public ItemMenu(Menu m, float x, float y){
+    public ItemMenu(Menu m, float x, float y, Item[] i) {
         super(m, x, y);
-        items.add(new Item("Potion"));
-    }
-    
-    public void addItem(Item i) {
-        if(items.size() < 6){
-            items.add(i);
-        }else{
-            //Print out an error message that they have too many items
-        } 
-    }
-    
-    public Item getItem(int i) {
-        return items.get(i);
+        items = i;
     }
     
     @Override
@@ -39,8 +27,8 @@ public class ItemMenu extends Menu {
          int yOffset = 20;
          Menu.drawBox(batch, alpha, getX(), getY() - (yOffset*5 + 8), getX() + 128, getY());
          font.setColor(fontColor);
-         for(int i = 0; i < items.size(); i++) {
-            font.draw(batch, items.get(i).getName() + " x " + items.get(i).getAmount(), getX() + 4, getY() - ((i * yOffset) + 4));
+         for(int i = 0; i < items.length; i++) {
+            font.draw(batch, items[i].getName() + " x " + items[i].getAmount(), getX() + 4, getY() - ((i * yOffset) + 4));
         }
         font.draw(batch, "______", getX(), getY() - ((selection * yOffset) + 4));
     }
@@ -53,11 +41,11 @@ public class ItemMenu extends Menu {
         if (GlobalData.keyPressed(GlobalData.Inputs.UP)) {
             selection -= 1;
             if (selection < 0) {
-                selection = items.size() - 1;
+                selection = items.length - 1;
             }
         } else if (GlobalData.keyPressed(GlobalData.Inputs.DOWN)) {
             selection += 1;
-            if (selection >= items.size()) {
+            if (selection >= items.length) {
                 selection = 0;
             }
         }

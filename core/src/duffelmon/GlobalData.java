@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class GlobalData {
     
+    private static Player player = null;
     private static Stage stage;
     private static BitmapFont font;
     private static Texture whiteTexture, blackTexture;
@@ -44,6 +45,14 @@ public class GlobalData {
         inputKeys.put(Inputs.SELECT, Input.Keys.Z);
         inputKeys.put(Inputs.BACK, Input.Keys.X);
         inputKeys.put(Inputs.MENU, Input.Keys.ENTER);
+    }
+    
+    public static Player getPlayer() {
+        return player;
+    }
+    
+    public static void setPlayer(Player p) {
+        player = p;
     }
     
     public static Stage getStage() {

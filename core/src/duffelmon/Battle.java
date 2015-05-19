@@ -25,34 +25,33 @@ public class Battle extends GameObject {
     private Combatant toMoveFirst = null;
     private Combatant toMoveSecond = null;
     
-    private Battle(Mon[] p, BattleAI pA, Mon[] e, BattleAI eA) {
-        player = Combatant.makeCombatant(p, pA, false);
-        enemy = Combatant.makeCombatant(e, eA, true);
+    private Battle(Mon[] p, Item[] pI, BattleAI pA, Mon[] e, Item[] eI, BattleAI eA) {
+        player = Combatant.makeCombatant(p, pI, pA, false);
+        enemy = Combatant.makeCombatant(e, eI, eA, true);
         state = States.INTRO;
     }
     
-    public static Battle startBattle(Mon[] p, BattleAI pA, Mon[] e, BattleAI eA) {
-        battle = new Battle(p, pA, e, eA);
+    public static Battle startBattle(Mon[] p, Item[] pI, BattleAI pA, Mon[] e, Item[] eI, BattleAI eA) {
+        battle = new Battle(p, pI, pA, e, eI, eA);
         GameObject.makeIndependent(battle);
         return battle;
     }
     
-    public static Battle startBattle(Mon[] p, BattleAI pA, Mon e, BattleAI eA) {
+    public static Battle startBattle(Mon[] p, Item[] pI, BattleAI pA, Mon e, BattleAI eA) {
         Mon[] mArray = new Mon[1];
         mArray[0] = e;
-        return startBattle(p, pA, mArray, eA);
+        return startBattle(p, pI, pA, mArray, null, eA);
     }
     
-    public static Battle startBattle(Mon p, BattleAI pA, Mon[] e, BattleAI eA) {
-        Mon[] mArray = new Mon[1];
-        mArray[0] = p;
-        return startBattle(mArray, pA, e, eA);
+    public static Battle startBattle(Mon[] e, Item[] eI, BattleAI eA) {
+        Player player = GlobalData.getPlayer();
+        return startBattle(player.getMons(), player.getItems(), null, e, eI, eA);
     }
     
-    public static Battle startBattle(Mon p, BattleAI pA, Mon e, BattleAI eA) {
+    public static Battle startBattle(Mon e, BattleAI eA) {
         Mon[] mArray = new Mon[1];
-        mArray[0] = p;
-        return startBattle(mArray, pA, e, eA);
+        mArray[0] = e;
+        return startBattle(mArray, null, eA);
     }
     
     public static Battle getBattle() {
@@ -79,7 +78,7 @@ public class Battle extends GameObject {
             return null;
         } else if (aType.equals("ITEM")) {
             int numItem = Integer.parseInt(action.substring(4));
-            return actor.getItemMenu().getItem(numItem).getMove();
+            return actor.getItem(numItem).getMove();
         } else if (aType.equals("ESCP")) {
             return null;
         }
