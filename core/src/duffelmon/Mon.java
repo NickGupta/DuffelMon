@@ -115,13 +115,20 @@ public class Mon {
     
     public String getMoveName(int i) {
         if (moves[i] == null) {
-            return "---";
+            return null;
         }
         return moves[i].getName();
     }
     
     public int getPowerPoints(int i) {
-        return powerPoints[i];
+       
+            return powerPoints[i];
+        
+    }
+    
+    public void decrementPowerPoints(int i){
+        if(powerPoints[i] > 0)
+            powerPoints[i]--;
     }
     
     public void decreaseHealth(double d){

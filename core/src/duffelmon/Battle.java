@@ -102,6 +102,7 @@ public class Battle extends GameObject {
     private void useMove(Combatant user, Combatant target) {
         menu = new TextBox(user.getCurrentMon().getName() + " used " + user.getMoveToUse().getName() + "!", true);
         user.getMoveToUse().useInBattle(user.getMonDisplay(), target.getMonDisplay());
+        //user.getCurrentMon().decrementPowerPoints(0);
     }
     
     private void waitAfterTurnForTextBox() {
