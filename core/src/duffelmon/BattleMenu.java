@@ -146,7 +146,9 @@ public class BattleMenu extends Menu {
     
     @Override
     public boolean readServantOutput(String s) {
-        setOutput(s);
+        if (!s.equals("ForgetIt")) {
+            setOutput(s);
+        }
         return true;
     }
 }
