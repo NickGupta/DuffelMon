@@ -65,6 +65,8 @@ public class Move {
         return powerPoints;
     }
     
+    
+    
     public double getPriority() {
         return priority;
     }

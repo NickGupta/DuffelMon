@@ -29,6 +29,13 @@ public class BattleMenu extends Menu {
         combatant = c;
     }
     
+    public void drawMove(int x, int y, Batch batch, Mon mon, int i){
+        if(mon.getMove(i) != null)
+            font.draw(batch, mon.getMoveName(i) + "    " + mon.getPowerPoints(i) + "/" + mon.getMove(i).getPowerPoints(), x, y);
+        else
+            font.draw(batch, "----", x, y);
+    }
+    
     @Override
     public void draw(Batch batch, float alpha) {
         Menu.drawBox(batch, alpha, 0, 0, 512, 128);
@@ -37,31 +44,33 @@ public class BattleMenu extends Menu {
         
             font.setColor(fontColor);
             font.draw(batch, "Fight", xValue, yValue);
-            xValue += 70;
+            xValue += 120;
             font.draw(batch, "Change", xValue, yValue);
-            xValue -= 70;
+            xValue -= 120;
             yValue -= 40;
             font.draw(batch, "Run", xValue, yValue);
 
-            xValue += 80;
+            xValue += 120;
             font.draw(batch, "Item", xValue, yValue);
             yValue += 40;
-            xValue -= 80;
+            xValue -= 120;
 
             font.draw(batch, "____", x1, y1);
         } else if(m.equals("Fight")){
             font.setColor(fontColor);
-            font.draw(batch, mon.getMoveName(0), xValue, yValue);
-            xValue += 70;
-            font.draw(batch, mon.getMoveName(1), xValue, yValue);
-            xValue -= 70;
+            drawMove(xValue, yValue, batch, mon, 0);
+            
+            xValue += 120;
+            drawMove(xValue, yValue, batch, mon, 1);
+            xValue -= 120;
             yValue -= 40;
-            font.draw(batch, mon.getMoveName(2), xValue, yValue);
+            
+            drawMove(xValue, yValue, batch, mon, 2);
 
-            xValue += 80;
-            font.draw(batch, mon.getMoveName(3), xValue, yValue);
+            xValue += 120;
+            drawMove(xValue, yValue, batch, mon, 3);
             yValue += 40;
-            xValue -= 80;
+            xValue -= 120;
 
             font.draw(batch, "____", x1, y1);
         }
@@ -81,9 +90,9 @@ public class BattleMenu extends Menu {
             }
             if(GlobalData.keyPressed(GlobalData.Inputs.RIGHT)||GlobalData.keyPressed(GlobalData.Inputs.LEFT)){
                 if(x1 == 100){
-                    x1 += 80; 
-                }else if(x1 == 180){
-                    x1 -= 80;
+                    x1 += 120; 
+                }else if(x1 == 220){
+                    x1 -= 120;
                 }
             }
             if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
@@ -93,10 +102,10 @@ public class BattleMenu extends Menu {
                 else if(x1 == 100 && y1 == 60){
                     m = "Run"; 
                 }
-                else if(x1 == 180 && y1 == 60){
+                else if(x1 == 220 && y1 == 60){
                     setServant(new ItemMenu(this, xItem, yItem));
                 }
-                else if(x1 == 180 && y1 == 100){
+                else if(x1 == 220 && y1 == 100){
                     setServant(new MonMenu(this, xMon, yMon, combatant.getMons()));
                 }
             }
@@ -110,22 +119,22 @@ public class BattleMenu extends Menu {
             }
             if(GlobalData.keyPressed(GlobalData.Inputs.RIGHT)||GlobalData.keyPressed(GlobalData.Inputs.LEFT)){
                 if(x1 == 100){
-                    x1 += 80; 
-                }else if(x1 == 180){
-                    x1 -= 80;
+                    x1 += 120; 
+                }else if(x1 == 220){
+                    x1 -= 120;
                 }
             }
             if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
                 if(x1 == 100 && y1 == 100){
-                    setOutput("MOVE0"); 
+                    setOutput("MOVE0");
                 }
                 if(x1 == 100 && y1 == 60){
                     setOutput("MOVE2");
                 }
-                if(x1 == 180 && y1 == 60){
+                if(x1 == 220 && y1 == 60){
                     setOutput("MOVE3"); 
                 }
-                if(x1 == 180 && y1 == 100){
+                if(x1 == 220 && y1 == 100){
                     setOutput("MOVE1");
                 }
             }   
