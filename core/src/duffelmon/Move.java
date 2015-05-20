@@ -153,4 +153,16 @@ public class Move {
     public boolean basicDamageAttempt(MonDisplay uDisplay, MonDisplay tDisplay) {
         return basicDamageAttempt(uDisplay, tDisplay, getType(), getDamage(), getAccuracy());
     }
+    
+    public void inflictStatusEffect(MonDisplay uDisplay, MonDisplay tDisplay, StatusEffectType t, int tu) {
+        tDisplay.getMon().addStatusEffect(new StatusEffect(t, uDisplay.getMon().getAttitude(), tu));
+    }
+    
+    public boolean inflictStatusEffectAttempt(MonDisplay uDisplay, MonDisplay tDisplay, StatusEffectType t, int tu, double a) {
+        if (Math.random() < a) {
+            inflictStatusEffect(uDisplay, tDisplay, t, tu);
+            return true;
+        }
+        return false;
+    }
 }

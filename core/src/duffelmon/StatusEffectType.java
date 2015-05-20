@@ -34,4 +34,39 @@ public class StatusEffectType {
         return name;
     }
     
+    public double attackEffect() {
+        return 1;
+    }
+    
+    public double defenseEffect() {
+        return 1;
+    }
+    
+    public double speedEffect() {
+        return 1;
+    }
+    
+    public double attitudeEffect() {
+        return 1;
+    }
+    
+    /**
+     * Actions to be performed when a mon afflicted with this status effect
+     * begins its turn.
+     * @param effect StatusEffect object afflicting the mon
+     * @param mDisplay MonDusplay object representing the mon
+     * @return Whether the mon should be allowed to continue with its turn
+     */
+    public boolean beginTurnEffect(StatusEffect effect, MonDisplay mDisplay) {
+        return true;
+    }
+    
+    /**
+     * Actions to be performed when a mon afflicted with this status effect
+     * ends its turn.
+     * @param effect StatusEffect object afflicting the mon
+     * @param mDisplay MonDusplay object representing the mon
+     */
+    public void endTurnEffect(StatusEffect effect, MonDisplay mDisplay) {}
+    
 }

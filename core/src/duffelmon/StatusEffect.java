@@ -12,15 +12,21 @@ package duffelmon;
 public class StatusEffect {
     
     private StatusEffectType type;
+    private double strength;
     private int turnsLeft;
     
-    public StatusEffect(StatusEffectType t, int tu) {
+    public StatusEffect(StatusEffectType t, double s, int tu) {
         type = t;
+        strength = s;
         turnsLeft = tu;
     }
     
     public StatusEffectType getType() {
         return type;
+    }
+    
+    public double getStrength() {
+        return strength;
     }
     
     public int getTurnsLeft() {
