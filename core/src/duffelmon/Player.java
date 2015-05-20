@@ -55,4 +55,20 @@ public class Player {
         }
         return false;
     }
+    
+    /**
+     * Attempts to add an item to the player's item list.
+     * @param it Item to be added
+     * @return Whether the addition was successful
+     */
+    public boolean addItem(Item it) {
+        for(int i = 0; i < items.length; i++) {
+            if (items[i] == null) {
+                items[i] = it;
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }

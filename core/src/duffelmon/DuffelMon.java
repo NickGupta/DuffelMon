@@ -73,6 +73,11 @@ public class DuffelMon extends ApplicationAdapter {
             water.addRelationship(electric, 2);
             water.addRelationship(poison, 2);
             
+            //Status effect types
+            StatusEffectType.makeEffect(new StatusEffectType("Increase Attack") {
+                
+            });
+            
             //Item moves
             Move.makeMove(new Move("Item_Potion", normal, false, 0, 1, 0, 100) {
                 @Override

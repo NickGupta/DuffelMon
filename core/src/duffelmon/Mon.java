@@ -24,6 +24,7 @@ public class Mon {
     private Move[] moves = new Move[4];
     private int[] powerPoints = new int[4];
     private double health;
+    private ArrayList<StatusEffect> statusEffects = new ArrayList<StatusEffect>();
     
     public Mon(String n, Species s, Move[] m, MonStats st) {
         name = n;
@@ -67,6 +68,10 @@ public class Mon {
         return stats.getLevel();
     }
     
+    public MonStats getStats() {
+        return stats;
+    }
+    
     public double getStatTotal() {
         return stats.getStatTotal();
     }
@@ -95,6 +100,23 @@ public class Mon {
     public double getEvasion() {
         double ev = 1;
         return ev;
+    }
+    
+    public void addStatusEffect(StatusEffect s) {
+        statusEffects.add(s);
+    }
+    
+    public void removeStatusEffect(StatusEffectType s) {
+        for(int i = 0; i < statusEffects.size(); i++) {
+            if (statusEffects.get(i).getType() == s) {
+                statusEffects.remove(i);
+                i--;
+            }
+        }
+    }
+    
+    public void removeStatusEffects() {
+        statusEffects = new ArrayList<StatusEffect>();
     }
     
     public MonTextures getMonTextures() {
