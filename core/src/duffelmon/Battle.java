@@ -85,6 +85,17 @@ public class Battle extends GameObject {
         return null;
     }
     
+    private int actionToMoveSlot(Combatant actor, String action) {
+        String aType = action.substring(0, 4);
+        if (aType.equals("MOVE")) {
+            int numMove = Integer.parseInt(action.substring(4));
+            if (actor.getCurrentMon().getPowerPoints(numMove) > 0) {
+                return numMove;
+            }
+        }
+        return -1;
+    }
+    
     private double monToPriority(Mon mon) {
         return mon.getSpeed();
     }
@@ -101,8 +112,10 @@ public class Battle extends GameObject {
     
     private void useMove(Combatant user, Combatant target) {
         menu = new TextBox(user.getCurrentMon().getName() + " used " + user.getMoveToUse().getName() + "!", true);
+        if (user.getMoveSlotToUse() != -1) {
+            user.getCurrentMon().decrementPowerPoints(user.getMoveSlotToUse());
+        }
         user.getMoveToUse().useInBattle(user.getMonDisplay(), target.getMonDisplay());
-        //user.getCurrentMon().decrementPowerPoints(0);
     }
     
     private void waitAfterTurnForTextBox() {
@@ -180,7 +193,9 @@ public class Battle extends GameObject {
                 }
                 enemy.getAI().setOutput(null);
                 player.setMoveToUse(actionToMove(player, outputP));
+                player.setMoveSlotToUse(actionToMoveSlot(player, outputP));
                 enemy.setMoveToUse(actionToMove(enemy, outputE));
+                enemy.setMoveSlotToUse(actionToMoveSlot(enemy, outputP));
                 double priorityP = player.getMoveToUse().getPriority();
                 double priorityE = enemy.getMoveToUse().getPriority();
                 if (priorityP > priorityE) {

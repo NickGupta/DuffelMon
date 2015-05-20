@@ -27,9 +27,11 @@ public class MonMenu extends Menu {
         super(m, x, y);
         mons = ms;
         monSprites = new Sprite[mons.length];
-        for(int i = 0; i < monSprites.length; i++) {
-            Sprite s = new Sprite(mons[i].getFrontTexture());
-            monSprites[i] = s;
+        for(int i = 0; i < mons.length; i++) {
+            if (mons[i] != null) {
+                Sprite s = new Sprite(mons[i].getFrontTexture());
+                monSprites[i] = s;
+            }
         }
     }
     @Override
@@ -37,10 +39,15 @@ public class MonMenu extends Menu {
         Menu.drawBox(batch, alpha, getX(), getY() - 96*3, getX() + 256, getY());
         float yPos = getY();
         for(int i = 0; i < mons.length; i++) {
-            Sprite sprite = monSprites[i];
-            sprite.setCenter(getX() + 48, yPos - 48);
-            sprite.draw(batch);
-            mons[i].drawInfo(batch, alpha, font, fontColor, getX() + 96, yPos - 28);
+            if (mons[i] != null) {
+                Sprite sprite = monSprites[i];
+                sprite.setCenter(getX() + 48, yPos - 48);
+                sprite.draw(batch);
+                mons[i].drawInfo(batch, alpha, font, fontColor, getX() + 96, yPos - 28);
+            } else {
+                font.setColor(fontColor);
+                font.draw(batch, "---", getX() + 96, yPos - 28);
+            }
             if (selection == i) {
                 font.setColor(fontColor);
                 font.draw(batch, "_____", getX() + 96, yPos - 28);
@@ -66,7 +73,7 @@ public class MonMenu extends Menu {
                 selection = 0;
             }
         }
-        if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
+        if (GlobalData.keyPressed(GlobalData.Inputs.SELECT) && mons[selection] != null) {
             setOutput("CHNG" + selection);
         }
     }

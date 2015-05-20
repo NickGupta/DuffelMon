@@ -104,6 +104,7 @@ public class BattleMenu extends Menu {
                 }
                 else if(x1 == 220 && y1 == 60){
                     //setServant(new ItemMenu(this, xItem, yItem));
+                    setServant(new ItemMenu(this, xItem, yItem, combatant.getItems()));
                 }
                 else if(x1 == 220 && y1 == 100){
                     setServant(new MonMenu(this, xMon, yMon, combatant.getMons()));
@@ -146,7 +147,9 @@ public class BattleMenu extends Menu {
     
     @Override
     public boolean readServantOutput(String s) {
-        setOutput(s);
+        if (!s.equals("ForgetIt")) {
+            setOutput(s);
+        }
         return true;
     }
 }

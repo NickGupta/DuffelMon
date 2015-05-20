@@ -24,11 +24,17 @@ public class ItemMenu extends Menu {
     
     @Override
     public void draw(Batch batch, float alpha){
-         int yOffset = 20;
-         Menu.drawBox(batch, alpha, getX(), getY() - (yOffset*5 + 8), getX() + 128, getY());
-         font.setColor(fontColor);
-         for(int i = 0; i < items.length; i++) {
-            font.draw(batch, items[i].getName() + " x " + items[i].getAmount(), getX() + 4, getY() - ((i * yOffset) + 4));
+        int yOffset = 20;
+        Menu.drawBox(batch, alpha, getX(), getY() - (yOffset*5 + 8), getX() + 128, getY());
+        font.setColor(fontColor);
+        for(int i = 0; i < items.length; i++) {
+            String itemInfo;
+            if (items[i] != null) {
+                itemInfo = items[i].getName() + " x " + items[i].getAmount();
+            } else {
+                itemInfo = "---";
+            }
+            font.draw(batch, itemInfo, getX() + 4, getY() - ((i * yOffset) + 4));
         }
         font.draw(batch, "______", getX(), getY() - ((selection * yOffset) + 4));
     }
@@ -49,7 +55,7 @@ public class ItemMenu extends Menu {
                 selection = 0;
             }
         }
-        if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)){
+        if (GlobalData.keyPressed(GlobalData.Inputs.SELECT) && items[selection] != null) {
                 setOutput("ITEM" + selection);
         }
     }
