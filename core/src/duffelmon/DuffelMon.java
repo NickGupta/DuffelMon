@@ -3,6 +3,7 @@ package duffelmon;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class DuffelMon extends ApplicationAdapter {
 
                 GlobalData.initialize(new Stage(), new BitmapFont());
                 Battle.startBattle(enemy, new RandomMoveAI());
+                
 	}
         
 	@Override
@@ -113,6 +115,8 @@ public class DuffelMon extends ApplicationAdapter {
                             break;
                         case 1:
                             basicDamageAttempt(uDisplay, tDisplay);
+                            MoveEffect moveEffect = new MoveEffect(tDisplay.getX(), tDisplay.getY());
+                            moveEffect.addMoveTexture(new Texture("movesprites/tackle.png"), "tackle");
                             uDisplay.setXSpeed(-4);
                             nextMoveStep(uDisplay);
                             waitUntilNextMoveStep(uDisplay, 10);
