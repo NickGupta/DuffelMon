@@ -5,6 +5,7 @@
  */
 package duffelmon;
 
+import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
@@ -22,6 +23,7 @@ public class Battle extends GameObject {
     private Combatant enemy;
     private States state;
     private Menu menu = null;
+    private ArrayList<MoveEffect> moveEffects = new ArrayList<MoveEffect>();
     private Combatant toMoveFirst = null;
     private Combatant toMoveSecond = null;
     
@@ -64,6 +66,11 @@ public class Battle extends GameObject {
     
     public Combatant getEnemyCombatant() {
         return enemy;
+    }
+    
+    public MoveEffect addMoveEffect(MoveEffect m) {
+        moveEffects.add(m);
+        return m;
     }
     
     private Move actionToMove(Combatant actor, String action) {
@@ -160,6 +167,9 @@ public class Battle extends GameObject {
     @Override
     public void draw(Batch batch, float alpha) {
         enemy.draw(batch, alpha);
+        for(MoveEffect m : moveEffects) {
+            m.draw(batch, alpha);
+        }
         player.draw(batch, alpha);
         if (menu != null) {
             menu.draw(batch, alpha);
@@ -252,6 +262,13 @@ public class Battle extends GameObject {
         }
         player.doFrame();
         enemy.doFrame();
+        for(int i = 0; i < moveEffects.size(); i++) {
+            moveEffects.get(i).doFrame();
+            if (!moveEffects.get(i).isAlive()) {
+                moveEffects.remove(i);
+                i--;
+            }
+        }
     }
     
     @Override

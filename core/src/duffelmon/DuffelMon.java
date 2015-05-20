@@ -3,7 +3,6 @@ package duffelmon;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.HashMap;
@@ -50,6 +49,9 @@ public class DuffelMon extends ApplicationAdapter {
         }
         
         private void initializeData() {
+            //Textures
+            GlobalData.makeTexture("largeImpact", "movesprites/largeimpact.png");
+            
             //Types
             Type normal = Type.makeType("Normal");
             Type fire = Type.makeType("Fire");
@@ -76,7 +78,7 @@ public class DuffelMon extends ApplicationAdapter {
             water.addRelationship(poison, 2);
             
             //Status effect types
-            StatusEffectType.makeEffect(new StatusEffectType("Increase Attack") {
+            StatusEffectType.makeEffectType(new StatusEffectType("Increase Attack") {
                 
             });
             
@@ -92,7 +94,7 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
-            //Moves
+            //Moves (Note: Feel free to override the frameActions() and triggerTimer() methods in any move effects you create)
             Move struggle = Move.makeMove(new Move("Struggle", normal, true, 12.5, 0.5, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
@@ -115,8 +117,8 @@ public class DuffelMon extends ApplicationAdapter {
                             break;
                         case 1:
                             basicDamageAttempt(uDisplay, tDisplay);
-                            MoveEffect moveEffect = new MoveEffect(tDisplay.getX(), tDisplay.getY());
-                            moveEffect.addMoveTexture(new Texture("movesprites/tackle.png"), "tackle");
+                            MoveEffect impact = Battle.getBattle().addMoveEffect(new MoveEffect(tDisplay.getX(), tDisplay.getY(), GlobalData.getTexture("largeImpact"), 2, true));
+                            impact.setTimer("die", 10);
                             uDisplay.setXSpeed(-4);
                             nextMoveStep(uDisplay);
                             waitUntilNextMoveStep(uDisplay, 10);

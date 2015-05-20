@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 public class StatusEffectType {
     
-    private static HashMap<String,StatusEffectType> effectMap = new HashMap<String,StatusEffectType>();
+    private static HashMap<String,StatusEffectType> effectTypeMap = new HashMap<String,StatusEffectType>();
     
     private String name;
     
@@ -21,13 +21,13 @@ public class StatusEffectType {
         name = n;
     }
     
-    public static StatusEffectType makeEffect(StatusEffectType s) {
-        effectMap.put(s.getName(), s);
+    public static StatusEffectType makeEffectType(StatusEffectType s) {
+        effectTypeMap.put(s.getName(), s);
         return s;
     }
     
-    public static StatusEffectType getEffect(String s) {
-        return effectMap.get(s);
+    public static StatusEffectType getEffectType(String s) {
+        return effectTypeMap.get(s);
     }
     
     public String getName() {

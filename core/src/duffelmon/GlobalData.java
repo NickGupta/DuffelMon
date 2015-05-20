@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class GlobalData {
     
+    private static HashMap<String,Texture> textureMap = new HashMap<String,Texture>();
     private static Player player = null;
     private static Stage stage;
     private static BitmapFont font;
@@ -69,6 +70,18 @@ public class GlobalData {
     
     public static Texture getBlackTexture() {
         return blackTexture;
+    }
+    
+    public static void makeTexture(String n, String f) {
+        textureMap.put(n, new Texture(f));
+    }
+    
+    public static void addTexture(String n, Texture t) {
+        textureMap.put(n, t);
+    }
+    
+    public static Texture getTexture(String s) {
+        return textureMap.get(s);
     }
     
     public static void updateInputs() {

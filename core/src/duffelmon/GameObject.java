@@ -41,6 +41,15 @@ public abstract class GameObject extends Actor {
         g.remove();
     }
     
+    /**
+     * Returns whether a GameObject is currently independent.
+     * @param g GameObject to be checked
+     * @return Whether the object is currently independent
+     */
+    public static boolean isIndependent(GameObject g) {
+        return independentObjects.contains(g);
+    }
+    
     public static void runFrameActions() {
         for(GameObject g : independentObjects) {
             g.doFrame();
@@ -48,8 +57,17 @@ public abstract class GameObject extends Actor {
     }
     
     private HashMap<String,Integer> timers = new HashMap<String,Integer>();
+    private boolean alive = true;
     private float xSpeed = 0;
     private float ySpeed = 0;
+    
+    public boolean isAlive() {
+        return alive;
+    }
+    
+    public void die() {
+        alive = false;
+    }
     
     public float getXSpeed() {
         return xSpeed;

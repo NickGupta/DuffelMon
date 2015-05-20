@@ -6,31 +6,50 @@
 package duffelmon;
 
 import com.badlogic.gdx.graphics.Texture;
-import java.util.HashMap;
-
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
  *
  * @author csstudent
  */
-public class MoveEffect extends GameObject{
-    Texture texture; 
-    private static HashMap<String, Texture> moveTextureMap = new HashMap<String,Texture>();
+public class MoveEffect extends GameObject {
     
+    private Sprite sprite;
     
-    public MoveEffect(float x, float y){
-      
+    public MoveEffect(float x, float y, Texture t, float s, boolean b) {
         setX(x);
         setY(y);
-        
+        sprite = new Sprite(t);
+        sprite.setScale(s);
+        float yOrigin;
+        if (b) {
+            yOrigin = 0;
+        } else {
+            yOrigin = s*(t.getHeight()/2);
+        }
+        sprite.setOrigin(s*(t.getWidth()/2), yOrigin);
     }
     
-    public void addMoveTexture(Texture t, String s){
-        moveTextureMap.put(s, t);
+    public MoveEffect(float x, float y, Texture t, float s) {
+        this(x, y, t, s, false);
     }
     
+    public MoveEffect(float x, float y, Texture t) {
+        this(x, y, t, 1, false);
     }
     
+    @Override
+    public void draw(Batch batch, float alpha) {
+        sprite.setPosition(getX(), getY());
+        sprite.draw(batch);
+    }
     
+    @Override
+    public void triggerTimer(String s) {
+        if (s.equals("die")) {
+            die();
+        }
+    }
     
-
+}
