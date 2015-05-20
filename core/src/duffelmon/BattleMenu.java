@@ -103,6 +103,7 @@ public class BattleMenu extends Menu {
                     m = "Run"; 
                 }
                 else if(x1 == 220 && y1 == 60){
+                    //setServant(new ItemMenu(this, xItem, yItem));
                     setServant(new ItemMenu(this, xItem, yItem, combatant.getItems()));
                 }
                 else if(x1 == 220 && y1 == 100){
