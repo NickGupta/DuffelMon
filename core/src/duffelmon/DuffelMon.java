@@ -79,7 +79,76 @@ public class DuffelMon extends ApplicationAdapter {
             
             //Status effect types
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Attack") {
-                
+                @Override
+                public double attackEffect() {
+                    return 6.0/5.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Decrease Attack") {
+                @Override
+                public double attackEffect() {
+                    return 5.0/6.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Increase Defense") {
+                @Override
+                public double defenseEffect() {
+                    return 6.0/5.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Decrease Defense") {
+                @Override
+                public double defenseEffect() {
+                    return 5.0/6.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Increase Speed") {
+                @Override
+                public double speedEffect() {
+                    return 6.0/5.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Decrease Speed") {
+                @Override
+                public double speedEffect() {
+                    return 5.0/6.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Increase Attitude") {
+                @Override
+                public double attitudeEffect() {
+                    return 6.0/5.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Decrease Attitude") {
+                @Override
+                public double attitudeEffect() {
+                    return 5.0/6.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Increase Accuracy") {
+                @Override
+                public double accuracyEffect() {
+                    return 6.0/5.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Decrease Accuracy") {
+                @Override
+                public double accuracyEffect() {
+                    return 5.0/6.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Increase Evasion") {
+                @Override
+                public double evasionEffect() {
+                    return 6.0/5.0;
+                }
+            });
+            StatusEffectType.makeEffectType(new StatusEffectType("Decrease Evasion") {
+                @Override
+                public double evasionEffect() {
+                    return 5.0/6.0;
+                }
             });
             
             //Item moves

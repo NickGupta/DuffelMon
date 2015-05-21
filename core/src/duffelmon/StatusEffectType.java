@@ -50,6 +50,14 @@ public class StatusEffectType {
         return 1;
     }
     
+    public double accuracyEffect() {
+        return 1;
+    }
+    
+    public double evasionEffect() {
+        return 1;
+    }
+    
     /**
      * Actions to be performed when a mon afflicted with this status effect
      * begins its turn.

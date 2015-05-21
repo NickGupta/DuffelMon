@@ -119,6 +119,16 @@ public class Mon {
         statusEffects = new ArrayList<StatusEffect>();
     }
     
+    public void decrementStatusEffects() {
+        for(int i = 0; i < statusEffects.size(); i++) {
+            statusEffects.get(i).decrementTurnsLeft();
+            if (statusEffects.get(i).getTurnsLeft() == 0) {
+                statusEffects.remove(i);
+                i--;
+            }
+        }
+    }
+    
     public MonTextures getMonTextures() {
         return textures;
     }

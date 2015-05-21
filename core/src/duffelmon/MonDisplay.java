@@ -27,6 +27,7 @@ public class MonDisplay extends GameObject {
     private int moveStep = 0;
     private double damageDealt = 0;
     private boolean hitTarget = false;
+    private String moveMessage = null;
     private boolean moveFinished = false;
     private double[] customMoveVars = new double[3];
     private enum States {
@@ -125,6 +126,12 @@ public class MonDisplay extends GameObject {
     
     public void setMoveVar(int pos, int val) {
         customMoveVars[pos] = val;
+    }
+    
+    public String readMoveMessage() {
+        String m = moveMessage;
+        moveMessage = null;
+        return m;
     }
     
     public void resetMoveVars() {

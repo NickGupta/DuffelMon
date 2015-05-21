@@ -22,7 +22,8 @@ public class Battle extends GameObject {
     private Combatant player;
     private Combatant enemy;
     private States state;
-    private Menu menu = null;
+    private BattleMenu menu = null;
+    private TextBox textBox = null;
     private ArrayList<MoveEffect> moveEffects = new ArrayList<MoveEffect>();
     private Combatant toMoveFirst = null;
     private Combatant toMoveSecond = null;
@@ -118,16 +119,24 @@ public class Battle extends GameObject {
     }
     
     private void useMove(Combatant user, Combatant target) {
-        menu = new TextBox(user.getCurrentMon().getName() + " used " + user.getMoveToUse().getName() + "!", true);
+        textBox = new TextBox(user.getCurrentMon().getName() + " used " + user.getMoveToUse().getName() + "!", true);
         if (user.getMoveSlotToUse() != -1) {
             user.getCurrentMon().decrementPowerPoints(user.getMoveSlotToUse());
         }
         user.getMoveToUse().useInBattle(user.getMonDisplay(), target.getMonDisplay());
     }
     
+    private void finishMove(Combatant c) {
+       c.getMonDisplay().setMoveFinished(false);
+       String m = c.getMonDisplay().readMoveMessage();
+       if (m != null) {
+           textBox.addMessage(m);
+       }
+    }
+    
     private void waitAfterTurnForTextBox() {
-        if (getTimer("waitAfterTurn") == -1 && (menu == null || menu.getOutput() != null)) {
-            menu = null;
+        if (getTimer("waitAfterTurn") == -1 && (textBox == null || textBox.getOutput() != null)) {
+            textBox = null;
             setTimer("waitAfterTurn", 30);
         }
     }
@@ -158,7 +167,7 @@ public class Battle extends GameObject {
             message = enemyMon.getName() + " fainted!";
         }
         if (playerFainted || enemyFainted) {
-            menu = new TextBox(message, false);
+            textBox = new TextBox(message, false);
             return true;
         }
         return false;
@@ -173,6 +182,8 @@ public class Battle extends GameObject {
         player.draw(batch, alpha);
         if (menu != null) {
             menu.draw(batch, alpha);
+        } else if (textBox != null) {
+            textBox.draw(batch, alpha);
         } else {
             Menu.drawBox(batch, alpha, 0, 0, 512, 128);
         }
@@ -236,7 +247,7 @@ public class Battle extends GameObject {
         }
         if (state == States.TURN1) {
             if (toMoveFirst.getMonDisplay().getMoveFinished()) {
-                toMoveFirst.getMonDisplay().setMoveFinished(false);
+                finishMove(toMoveFirst);
                 state = States.BETWEEN;
             }
         }
@@ -245,7 +256,7 @@ public class Battle extends GameObject {
         }
         if (state == States.TURN2) {
             if (toMoveSecond.getMonDisplay().getMoveFinished()) {
-                toMoveSecond.getMonDisplay().setMoveFinished(false);
+                finishMove(toMoveSecond);
                 state = States.AFTER;
             }
         }
