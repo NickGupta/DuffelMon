@@ -25,6 +25,30 @@ public class StatusEffect {
         return type;
     }
     
+    public double attackEffect() {
+        return type.attackEffect();
+    }
+    
+    public double defenseEffect() {
+        return type.defenseEffect();
+    }
+    
+    public double speedEffect() {
+        return type.speedEffect();
+    }
+    
+    public double attitudeEffect() {
+        return type.attitudeEffect();
+    }
+    
+    public double accuracyEffect() {
+        return type.accuracyEffect();
+    }
+    
+    public double evasionEffect() {
+        return type.evasionEffect();
+    }
+    
     public double getStrength() {
         return strength;
     }

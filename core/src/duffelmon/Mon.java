@@ -77,29 +77,86 @@ public class Mon {
     }
     
     public double getAttack() {
-        return stats.getAttack();
+        double r = stats.getAttack();
+        for(StatusEffect s : statusEffects) {
+            double effect = s.attackEffect() - 1;
+            double attRatio = getAttitude()/s.getStrength();
+            if (effect > 0) {
+                effect *= attRatio;
+            } else if (effect < 0) {
+                effect /= attRatio;
+            }
+            r *= Math.max(effect + 1, 0);
+        }
+        return r;
     }
     
     public double getDefense() {
-        return stats.getDefense();
+        double r = stats.getDefense();
+        for(StatusEffect s : statusEffects) {
+            double effect = s.defenseEffect() - 1;
+            double attRatio = getAttitude()/s.getStrength();
+            if (effect > 0) {
+                effect *= attRatio;
+            } else if (effect < 0) {
+                effect /= attRatio;
+            }
+            r *= Math.max(effect + 1, 0);
+        }
+        return r;
     }
     
     public double getSpeed() {
-        return stats.getSpeed();
+        double r = stats.getSpeed();
+        for(StatusEffect s : statusEffects) {
+            double effect = s.speedEffect() - 1;
+            double attRatio = getAttitude()/s.getStrength();
+            if (effect > 0) {
+                effect *= attRatio;
+            } else if (effect < 0) {
+                effect /= attRatio;
+            }
+            r *= Math.max(effect + 1, 0);
+        }
+        return r;
     }
     
     public double getAttitude() {
-        return stats.getAttitude();
+        double r = stats.getAttitude();
+        for(StatusEffect s : statusEffects) {
+            r *= Math.max(s.attitudeEffect(), 0);
+        }
+        return r;
     }
     
     public double getAccuracy() {
-        double acc = 1;
-        return acc;
+        double r = 1;
+        for(StatusEffect s : statusEffects) {
+            double effect = s.accuracyEffect() - 1;
+            double attRatio = getAttitude()/s.getStrength();
+            if (effect > 0) {
+                effect *= attRatio;
+            } else if (effect < 0) {
+                effect /= attRatio;
+            }
+            r *= Math.max(effect + 1, 0);
+        }
+        return r;
     }
     
     public double getEvasion() {
-        double ev = 1;
-        return ev;
+        double r = 1;
+        for(StatusEffect s : statusEffects) {
+            double effect = s.evasionEffect() - 1;
+            double attRatio = getAttitude()/s.getStrength();
+            if (effect > 0) {
+                effect *= attRatio;
+            } else if (effect < 0) {
+                effect /= attRatio;
+            }
+            r *= Math.max(effect + 1, 0);
+        }
+        return r;
     }
     
     public void addStatusEffect(StatusEffect s) {

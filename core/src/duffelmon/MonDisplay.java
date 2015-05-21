@@ -112,6 +112,16 @@ public class MonDisplay extends GameObject {
         hitTarget = true;
     }
     
+    public String readMoveMessage() {
+        String m = moveMessage;
+        moveMessage = null;
+        return m;
+    }
+    
+    public void setMoveMessage(String m) {
+        moveMessage = m;
+    }
+    
     public boolean getMoveFinished() {
        return moveFinished; 
     }
@@ -126,12 +136,6 @@ public class MonDisplay extends GameObject {
     
     public void setMoveVar(int pos, int val) {
         customMoveVars[pos] = val;
-    }
-    
-    public String readMoveMessage() {
-        String m = moveMessage;
-        moveMessage = null;
-        return m;
     }
     
     public void resetMoveVars() {

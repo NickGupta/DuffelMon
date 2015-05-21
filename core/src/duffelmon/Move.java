@@ -159,7 +159,7 @@ public class Move {
     }
     
     public boolean inflictStatusEffectAttempt(MonDisplay uDisplay, MonDisplay tDisplay, StatusEffectType t, int tu, double a) {
-        if (Math.random() < a) {
+        if (Math.random() < Math.min(a, 1)) {
             inflictStatusEffect(uDisplay, tDisplay, t, tu);
             return true;
         }

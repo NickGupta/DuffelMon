@@ -128,6 +128,7 @@ public class Battle extends GameObject {
     
     private void finishMove(Combatant c) {
        c.getMonDisplay().setMoveFinished(false);
+       c.getMonDisplay().getMon().decrementStatusEffects();
        String m = c.getMonDisplay().readMoveMessage();
        if (m != null) {
            textBox.addMessage(m);
@@ -247,7 +248,7 @@ public class Battle extends GameObject {
         }
         if (state == States.TURN1) {
             if (toMoveFirst.getMonDisplay().getMoveFinished()) {
-                finishMove(toMoveFirst);
+                toMoveFirst.getMonDisplay().setMoveFinished(false);
                 state = States.BETWEEN;
             }
         }
@@ -256,7 +257,7 @@ public class Battle extends GameObject {
         }
         if (state == States.TURN2) {
             if (toMoveSecond.getMonDisplay().getMoveFinished()) {
-                finishMove(toMoveSecond);
+                toMoveSecond.getMonDisplay().setMoveFinished(false);
                 state = States.AFTER;
             }
         }
@@ -270,6 +271,9 @@ public class Battle extends GameObject {
         super.doFrame();
         if (menu != null) {
             menu.doFrame();
+        }
+        if (textBox != null) {
+            textBox.doFrame();
         }
         player.doFrame();
         enemy.doFrame();
