@@ -78,7 +78,8 @@ public class Battle extends GameObject {
         String aType = action.substring(0, 4);
         if (aType.equals("MOVE")) {
             int numMove = Integer.parseInt(action.substring(4));
-            if (actor.getCurrentMon().getPowerPoints(numMove) > 0) {
+            if (actor.getCurrentMon().getMove(numMove) != null
+            && actor.getCurrentMon().getPowerPoints(numMove) > 0) {
                 return actor.getCurrentMon().getMove(numMove);
             }
             return Move.getMove("Struggle");
@@ -119,7 +120,7 @@ public class Battle extends GameObject {
     }
     
     private void useMove(Combatant user, Combatant target) {
-        textBox = new TextBox(user.getCurrentMon().getName() + " used " + user.getMoveToUse().getName() + "!", true);
+        textBox = new TextBox(user.getCurrentMon().getName() + " used " + user.getMoveToUse().getName() + "!", false);
         if (user.getMoveSlotToUse() != -1) {
             user.getCurrentMon().decrementPowerPoints(user.getMoveSlotToUse());
         }
@@ -127,12 +128,25 @@ public class Battle extends GameObject {
     }
     
     private void finishMove(Combatant c) {
-       c.getMonDisplay().setMoveFinished(false);
-       c.getMonDisplay().getMon().decrementStatusEffects();
-       String m = c.getMonDisplay().readMoveMessage();
-       if (m != null) {
-           textBox.addMessage(m);
-       }
+        c.getMonDisplay().setMoveFinished(false);
+        c.getMonDisplay().getMon().decrementStatusEffects();
+        textBox.setPressToAdvance(true);
+        String m = null;
+        MonDisplay display = c.getMonDisplay();
+        if (display.getCurrentMove().targetsOpponent()) {
+            if (!display.getHitTarget()) {
+                m = "But it missed!";
+            } else if (display.getDamageDealt() == 0) {
+                m = "But it had no effect!";
+            }
+        }
+        if (m == null) {
+            m = c.getMonDisplay().readMoveMessage();
+        }
+        if (m != null) {
+            textBox.addMessage(m);
+        }
+        display.resetMoveVars();
     }
     
     private void waitAfterTurnForTextBox() {
@@ -248,7 +262,7 @@ public class Battle extends GameObject {
         }
         if (state == States.TURN1) {
             if (toMoveFirst.getMonDisplay().getMoveFinished()) {
-                toMoveFirst.getMonDisplay().setMoveFinished(false);
+                finishMove(toMoveFirst);
                 state = States.BETWEEN;
             }
         }
@@ -257,7 +271,7 @@ public class Battle extends GameObject {
         }
         if (state == States.TURN2) {
             if (toMoveSecond.getMonDisplay().getMoveFinished()) {
-                toMoveSecond.getMonDisplay().setMoveFinished(false);
+                finishMove(toMoveSecond);
                 state = States.AFTER;
             }
         }

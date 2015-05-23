@@ -65,8 +65,6 @@ public class Move {
         return powerPoints;
     }
     
-    
-    
     public double getPriority() {
         return priority;
     }
@@ -105,7 +103,6 @@ public class Move {
      * @param uDisplay Mon display to have its move finished
      */
     public void finishMove(MonDisplay uDisplay) {
-        uDisplay.resetMoveVars();
         uDisplay.setMoveFinished(true);
     }
     

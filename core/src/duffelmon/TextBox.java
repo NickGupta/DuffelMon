@@ -44,9 +44,17 @@ public class TextBox extends Menu {
         this(null, me, p);
     }
     
+    public boolean getPressToAdvance() {
+        return pressToAdvance;
+    }
+    
+    public void setPressToAdvance(boolean p) {
+        pressToAdvance = p;
+    }
+    
     public void addMessage(String s) {
         messages.add(s);
-        if (getOutput().equals("Done")) {
+        if (getOutput() != null && getOutput().equals("Done")) {
             setOutput(null);
         }
     }
