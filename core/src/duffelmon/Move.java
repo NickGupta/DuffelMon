@@ -153,6 +153,7 @@ public class Move {
     
     public void inflictStatusEffect(MonDisplay uDisplay, MonDisplay tDisplay, StatusEffectType t, int tu) {
         tDisplay.getMon().addStatusEffect(new StatusEffect(t, uDisplay.getMon().getAttitude(), tu));
+        uDisplay.addMoveMessage(t.getApplicationMessage(tDisplay));
     }
     
     public boolean inflictStatusEffectAttempt(MonDisplay uDisplay, MonDisplay tDisplay, StatusEffectType t, int tu, double a) {

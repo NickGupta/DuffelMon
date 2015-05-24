@@ -131,20 +131,22 @@ public class Battle extends GameObject {
         c.getMonDisplay().setMoveFinished(false);
         c.getMonDisplay().getMon().decrementStatusEffects();
         textBox.setPressToAdvance(true);
-        String m = null;
+        ArrayList<String> m = new ArrayList<String>();
         MonDisplay display = c.getMonDisplay();
         if (display.getCurrentMove().targetsOpponent()) {
             if (!display.getHitTarget()) {
-                m = "But it missed!";
+                m.add("But it missed!");
             } else if (display.getDamageDealt() == 0) {
-                m = "But it had no effect!";
+                m.add("But it had no effect!");
             }
         }
-        if (m == null) {
-            m = c.getMonDisplay().readMoveMessage();
+        if (m.isEmpty()) {
+            m = c.getMonDisplay().readMoveMessages();
         }
-        if (m != null) {
-            textBox.addMessage(m);
+        if (!m.isEmpty()) {
+            for(int i = 0; i < m.size(); i++) {
+                textBox.addMessage(m.get(i));
+            }
         }
         display.resetMoveVars();
     }

@@ -34,6 +34,10 @@ public class StatusEffectType {
         return name;
     }
     
+    public String getApplicationMessage(MonDisplay tDisplay) {
+        return null;
+    }
+    
     public double attackEffect() {
         return 1;
     }

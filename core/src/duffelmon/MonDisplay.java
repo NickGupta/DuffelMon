@@ -5,6 +5,7 @@
  */
 package duffelmon;
 
+import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -27,7 +28,7 @@ public class MonDisplay extends GameObject {
     private int moveStep = 0;
     private double damageDealt = 0;
     private boolean hitTarget = false;
-    private String moveMessage = null;
+    private ArrayList<String> moveMessages = new ArrayList<String>();
     private boolean moveFinished = false;
     private double[] customMoveVars = new double[3];
     private enum States {
@@ -112,14 +113,23 @@ public class MonDisplay extends GameObject {
         hitTarget = true;
     }
     
-    public String readMoveMessage() {
-        String m = moveMessage;
-        moveMessage = null;
+    public ArrayList<String> readMoveMessages() {
+        ArrayList<String> m = moveMessages;
+        moveMessages = new ArrayList<String>();
         return m;
     }
     
-    public void setMoveMessage(String m) {
-        moveMessage = m;
+    public void addMoveMessage(String m) {
+        boolean containsMessage = false;
+        for(String s : moveMessages) {
+            if (s.equals(m)) {
+                containsMessage = true;
+                break;
+            }
+        }
+        if (!containsMessage) {
+            moveMessages.add(m);
+        }
     }
     
     public boolean getMoveFinished() {

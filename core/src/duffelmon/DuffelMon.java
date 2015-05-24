@@ -80,11 +80,19 @@ public class DuffelMon extends ApplicationAdapter {
             //Status effect types
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Attack") {
                 @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Attack rose!";
+                }
+                @Override
                 public double attackEffect() {
                     return 6.0/5.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Attack") {
+                @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Attack fell!";
+                }
                 @Override
                 public double attackEffect() {
                     return 5.0/6.0;
@@ -92,11 +100,19 @@ public class DuffelMon extends ApplicationAdapter {
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Defense") {
                 @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Defense rose!";
+                }
+                @Override
                 public double defenseEffect() {
                     return 6.0/5.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Defense") {
+                @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Defense fell!";
+                }
                 @Override
                 public double defenseEffect() {
                     return 5.0/6.0;
@@ -104,11 +120,19 @@ public class DuffelMon extends ApplicationAdapter {
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Speed") {
                 @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Speed rose!";
+                }
+                @Override
                 public double speedEffect() {
                     return 6.0/5.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Speed") {
+                @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Speed fell!";
+                }
                 @Override
                 public double speedEffect() {
                     return 5.0/6.0;
@@ -116,11 +140,19 @@ public class DuffelMon extends ApplicationAdapter {
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Attitude") {
                 @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Attitude rose!";
+                }
+                @Override
                 public double attitudeEffect() {
                     return 6.0/5.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Attitude") {
+                @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Attitude fell!";
+                }
                 @Override
                 public double attitudeEffect() {
                     return 5.0/6.0;
@@ -128,11 +160,19 @@ public class DuffelMon extends ApplicationAdapter {
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Accuracy") {
                 @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Accuracy rose!";
+                }
+                @Override
                 public double accuracyEffect() {
                     return 6.0/5.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Accuracy") {
+                @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Accuracy fell!";
+                }
                 @Override
                 public double accuracyEffect() {
                     return 5.0/6.0;
@@ -140,11 +180,19 @@ public class DuffelMon extends ApplicationAdapter {
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Evasion") {
                 @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Evasion rose!";
+                }
+                @Override
                 public double evasionEffect() {
                     return 6.0/5.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Evasion") {
+                @Override
+                public String getApplicationMessage(MonDisplay tDisplay) {
+                    return tDisplay.getMon().getName() + "'s Evasion fell!";
+                }
                 @Override
                 public double evasionEffect() {
                     return 5.0/6.0;
