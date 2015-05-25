@@ -205,7 +205,8 @@ public class DuffelMon extends ApplicationAdapter {
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
-                            uDisplay.getMon().increaseHealth(20);
+                            uDisplay.getMon().increaseHealth(50);
+                            uDisplay.addMoveMessage(uDisplay.getMon().getName() + "'s health was restored by half!");
                             finishMove(uDisplay);
                             break;
                     }
