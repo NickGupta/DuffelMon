@@ -305,9 +305,7 @@ public class Battle extends GameObject {
     @Override
     public void triggerTimer(String s) {
         if (s.equals("waitAfterTurn")) {
-            if (faintDeadMons()) {
-                
-            } else {
+            if (!faintDeadMons()) {
                 if (state == States.BETWEEN) {
                     state = States.TURN2;
                     useMove(toMoveSecond, toMoveFirst);
