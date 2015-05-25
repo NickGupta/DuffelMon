@@ -127,12 +127,18 @@ public class Move {
     }
     
     public void basicDamage(MonDisplay uDisplay, MonDisplay tDisplay, Type type, double damage) {
-        double damageToDeal = damage;
-        damageToDeal *= uDisplay.getMon().getAttack()/tDisplay.getMon().getDefense();
+        double damageToDeal = damage * (uDisplay.getMon().getAttack()/tDisplay.getMon().getDefense());
+        double typeMultiplier = 1;
         for (Type t : tDisplay.getMon().getTypes()) {
-            damageToDeal *= t.getRelationship(type);
+            typeMultiplier *= t.getRelationship(type);
         }
+        damageToDeal *= typeMultiplier;
         absoluteDamage(uDisplay, tDisplay, damageToDeal*(Math.random()*0.2 + 0.9));
+        if (typeMultiplier >= Math.sqrt(2)) {
+            uDisplay.addMoveMessage("The " + type.getName() + "-type damage was super effective!");
+        } else if (typeMultiplier <= 1/Math.sqrt(2)) {
+            uDisplay.addMoveMessage("The " + type.getName() + "-type damage wasn't very effective...");
+        }
     }
     
     public void basicDamage(MonDisplay uDisplay, MonDisplay tDisplay) {

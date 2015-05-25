@@ -32,6 +32,10 @@ public class Type {
         return typeMap.get(s);
     }
     
+    public String getName() {
+        return name;
+    }
+    
     public double getRelationship(Type t) {
         Double r = relationships.get(t);
         if (r == null) {
