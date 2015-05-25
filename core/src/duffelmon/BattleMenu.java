@@ -31,7 +31,7 @@ public class BattleMenu extends Menu {
     
     public void drawMove(int x, int y, Batch batch, Mon mon, int i){
         if(mon.getMove(i) != null)
-            font.draw(batch, mon.getMoveName(i) + "    " + mon.getPowerPoints(i) + "/" + mon.getMove(i).getPowerPoints(), x, y);
+            font.draw(batch, mon.getMoveName(i), x, y);
         else
             font.draw(batch, "----", x, y);
     }
@@ -71,8 +71,21 @@ public class BattleMenu extends Menu {
             drawMove(xValue, yValue, batch, mon, 3);
             yValue += 40;
             xValue -= 120;
-
+            
             font.draw(batch, "____", x1, y1);
+            int moveSlot = 0;
+            if(x1 == 100 && y1 == 100){
+                moveSlot = 0;
+            } else if(x1 == 100 && y1 == 60){
+                moveSlot = 2;
+            } else if(x1 == 220 && y1 == 60){
+                moveSlot = 3;
+            } else if(x1 == 220 && y1 == 100){
+                moveSlot = 1;
+            }
+            if (mon.getMove(moveSlot) != null) {
+                mon.drawMoveInfo(batch, alpha, font, fontColor, 352, 96, moveSlot);
+            }
         }
         super.draw(batch, alpha);
     }

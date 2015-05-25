@@ -277,4 +277,11 @@ public class Mon {
         font.draw(batch, getName() + " lv. " + getLevel(), x, y);
         font.draw(batch, "Health: " + healthToDraw + "%", x, y - 20);
     }
+    
+    public void drawMoveInfo(Batch batch, float alpha, BitmapFont font, Color color, float x, float y, int moveSlot) {
+        font.setColor(color);
+        font.draw(batch, moves[moveSlot].getName(), x, y);
+        font.draw(batch, "Type: " + moves[moveSlot].getType().getName(), x, y - 20);
+        font.draw(batch, "PP: " + powerPoints[moveSlot] + " / " + moves[moveSlot].getPowerPoints(), x, y - 40);
+    }
 }
