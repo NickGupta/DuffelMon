@@ -21,6 +21,7 @@ public class DuffelMon extends ApplicationAdapter {
                 
                 Player player = new Player();
                 player.addMon(pMon);
+                player.addItem(new Item("Potion"));
                 GlobalData.setPlayer(player);
                 
                 // creates the second dufflemon for the battle
