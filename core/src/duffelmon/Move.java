@@ -162,6 +162,7 @@ public class Move {
         uDisplay.addMoveMessage(t.getApplicationMessage(tDisplay));
     }
     
+    // tu: turns affected, a: accuracy out of one (.5 = 50%)
     public boolean inflictStatusEffectAttempt(MonDisplay uDisplay, MonDisplay tDisplay, StatusEffectType t, int tu, double a) {
         if (Math.random() < Math.min(a, 1)) {
             inflictStatusEffect(uDisplay, tDisplay, t, tu);

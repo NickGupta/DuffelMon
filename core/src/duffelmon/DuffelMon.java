@@ -279,6 +279,7 @@ public class DuffelMon extends ApplicationAdapter {
                     switch(step) {
                         case 0:
                             basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Evasion"), 5);
                             finishMove(uDisplay);
                             break;
                     }
@@ -295,13 +296,14 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
-            // steadys the mon on the ground preparing to be hit, raises defence
-            Move steady = Move.makeMove(new Move("Steady", earth, false, 25, 1, 35, 0) {
+            // steadys the mon on the ground preparing to be hit, raises defense
+            Move steady = Move.makeMove(new Move("Steady", earth, false, 0, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
                             basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Defense"), 5);
                             finishMove(uDisplay);
                             break;
                     }
@@ -337,6 +339,7 @@ public class DuffelMon extends ApplicationAdapter {
                     switch(step) {
                         case 0:
                             basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Evasion"), 5, 0.8);
                             finishMove(uDisplay);
                             break;
                     }
@@ -349,6 +352,7 @@ public class DuffelMon extends ApplicationAdapter {
                     switch(step) {
                         case 0:
                             basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5, 0.2);
                             finishMove(uDisplay);
                             break;
                     }
@@ -356,24 +360,27 @@ public class DuffelMon extends ApplicationAdapter {
             });
             // blows a very cold gust of wind at the target
             // does little damage, but has a very high chance to slow speed and damage
-            Move northernWinds = Move.makeMove(new Move("Northern Winds", ice, true, 25, 1, 35, 0) {
+            Move northernWinds = Move.makeMove(new Move("Northern Winds", ice, true, 15, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
                             basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5);
+                            inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Attack"), 5, 0.5);
                             finishMove(uDisplay);
                             break;
                     }
                 }
             });
             // covers the mon in a layer of string ice to raise defence
-            Move iceShield = Move.makeMove(new Move("Ice Shield", ice, false, 25, 1, 35, 0) {
+            Move iceShield = Move.makeMove(new Move("Ice Shield", ice, false, 0, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
                             basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Defense"), 5);
                             finishMove(uDisplay);
                             break;
                     }
@@ -392,12 +399,13 @@ public class DuffelMon extends ApplicationAdapter {
             });
             // the mons thick skin to defend against the fire they use to
             // attack also helps defend against other things raises defence
-            Move thickSkin = Move.makeMove(new Move("Thick Skin", fire, true, 25, 1, 35, 0) {
+            Move thickSkin = Move.makeMove(new Move("Thick Skin", fire, true, 0, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
                             basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Defense"), 5);
                             finishMove(uDisplay);
                             break;
                     }
@@ -426,12 +434,13 @@ public class DuffelMon extends ApplicationAdapter {
                 }
             });
             // raises the attack of the dufflemon
-            Move overCharge = Move.makeMove(new Move("Over Charge", electric, false, 25, 1, 35, 0) {
+            Move overCharge = Move.makeMove(new Move("Over Charge", electric, false, 0, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
                             basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Attack"), 5);
                             finishMove(uDisplay);
                             break;
                     }
@@ -459,13 +468,28 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
-            // dufflemon hydrates themself, gaining stats
-            Move hydrate = Move.makeMove(new Move("Hydrate", water, false, 25, 1, 35, 0) {
+            // shields the water dufflemon in a water bubble
+            Move bubbleShield = Move.makeMove(new Move("Bubble Shield", water, false, 0, 1, 35, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
                             basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Defense"), 5);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            // dufflemon hydrates themself, gaining stats
+            Move hydrate = Move.makeMove(new Move("Hydrate", water, false, 0, 1, 35, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Attack"), 5);
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Speed"), 5);
                             finishMove(uDisplay);
                             break;
                     }
