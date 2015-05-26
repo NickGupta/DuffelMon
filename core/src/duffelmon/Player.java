@@ -9,66 +9,26 @@ package duffelmon;
  *
  * @author csstudent
  */
-public class Player {
+public class Player extends Trainer {
     
     private Mon[] mons;
     private Item[] items;
     private int money;
     
     public Player() {
-        mons = new Mon[3];
-        items = new Item[5];
+        super(0);
         money = 0;
-    }
-    
-    public Mon[] getMons() {
-        return mons;
-    }
-    
-    public Mon getMon(int i) {
-        return mons[i];
-    }
-    
-    public Item[] getItems() {
-        return items;
-    }
-    
-    public Item getItem(int i) {
-        return items[i];
     }
     
     public int getMoney() {
         return money;
     }
     
-    /**
-     * Attempts to add a mon to the player's party.
-     * @param m Mon to be added
-     * @return Whether the addition was successful
-     */
-    public boolean addMon(Mon m) {
-        for(int i = 0; i < mons.length; i++) {
-            if (mons[i] == null) {
-                mons[i] = m;
-                return true;
-            }
-        }
-        return false;
+    public void giveMoney(int m) {
+        money += m;
     }
     
-    /**
-     * Attempts to add an item to the player's item list.
-     * @param it Item to be added
-     * @return Whether the addition was successful
-     */
-    public boolean addItem(Item it) {
-        for(int i = 0; i < items.length; i++) {
-            if (items[i] == null) {
-                items[i] = it;
-                return true;
-            }
-        }
-        return false;
+    public void takeMoney(int m) {
+        money = Math.max(money - m, 0);
     }
-    
 }
