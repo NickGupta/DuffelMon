@@ -120,7 +120,14 @@ public class Battle extends GameObject {
     }
     
     private void useMove(Combatant user, Combatant target) {
-        textBox = new TextBox(user.getCurrentMon().getName() + " used " + user.getMoveToUse().getName() + "!", false);
+        String moveName = user.getMoveToUse().getName();
+        String message;
+        if (moveName.substring(0, 5).equals("Item_")) {
+            message = user.getCurrentMon().getName() + " used a " + moveName.substring(5) + "!";
+        } else {
+            message = user.getCurrentMon().getName() + " used " + moveName + "!";
+        }
+        textBox = new TextBox(message, false);
         if (user.getMoveSlotToUse() != -1) {
             user.getCurrentMon().decrementPowerPoints(user.getMoveSlotToUse());
         }
