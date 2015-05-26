@@ -28,33 +28,24 @@ public class Battle extends GameObject {
     private Combatant toMoveFirst = null;
     private Combatant toMoveSecond = null;
     
-    private Battle(Mon[] p, Item[] pI, BattleAI pA, Mon[] e, Item[] eI, BattleAI eA) {
-        player = Combatant.makeCombatant(p, pI, pA, false);
-        enemy = Combatant.makeCombatant(e, eI, eA, true);
+    private Battle(Mon[] pM, Item[] pI, BattleAI pA, Mon[] eM, Item[] eI, BattleAI eA) {
+        player = Combatant.makeCombatant(pM, pI, pA, false);
+        enemy = Combatant.makeCombatant(eM, eI, eA, true);
         state = States.INTRO;
     }
     
-    public static Battle startBattle(Mon[] p, Item[] pI, BattleAI pA, Mon[] e, Item[] eI, BattleAI eA) {
-        battle = new Battle(p, pI, pA, e, eI, eA);
+    public static Battle startBattle(Trainer p, Trainer e) {
+        battle = new Battle(p.getMons(), p.getItems(), p.getAI(), e.getMons(), e.getItems(), e.getAI());
         GameObject.makeIndependent(battle);
         return battle;
     }
     
-    public static Battle startBattle(Mon[] p, Item[] pI, BattleAI pA, Mon e, BattleAI eA) {
-        Mon[] mArray = new Mon[1];
-        mArray[0] = e;
-        return startBattle(p, pI, pA, mArray, null, eA);
-    }
-    
-    public static Battle startBattle(Mon[] e, Item[] eI, BattleAI eA) {
-        Player player = GlobalData.getPlayer();
-        return startBattle(player.getMons(), player.getItems(), null, e, eI, eA);
-    }
-    
-    public static Battle startBattle(Mon e, BattleAI eA) {
-        Mon[] mArray = new Mon[1];
-        mArray[0] = e;
-        return startBattle(mArray, null, eA);
+    public static Battle startBattle(Trainer p, Mon e, BattleAI a) {
+        Mon[] eArray = new Mon[1];
+        eArray[0] = e;
+        battle = new Battle(p.getMons(), p.getItems(), p.getAI(), eArray, null, a);
+        GameObject.makeIndependent(battle);
+        return battle;
     }
     
     public static Battle getBattle() {

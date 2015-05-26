@@ -14,11 +14,13 @@ public class Trainer {
     private Mon[] mons;
     private Item[] items;
     private int moneyToGive;
+    private BattleAI ai;
     
-    public Trainer(int m) {
+    public Trainer(int m, BattleAI a) {
         mons = new Mon[3];
         items = new Item[5];
         moneyToGive = m;
+        ai = a;
     }
     
     public Mon[] getMons() {
@@ -39,6 +41,10 @@ public class Trainer {
     
     public int getMoneyToGive() {
         return moneyToGive;
+    }
+    
+    public BattleAI getAI() {
+        return ai;
     }
     
     /**

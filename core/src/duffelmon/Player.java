@@ -16,7 +16,7 @@ public class Player extends Trainer {
     private int money;
     
     public Player() {
-        super(0);
+        super(0, null);
         money = 0;
     }
     
