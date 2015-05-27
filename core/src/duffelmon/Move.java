@@ -72,7 +72,7 @@ public class Move {
     public void useInBattle(MonDisplay uDisplay, MonDisplay tDisplay) {
         uDisplay.setCurrentMove(this);
         uDisplay.setMoveTarget(tDisplay);
-        doMoveStep(uDisplay, tDisplay, 0);
+        uDisplay.setTimer("MoveStep", 1);
     }
     
     /**

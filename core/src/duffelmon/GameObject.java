@@ -124,16 +124,20 @@ public abstract class GameObject extends Actor {
     public void triggerTimer(String s) {}
     
     public void handleTimers() {
+        ArrayList<String> timersToTrigger = new ArrayList<String>();
         for (String name : timers.keySet()) {
             int val = timers.get(name);
             if (val > 0) {
                 timers.put(name, val - 1);
                 if (val == 1) {
-                    triggerTimer(name);
+                    timersToTrigger.add(name);
                 }
             } else {
                 timers.remove(name);
             }
+        }
+        for (String name : timersToTrigger) {
+            triggerTimer(name);
         }
     }
     

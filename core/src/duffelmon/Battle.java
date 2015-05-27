@@ -234,7 +234,7 @@ public class Battle extends GameObject {
                 player.setMoveToUse(actionToMove(player, outputP));
                 player.setMoveSlotToUse(actionToMoveSlot(player, outputP));
                 enemy.setMoveToUse(actionToMove(enemy, outputE));
-                enemy.setMoveSlotToUse(actionToMoveSlot(enemy, outputP));
+                enemy.setMoveSlotToUse(actionToMoveSlot(enemy, outputE));
                 double priorityP = player.getMoveToUse().getPriority();
                 double priorityE = enemy.getMoveToUse().getPriority();
                 if (priorityP > priorityE) {
@@ -292,7 +292,6 @@ public class Battle extends GameObject {
         if (textBox != null) {
             textBox.doFrame();
         }
-        player.doFrame();
         enemy.doFrame();
         for(int i = 0; i < moveEffects.size(); i++) {
             moveEffects.get(i).doFrame();
@@ -301,6 +300,7 @@ public class Battle extends GameObject {
                 i--;
             }
         }
+        player.doFrame();
     }
     
     @Override
