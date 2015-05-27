@@ -15,22 +15,9 @@ public class DuffelMon extends ApplicationAdapter {
         @Override
 	public void create () {
                 initializeData();
-                
-                // creates the first dufflemon for the battle
-                Mon pMon = new Mon(null, Species.getSpecies("Charmander"), 10);
-                
-                Player player = new Player();
-                player.addMon(pMon);
-                player.addItem(new Item("Potion"));
-                GlobalData.setPlayer(player);
-                
-                // creates the second dufflemon for the battle
-                Mon enemy = new Mon(null, Species.getSpecies("Kingdra"), 8);
-                Trainer enemyTrainer = new Trainer(500, new RandomMoveAI());
-                enemyTrainer.addMon(enemy);
-                GlobalData.initialize(new Stage(), new BitmapFont());
-                Battle.startBattle(player, enemyTrainer);
-                
+                          
+                MainMenu m = new MainMenu();
+                GameObject.makeIndependent(m);
 	}
         
 	@Override
@@ -51,6 +38,8 @@ public class DuffelMon extends ApplicationAdapter {
         }
         
         private void initializeData() {
+            GlobalData.initialize(new Stage(), new BitmapFont());
+            
             //Textures
             GlobalData.makeTexture("largeImpact", "movesprites/largeimpact.png");
             
