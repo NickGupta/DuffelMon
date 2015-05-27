@@ -28,14 +28,14 @@ public class Battle extends GameObject {
     private Combatant toMoveFirst = null;
     private Combatant toMoveSecond = null;
     
-    private Battle(Mon[] pM, Item[] pI, BattleAI pA, Mon[] eM, Item[] eI, BattleAI eA) {
-        player = Combatant.makeCombatant(pM, pI, pA, false);
-        enemy = Combatant.makeCombatant(eM, eI, eA, true);
+    private Battle(Mon[] pM, Item[] pI, Trainer pT, BattleAI pA, Mon[] eM, Item[] eI, Trainer eT, BattleAI eA) {
+        player = Combatant.makeCombatant(pM, pI, pT, pA, false);
+        enemy = Combatant.makeCombatant(eM, eI, eT, eA, true);
         state = States.INTRO;
     }
     
     public static Battle startBattle(Trainer p, Trainer e) {
-        battle = new Battle(p.getMons(), p.getItems(), p.getAI(), e.getMons(), e.getItems(), e.getAI());
+        battle = new Battle(p.getMons(), p.getItems(), p, p.getAI(), e.getMons(), e.getItems(), e, e.getAI());
         GameObject.makeIndependent(battle);
         return battle;
     }
@@ -43,7 +43,7 @@ public class Battle extends GameObject {
     public static Battle startBattle(Trainer p, Mon e, BattleAI a) {
         Mon[] eArray = new Mon[1];
         eArray[0] = e;
-        battle = new Battle(p.getMons(), p.getItems(), p.getAI(), eArray, null, a);
+        battle = new Battle(p.getMons(), p.getItems(), p, p.getAI(), eArray, null, null, a);
         GameObject.makeIndependent(battle);
         return battle;
     }
@@ -78,7 +78,10 @@ public class Battle extends GameObject {
             return null;
         } else if (aType.equals("ITEM")) {
             int numItem = Integer.parseInt(action.substring(4));
-            return actor.getItem(numItem).getMove();
+            if (actor.getItem(numItem) != null) {
+                return actor.getItem(numItem).getMove();
+            }
+            return Move.getMove("Item_Null");
         } else if (aType.equals("ESCP")) {
             return null;
         }

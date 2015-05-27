@@ -16,6 +16,7 @@ public class Combatant {
     private Mon[] mons;
     private int monsPos = 0;
     private Item[] items;
+    private Trainer trainer = null;
     private BattleAI ai = null;
     private MonDisplay monDisplay = null;
     private MonInfoDisplay infoDisplay = null;
@@ -24,13 +25,14 @@ public class Combatant {
     private Move moveToUse = null;
     private int moveSlotToUse = -1;
     
-    private Combatant(Mon[] m, Item[] i, BattleAI a) {
+    private Combatant(Mon[] m, Item[] i, Trainer t, BattleAI a) {
         mons = m;
         items = i;
+        trainer = t;
         ai = a;
     }
     
-    public static Combatant makeCombatant(Mon[] m, Item[] i, BattleAI a, boolean front) {
+    public static Combatant makeCombatant(Mon[] m, Item[] i, Trainer t, BattleAI a, boolean front) {
         float monX, monY, infoX, infoY;
         if (front) {
             monX = 416;
@@ -43,16 +45,10 @@ public class Combatant {
             infoX = 384;
             infoY = 192;
         }
-        Combatant c = new Combatant(m, i, a);
+        Combatant c = new Combatant(m, i, t, a);
         c.setMonDisplay(new MonDisplay(c, front, monX, monY));
         c.setInfoDisplay(new MonInfoDisplay(c, infoX, infoY));
         return c;
-    }
-    
-    public static Combatant makeCombatant(Mon m, BattleAI a, boolean front) {
-        Mon[] mArray = new Mon[1];
-        mArray[0] = m;
-        return makeCombatant(mArray, null, a, front);
     }
     
     public Mon[] getMons() {
@@ -81,6 +77,14 @@ public class Combatant {
     
     public Item getItem(int pos) {
         return items[pos];
+    }
+    
+    public boolean isTrainer() {
+        return trainer != null;
+    }
+    
+    public Trainer getTrainer() {
+        return trainer;
     }
     
     public boolean isPlayer() {
