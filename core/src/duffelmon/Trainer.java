@@ -11,16 +11,22 @@ package duffelmon;
  */
 public class Trainer {
     
+    private String name;
     private Mon[] mons;
     private Item[] items;
     private int moneyToGive;
     private BattleAI ai;
     
-    public Trainer(int m, BattleAI a) {
+    public Trainer(String n, int m, BattleAI a) {
+        name = n;
         mons = new Mon[3];
         items = new Item[5];
         moneyToGive = m;
         ai = a;
+    }
+    
+    public String getName() {
+        return name;
     }
     
     public Mon[] getMons() {

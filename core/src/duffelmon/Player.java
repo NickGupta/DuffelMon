@@ -15,8 +15,8 @@ public class Player extends Trainer {
     private Item[] items;
     private int money;
     
-    public Player() {
-        super(0, null);
+    public Player(String n) {
+        super(n, 0, null);
         money = 0;
     }
     

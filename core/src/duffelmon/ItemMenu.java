@@ -30,7 +30,7 @@ public class ItemMenu extends Menu {
         for(int i = 0; i < items.length; i++) {
             String itemInfo;
             if (items[i] != null) {
-                itemInfo = items[i].getName() + " x " + items[i].getAmount();
+                itemInfo = items[i].getName();
             } else {
                 itemInfo = "---";
             }

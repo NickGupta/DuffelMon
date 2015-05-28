@@ -10,15 +10,9 @@ package duffelmon;
 public class Item {
     
     private String name;
-    private int amount;
-    
-    public Item(String n, int a) {
-        name = n;
-        amount = a;
-    }
     
     public Item(String n) {
-        this(n, 1);
+        name = n;
     }
     
     public String getName() {
@@ -27,18 +21,6 @@ public class Item {
     
     public Move getMove() {
         return Move.getMove("Item_" + name);
-    }
-    
-    public int getAmount() {
-        return amount;
-    }
-    
-    public void incrementAmount() {
-        amount++;
-    }
-    
-    public void decrementAmount() {
-        amount--;
     }
     
 }
