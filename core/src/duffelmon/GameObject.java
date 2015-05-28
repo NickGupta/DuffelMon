@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public abstract class GameObject extends Actor {
 
     private static ArrayList<GameObject> independentObjects = new ArrayList<GameObject>();
+    private static ArrayList<GameObject> toMakeIndependent = new ArrayList<GameObject>();
+    
     /**
      * Makes a GameObject independent. Independent GameObjects will run their
      * frame actions automatically, will be drawn every render-frame, and will
@@ -25,8 +27,7 @@ public abstract class GameObject extends Actor {
      * @param g GameObject to be made independent
      */
     public static void makeIndependent(GameObject g) {
-        independentObjects.add(g);
-        GlobalData.getStage().addActor(g);
+        toMakeIndependent.add(g);
     }
     
     /**
@@ -37,8 +38,7 @@ public abstract class GameObject extends Actor {
      * @param g GameObject to be made dependent
      */
     public static void makeDependent(GameObject g) {
-        independentObjects.remove(g);
-        g.remove();
+        g.shouldBeDependent = true;
     }
     
     /**
@@ -47,17 +47,31 @@ public abstract class GameObject extends Actor {
      * @return Whether the object is currently independent
      */
     public static boolean isIndependent(GameObject g) {
-        return independentObjects.contains(g);
+        return independentObjects.contains(g) || toMakeIndependent.contains(g);
     }
     
     public static void runFrameActions() {
-        for(GameObject g : independentObjects) {
+        for (GameObject g : independentObjects) {
             g.doFrame();
         }
+        for (int i = 0; i < independentObjects.size(); i++) {
+            GameObject g = independentObjects.get(i);
+            if (g.shouldBeDependent) {
+                independentObjects.remove(i);
+                g.remove();
+                i--;
+            }
+        }
+        for (GameObject g : toMakeIndependent) {
+            independentObjects.add(g);
+            GlobalData.getStage().addActor(g);
+        }
+        toMakeIndependent = new ArrayList<GameObject>();
     }
     
     private HashMap<String,Integer> timers = new HashMap<String,Integer>();
     private boolean alive = true;
+    private boolean shouldBeDependent = false;
     private float xSpeed = 0;
     private float ySpeed = 0;
     

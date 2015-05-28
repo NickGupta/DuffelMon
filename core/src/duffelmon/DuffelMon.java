@@ -190,7 +190,18 @@ public class DuffelMon extends ApplicationAdapter {
                 }
             });
             
-            //Item moves
+            //Utility moves
+            Move.makeMove(new Move("Change_Mons", normal, false, 0, 1, 0, 100) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            uDisplay.addMoveMessage(uDisplay.getMon().getName() + " tried to use an item, but it couldn't find it!");
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move.makeMove(new Move("Item_Null", normal, false, 0, 1, 0, 100) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
@@ -202,6 +213,8 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            
+            //Item moves
             Move.makeMove(new Move("Item_Potion", normal, false, 0, 1, 0, 100) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
