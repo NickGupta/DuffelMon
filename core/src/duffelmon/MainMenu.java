@@ -56,17 +56,8 @@ public class MainMenu extends Menu{
             if (x1 == 120) {
                 GameObject.makeDependent(this);
                 
-                Mon pMon = new Mon(null, Species.getSpecies("Charmander"), 10);
-                
-                Player player = new Player("Joe");
-                player.addMon(pMon);
-                player.addItem(new Item("Potion"));
-                GlobalData.setPlayer(player);
-                
-                Mon enemy = new Mon(null, Species.getSpecies("Kingdra"), 8);
-                Trainer enemyTrainer = new Trainer("Bob", 500, new RandomMoveAI());
-                enemyTrainer.addMon(enemy);
-                Battle.startBattle(player, enemyTrainer);
+               GameMenu g = new GameMenu();
+               GameObject.makeIndependent(g);
             }
         }
     }
