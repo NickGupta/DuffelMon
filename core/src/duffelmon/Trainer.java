@@ -12,13 +12,15 @@ package duffelmon;
 public class Trainer {
     
     private String name;
+    private String type;
     private Mon[] mons;
     private Item[] items;
     private int moneyToGive;
     private BattleAI ai;
     
-    public Trainer(String n, int m, BattleAI a) {
+    public Trainer(String n, String t, int m, BattleAI a) {
         name = n;
+        type = t;
         mons = new Mon[3];
         items = new Item[5];
         moneyToGive = m;
@@ -27,6 +29,10 @@ public class Trainer {
     
     public String getName() {
         return name;
+    }
+    
+    public String getType() {
+        return type;
     }
     
     public Mon[] getMons() {

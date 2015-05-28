@@ -16,7 +16,7 @@ public class Player extends Trainer {
     private int money;
     
     public Player(String n) {
-        super(n, 0, null);
+        super(n, "Trainer", 0, null);
         money = 0;
     }
     

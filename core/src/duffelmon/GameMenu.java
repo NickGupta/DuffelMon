@@ -34,9 +34,9 @@ public class GameMenu extends Menu{
         sprite.setX(xValue);
         sprite.setY(yValue);
         font.setColor(fontColor);
-        font.draw(batch, "Wild Encounter", xValue, yValue);
+        font.draw(batch, "Hunt for Wild DuffelMon", xValue, yValue);
         xValue -= 200;
-        font.draw(batch, "Trainer Battler", xValue, yValue);
+        font.draw(batch, "Battle Trainer", xValue, yValue);
         xValue += 200;
         yValue-=128;
         font.draw(batch, "Shop at DuffelMart", xValue, yValue);
@@ -48,6 +48,7 @@ public class GameMenu extends Menu{
         yValue = 256;
     }
     
+    @Override
     public void frameActions() {
         
         
@@ -79,7 +80,7 @@ public class GameMenu extends Menu{
                 GlobalData.setPlayer(player);
                 
                 Mon enemy = new Mon(null, Species.getSpecies("Kingdra"), 8);
-                Trainer enemyTrainer = new Trainer("Bob", 500, new RandomMoveAI());
+                Trainer enemyTrainer = new Trainer("Bob", "Hiker", 500, new RandomMoveAI());
                 enemyTrainer.addMon(enemy);
                 Battle.startBattle(player, enemyTrainer);
             }
