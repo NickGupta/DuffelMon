@@ -37,6 +37,7 @@ public class MonMenu extends Menu {
     @Override
     public void draw(Batch batch, float alpha) {
         Menu.drawBox(batch, alpha, getX(), getY() - 96*3, getX() + 256, getY());
+        Menu.drawBox(batch, alpha, 0, 0, 258, 256);
         float yPos = getY();
         for(int i = 0; i < mons.length; i++) {
             if (mons[i] != null) {
@@ -51,6 +52,22 @@ public class MonMenu extends Menu {
             if (selection == i) {
                 font.setColor(fontColor);
                 font.draw(batch, "_____", getX() + 96, yPos - 28);
+                if (mons[i] != null) {
+                    font.draw(batch, mons[i].getName(), 12, 236);
+                    font.draw(batch, "Level: " + mons[i].getLevel(), 12, 212);
+                    font.draw(batch, "Health: " + mons[i].getHealth() + "%", 24, 120);
+                    font.draw(batch, "Attack: " + Math.round(mons[i].getAttack()), 140, 120);
+                    font.draw(batch, "Defense: " + Math.round(mons[i].getDefense()), 24, 80);
+                    font.draw(batch, "Speed: " + Math.round(mons[i].getSpeed()), 140, 80);
+                    font.draw(batch, "Attitude: " + Math.round(mons[i].getAttitude()), 24, 40);
+                    Sprite sprite = monSprites[i];
+                    sprite.setCenter(160, 190);
+                    sprite.setScale(2);
+                    sprite.draw(batch);
+                    sprite.setScale(1);
+                } else {
+                    font.draw(batch, "No Mon Selected", 75, 120);
+                }
             }
             yPos -= 96;
         }

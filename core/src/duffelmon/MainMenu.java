@@ -44,6 +44,7 @@ public class MainMenu extends Menu{
         yValue = 260;
     }
     
+    @Override
     public void frameActions() {
         if(GlobalData.keyPressed(GlobalData.Inputs.RIGHT)||GlobalData.keyPressed(GlobalData.Inputs.LEFT)){
                 if(x1 == 120){
@@ -56,10 +57,12 @@ public class MainMenu extends Menu{
             if (x1 == 120) {
                 GameObject.makeDependent(this);
                 
-                Mon pMon = new Mon(null, Species.getSpecies("Charmander"), 10);
+                Mon pMonChar = new Mon(null, Species.getSpecies("Charmander"), 10);
+                Mon pMonKing = new Mon(null, Species.getSpecies("Kingdra"), 10);
                 
                 Player player = new Player("Joe");
-                player.addMon(pMon);
+                player.addMon(pMonChar);
+                player.addMon(pMonKing);
                 player.addItem(new Item("Potion"));
                 GlobalData.setPlayer(player);
                 
