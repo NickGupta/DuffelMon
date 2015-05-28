@@ -35,6 +35,10 @@ public class Trainer {
         return type;
     }
     
+    public String getFullName() {
+        return type + " " + name;
+    }
+    
     public Mon[] getMons() {
         return mons;
     }

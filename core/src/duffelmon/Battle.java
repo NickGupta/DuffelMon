@@ -17,13 +17,14 @@ public class Battle extends GameObject {
     private static Battle battle;
     
     private enum States {
-        INTRO, BEFORE, TURN1, BETWEEN, TURN2, AFTER
+        INTRO, TRAINERMOVE, ENEMYSEND, PLAYERSEND, BEFORE, TURN1, BETWEEN, TURN2, AFTER
     }
     private Combatant player;
     private Combatant enemy;
     private States state;
     private BattleMenu menu = null;
     private TextBox textBox = null;
+    private TrainerDisplay trainer = null;
     private ArrayList<MoveEffect> moveEffects = new ArrayList<MoveEffect>();
     private Combatant toMoveFirst = null;
     private Combatant toMoveSecond = null;
@@ -31,7 +32,14 @@ public class Battle extends GameObject {
     private Battle(Mon[] pM, Item[] pI, Trainer pT, BattleAI pA, Mon[] eM, Item[] eI, Trainer eT, BattleAI eA) {
         player = Combatant.makeCombatant(pM, pI, pT, pA, false);
         enemy = Combatant.makeCombatant(eM, eI, eT, eA, true);
-        state = States.INTRO;
+        if (eT == null) {
+            textBox = new TextBox("A wild " + enemy.getCurrentMon().getName() + " appeared!", true);
+            state = States.ENEMYSEND;
+        } else {
+            trainer = new TrainerDisplay(416, 304, eT);
+            textBox = new TextBox(enemy.getTrainer().getFullName() + " is ready to battle!", true);
+            state = States.INTRO;
+        }
     }
     
     public static Battle startBattle(Trainer p, Trainer e) {
@@ -193,6 +201,9 @@ public class Battle extends GameObject {
     
     @Override
     public void draw(Batch batch, float alpha) {
+        if (trainer != null) {
+            trainer.draw(batch, alpha);
+        }
         enemy.draw(batch, alpha);
         for(MoveEffect m : moveEffects) {
             m.draw(batch, alpha);
@@ -210,11 +221,26 @@ public class Battle extends GameObject {
     @Override
     public void frameActions() {
         if (state == States.INTRO) {
-            player.showMonDisplay();
-            player.showInfoDisplay();
-            enemy.showMonDisplay();
-            enemy.showInfoDisplay();
-            startNewTurn();
+            if (textBox.getOutput() != null) {
+                textBox = null;
+                state = States.TRAINERMOVE;
+                trainer.setXSpeed(4);
+                setTimer("trainerStop", 45);
+            }
+        }
+        if (state == States.ENEMYSEND) {
+            if (textBox.getOutput() != null) {
+                player.showMonDisplay();
+                player.showInfoDisplay();
+                textBox = new TextBox(player.getTrainer().getName() + " sent out " + player.getCurrentMon().getName() + "!", true);
+                state = States.PLAYERSEND;
+            }
+        }
+        if (state == States.PLAYERSEND) {
+            if (textBox.getOutput() != null) {
+                textBox = null;
+                startNewTurn();
+            }
         }
         if (state == States.BEFORE) {
             String outputP;
@@ -292,6 +318,9 @@ public class Battle extends GameObject {
         if (textBox != null) {
             textBox.doFrame();
         }
+        if (trainer != null) {
+            trainer.doFrame();
+        }
         enemy.doFrame();
         for(int i = 0; i < moveEffects.size(); i++) {
             moveEffects.get(i).doFrame();
@@ -305,7 +334,14 @@ public class Battle extends GameObject {
     
     @Override
     public void triggerTimer(String s) {
-        if (s.equals("waitAfterTurn")) {
+        if (s.equals("trainerStop")) {
+            trainer.setXSpeed(0);
+            trainer.setVisible(false);
+            enemy.showMonDisplay();
+            enemy.showInfoDisplay();
+            textBox = new TextBox(enemy.getTrainer().getName() + " sent out " + enemy.getCurrentMon().getName() + "!", true);
+            state = States.ENEMYSEND;
+        } else if (s.equals("waitAfterTurn")) {
             if (!faintDeadMons()) {
                 if (state == States.BETWEEN) {
                     state = States.TURN2;

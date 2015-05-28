@@ -144,7 +144,7 @@ public class Combatant {
     }
     
     public void draw(Batch batch, float alpha) {
-        if (monDisplay != null) {
+        if (showMonDisplay && monDisplay != null) {
             monDisplay.draw(batch, alpha);
         }
         if (showInfoDisplay && infoDisplay != null) {

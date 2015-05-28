@@ -69,7 +69,7 @@ public class GameMenu extends Menu{
         }
         
         if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)) {
-            if(x1 == 400 && y1 == 256){
+            if(x1 == 300 && y1 == 256){
                 GameObject.makeDependent(this);
                 
                 Mon pMon = new Mon(null, Species.getSpecies("Charmander"), 10);

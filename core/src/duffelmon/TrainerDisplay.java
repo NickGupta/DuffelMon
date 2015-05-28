@@ -15,19 +15,21 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  */
 public class TrainerDisplay extends GameObject {
     
-    private Combatant combatant;
+    private Trainer trainer;
     private Sprite sprite;
     boolean visible = true;
     
-    public TrainerDisplay(Combatant c, String t) {
-        combatant = c;
-        sprite = new Sprite(new Texture("trainersprites/" + t + ".png"));
+    public TrainerDisplay(float x, float y, Trainer t) {
+        setX(x);
+        setY(y);
+        trainer = t;
+        sprite = new Sprite(new Texture("trainersprites/" + t.getType() + ".png"));
         sprite.setScale(2);
         sprite.setOrigin(sprite.getWidth(), 0);
     }
     
-    public Combatant getCombatant() {
-        return combatant;
+    public Trainer getTrainer() {
+        return trainer;
     }
     
     @Override
