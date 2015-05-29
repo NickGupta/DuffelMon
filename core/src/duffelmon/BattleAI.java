@@ -24,4 +24,7 @@ public abstract class BattleAI {
     }
     
     public abstract void chooseAction(Combatant self, Combatant opponent);
+    
+    public abstract void chooseMon(Combatant self, Combatant opponent);
+    
 }

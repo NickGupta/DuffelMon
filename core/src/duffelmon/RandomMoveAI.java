@@ -25,4 +25,21 @@ public class RandomMoveAI extends BattleAI {
             setOutput("MOVE"+positions.get(random));
         }
     }
+    
+    @Override
+    public void chooseMon(Combatant self, Combatant opponent) {
+        String output = null;
+        int i = self.getMonsPos();
+        while (output == null) {
+            i++;
+            if (i > self.getMons().length) {
+                i = 0;
+            }
+            if (self.getMon(i).getHealth() > 0) {
+                output = "MONS" + i;
+            }
+        }
+        setOutput(output);
+    }
+    
 }

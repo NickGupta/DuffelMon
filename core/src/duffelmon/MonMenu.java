@@ -91,7 +91,7 @@ public class MonMenu extends Menu {
             }
         }
         if (GlobalData.keyPressed(GlobalData.Inputs.SELECT) && mons[selection] != null) {
-            setOutput("CHNG" + selection);
+            setOutput("MONS" + selection);
         }
     }
 }

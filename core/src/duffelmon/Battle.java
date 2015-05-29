@@ -82,7 +82,7 @@ public class Battle extends GameObject {
                 return actor.getCurrentMon().getMove(numMove);
             }
             return Move.getMove("Struggle");
-        } else if (aType.equals("CHNG")) {
+        } else if (aType.equals("MONS")) {
             return null;
         } else if (aType.equals("ITEM")) {
             int numItem = Integer.parseInt(action.substring(4));

@@ -191,7 +191,7 @@ public class DuffelMon extends ApplicationAdapter {
             });
             
             //Utility moves
-            Move.makeMove(new Move("Change_Mons", normal, false, 0, 1, 0, 100) {
+            Move.makeMove(new Move("ChangeMons", normal, false, 0, 1, 0, 100) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
