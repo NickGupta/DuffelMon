@@ -72,10 +72,8 @@ public class GameMenu extends Menu{
             if(x1 == 300 && y1 == 256){
                 GameObject.makeDependent(this);
                 
-                Mon pMon = new Mon(null, Species.getSpecies("Charmander"), 10);
-                
                 Player player = new Player("Joe");
-                player.addMon(pMon);
+                player.addMon(new Mon(null, Species.getSpecies("Charmander"), 10));
                 player.addItem(new Item("Potion"));
                 GlobalData.setPlayer(player);
                 

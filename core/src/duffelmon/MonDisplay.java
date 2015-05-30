@@ -144,7 +144,7 @@ public class MonDisplay extends GameObject {
         return customMoveVars[pos];
     }
     
-    public void setMoveVar(int pos, int val) {
+    public void setMoveVar(int pos, double val) {
         customMoveVars[pos] = val;
     }
     
