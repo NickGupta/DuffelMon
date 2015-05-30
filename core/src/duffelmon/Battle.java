@@ -133,12 +133,12 @@ public class Battle extends GameObject {
         if (user.getMoveSlotToUse() != -1) {
             user.getCurrentMon().decrementPowerPoints(user.getMoveSlotToUse());
         }
+        user.getCurrentMon().decrementStatusEffects();
         user.getMoveToUse().useInBattle(user.getMonDisplay(), target.getMonDisplay());
     }
     
     private void finishMove(Combatant c) {
         c.getMonDisplay().setMoveFinished(false);
-        c.getMonDisplay().getMon().decrementStatusEffects();
         textBox.setPressToAdvance(true);
         ArrayList<String> m = new ArrayList<String>();
         MonDisplay display = c.getMonDisplay();

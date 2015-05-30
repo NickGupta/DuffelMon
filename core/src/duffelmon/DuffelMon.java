@@ -271,7 +271,7 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
-            Move swipe = Move.makeMove(new Move("Swipe", normal, true, 20, 1, 10, 0) {
+            Move swipe = Move.makeMove(new Move("Swipe", steel, true, 20, 1, 10, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -279,6 +279,35 @@ public class DuffelMon extends ApplicationAdapter {
                             basicDamageAttempt(uDisplay, tDisplay);
                             finishMove(uDisplay);
                             break;
+                    }
+                }
+            });
+            Move guard = Move.makeMove(new Move("Guard", normal, false, 0, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            for(int i = 0; i < 3; i++) {
+                                inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Defense"), 1);
+                            }
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move furySlash = Move.makeMove(new Move("Fury Slash", steel, true, 15, 0.5, 5, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            uDisplay.setMoveVar(0, uDisplay.getMoveVar(0) + 1);
+                            if (uDisplay.getMoveVar(0) >= 4) {
+                                finishMove(uDisplay);
+                            } else {
+                                waitUntilNextMoveStep(uDisplay, 20);
+                            }
+                        break;
                     }
                 }
             });
@@ -451,7 +480,7 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
-            Move lightningStrike = Move.makeMove(new Move("Lightning Strike", electric, true, 20, (2.0/3.0), 5, 0) {
+            Move lightningStrike = Move.makeMove(new Move("Lightning Strike", electric, true, 15, (2.0/3.0), 5, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -587,9 +616,15 @@ public class DuffelMon extends ApplicationAdapter {
             Type[] types = {bug, light};
             moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
-            moveset.put(harden, 1);
-            moveset.put(bugBite, 5);
+            moveset.put(harden, 4);
+            moveset.put(bugBite, 7);
             moveset.put(gammaBurst, 10);
             Species.makeSpecies("Pulsect", new BaseStats(30, 50, 50, 20), types, moveset);
+            moveset = new HashMap<Move,Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(swipe, 4);
+            moveset.put(guard, 7);
+            moveset.put(furySlash, 10);
+            Species.makeSpecies("Scythera", new BaseStats(40, 20, 50, 40), normal, moveset);
         }
 }
