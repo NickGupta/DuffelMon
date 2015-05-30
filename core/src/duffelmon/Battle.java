@@ -124,7 +124,7 @@ public class Battle extends GameObject {
     private void useMove(Combatant user, Combatant target) {
         String moveName = user.getMoveToUse().getName();
         String message;
-        if (moveName.substring(0, 5).equals("Item_")) {
+        if (moveName.length() >= 5 && moveName.substring(0, 5).equals("Item_")) {
             message = user.getCurrentMon().getName() + " used a " + moveName.substring(5) + "!";
         } else {
             message = user.getCurrentMon().getName() + " used " + moveName + "!";

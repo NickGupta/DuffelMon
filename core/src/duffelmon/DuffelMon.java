@@ -339,8 +339,9 @@ public class DuffelMon extends ApplicationAdapter {
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
-                            basicDamageAttempt(uDisplay, tDisplay);
-                            inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5);
+                            if (basicDamageAttempt(uDisplay, tDisplay)) {
+                                inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5);
+                            }
                             finishMove(uDisplay);
                             break;
                     }
@@ -380,6 +381,28 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move liftoff = Move.makeMove(new Move("Liftoff", air, false, 0, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Evasion"), 5);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move tailWind = Move.makeMove(new Move("Tail Wind", air, false, 0, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Speed"), 5);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             // does poisen type damage but has no chance of applying a DOT effect
             Move sting = Move.makeMove(new Move("Sting", poison, true, 20, 1, 10, 0) {
                 @Override
@@ -398,8 +421,9 @@ public class DuffelMon extends ApplicationAdapter {
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
-                            basicDamageAttempt(uDisplay, tDisplay);
-                            inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Evasion"), 5, 0.8);
+                            if (basicDamageAttempt(uDisplay, tDisplay)) {
+                                inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Evasion"), 5, 0.8);
+                            }
                             finishMove(uDisplay);
                             break;
                     }
@@ -411,8 +435,9 @@ public class DuffelMon extends ApplicationAdapter {
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
-                            basicDamageAttempt(uDisplay, tDisplay);
-                            inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5, 0.2);
+                            if (basicDamageAttempt(uDisplay, tDisplay)) {
+                                inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5, 0.2);
+                            }
                             finishMove(uDisplay);
                             break;
                     }
@@ -420,14 +445,15 @@ public class DuffelMon extends ApplicationAdapter {
             });
             // blows a very cold gust of wind at the target
             // does little damage, but has a very high chance to slow speed and damage
-            Move northernWinds = Move.makeMove(new Move("Northern Winds", ice, true, 10, 1, 5, 0) {
+            Move blizzard = Move.makeMove(new Move("Blizzard", ice, true, 10, 1, 5, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
-                            basicDamageAttempt(uDisplay, tDisplay);
-                            inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5);
-                            inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Attack"), 5, 0.5);
+                            if (basicDamageAttempt(uDisplay, tDisplay)) {
+                                inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5);
+                                inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Attack"), 5, 0.5);
+                            }
                             finishMove(uDisplay);
                             break;
                     }
@@ -588,6 +614,17 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move flash = Move.makeMove(new Move("Flash", light, false, 0, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Accuracy"), 5);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move gammaBurst = Move.makeMove(new Move("Gamma Burst", light, true, 25, 0.75, 5, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
@@ -613,7 +650,9 @@ public class DuffelMon extends ApplicationAdapter {
             moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             Species.makeSpecies("Kingdra", new BaseStats(80, 75, 65, 80), water, moveset);
-            Type[] types = {bug, light};
+            Type[] types = new Type[2];
+            types[0] = bug;
+            types[1] = light;
             moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             moveset.put(harden, 4);
@@ -626,5 +665,13 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(guard, 7);
             moveset.put(furySlash, 10);
             Species.makeSpecies("Scythera", new BaseStats(40, 20, 50, 40), normal, moveset);
+            types[0] = ice;
+            types[1] = flying;
+            moveset = new HashMap<Move,Integer>();
+            moveset.put(gust, 1);
+            moveset.put(coldTouch, 4);
+            moveset.put(liftoff, 7);
+            moveset.put(blizzard, 10);
+            Species.makeSpecies("Flurricane", new BaseStats(50, 30, 20, 50), types, moveset);
         }
 }
