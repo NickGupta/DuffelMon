@@ -287,8 +287,8 @@ public class DuffelMon extends ApplicationAdapter {
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
-                            for(int i = 0; i < 3; i++) {
-                                inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Defense"), 1);
+                            for(int i = 0; i < 2; i++) {
+                                inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Defense"), 3);
                             }
                             finishMove(uDisplay);
                             break;
