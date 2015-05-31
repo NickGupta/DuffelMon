@@ -77,7 +77,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double attackEffect() {
-                    return 6.0/5.0;
+                    return 4.0/3.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Attack") {
@@ -87,7 +87,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double attackEffect() {
-                    return 5.0/6.0;
+                    return 3.0/4.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Defense") {
@@ -97,7 +97,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double defenseEffect() {
-                    return 6.0/5.0;
+                    return 4.0/3.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Defense") {
@@ -107,7 +107,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double defenseEffect() {
-                    return 5.0/6.0;
+                    return 3.0/4.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Speed") {
@@ -117,7 +117,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double speedEffect() {
-                    return 6.0/5.0;
+                    return 4.0/3.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Speed") {
@@ -127,7 +127,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double speedEffect() {
-                    return 5.0/6.0;
+                    return 3.0/4.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Attitude") {
@@ -137,7 +137,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double attitudeEffect() {
-                    return 6.0/5.0;
+                    return 4.0/3.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Attitude") {
@@ -147,7 +147,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double attitudeEffect() {
-                    return 5.0/6.0;
+                    return 3.0/4.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Accuracy") {
@@ -157,7 +157,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double accuracyEffect() {
-                    return 6.0/5.0;
+                    return 4.0/3.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Accuracy") {
@@ -167,7 +167,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double accuracyEffect() {
-                    return 5.0/6.0;
+                    return 3.0/4.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Evasion") {
@@ -177,7 +177,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double evasionEffect() {
-                    return 6.0/5.0;
+                    return 4.0/3.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Evasion") {
@@ -187,7 +187,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double evasionEffect() {
-                    return 5.0/6.0;
+                    return 3.0/4.0;
                 }
             });
             
@@ -271,6 +271,17 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move punch = Move.makeMove(new Move("Punch", normal, true, 20, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move charge = Move.makeMove(new Move("Charge", normal, true, 40, 0.8, 5, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
@@ -301,6 +312,20 @@ public class DuffelMon extends ApplicationAdapter {
                             for(int i = 0; i < 2; i++) {
                                 inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Defense"), 3);
                             }
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move massage = Move.makeMove(new Move("Massage", normal, false, 0, 1, 5, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Attack"), 5);
+                            inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5);
+                            tDisplay.getMon().increaseHealth(12.5);
+                            uDisplay.addMoveMessage(tDisplay.getMon().getName() + " was healed slightly!");
                             finishMove(uDisplay);
                             break;
                     }
@@ -715,5 +740,11 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(charge, 7);
             moveset.put(parasiteSpore, 10);
             Species.makeSpecies("Mooshroom", new BaseStats(40, 30, 30, 50), poison, moveset);
+            moveset = new HashMap<Move,Integer>();
+            moveset.put(punch, 1);
+            moveset.put(harden, 4);
+            moveset.put(bugBite, 7);
+            moveset.put(massage, 10);
+            Species.makeSpecies("Massant", new BaseStats(50, 20, 40, 40), bug, moveset);
         }
 }
