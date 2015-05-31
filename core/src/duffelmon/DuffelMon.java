@@ -271,6 +271,17 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move charge = Move.makeMove(new Move("Charge", normal, true, 40, 0.8, 5, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move swipe = Move.makeMove(new Move("Swipe", steel, true, 20, 1, 10, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
@@ -423,6 +434,31 @@ public class DuffelMon extends ApplicationAdapter {
                         case 0:
                             if (basicDamageAttempt(uDisplay, tDisplay)) {
                                 inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Evasion"), 5, 0.8);
+                            }
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move toxicGas = Move.makeMove(new Move("Toxic Gas", poison, false, 0, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Attack"), 5);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move parasiteSpore = Move.makeMove(new Move("Parasite Spore", poison, false, 0, 1, 5, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            if (Math.random() < 0.75) {
+                                inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Attack"), 5);
+                                inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Evasion"), 5);
                             }
                             finishMove(uDisplay);
                             break;
@@ -673,5 +709,11 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(liftoff, 7);
             moveset.put(blizzard, 10);
             Species.makeSpecies("Flurricane", new BaseStats(50, 30, 20, 50), types, moveset);
+            moveset = new HashMap<Move,Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(toxicGas, 4);
+            moveset.put(charge, 7);
+            moveset.put(parasiteSpore, 10);
+            Species.makeSpecies("Mooshroom", new BaseStats(40, 30, 30, 50), poison, moveset);
         }
 }
