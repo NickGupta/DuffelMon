@@ -786,5 +786,11 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(crush, 7);
             moveset.put(auroraLaser, 10);
             Species.makeSpecies("Auroralisk", new BaseStats(40, 30, 50, 30), light, moveset);
+            moveset = new HashMap<Move,Integer>();
+            moveset.put(bubbleShield, 1);
+            moveset.put(waterGun, 4);
+            moveset.put(hydrate, 7);
+            moveset.put(tackle, 10);
+            Species.makeSpecies("Spongerob", new BaseStats(40, 30, 50, 30), water, moveset);
         }
 }
