@@ -282,6 +282,17 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move slap = Move.makeMove(new Move("Slap", normal, true, 40, .6, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move charge = Move.makeMove(new Move("Charge", normal, true, 40, 0.8, 5, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
@@ -331,7 +342,56 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move investigate = Move.makeMove(new Move("Investigate", normal, true, 30, .7, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move kick = Move.makeMove(new Move("Kick", normal, true, 20, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move bodyslam = Move.makeMove(new Move("Body Slam", normal, true, 35, .8, 5, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move furySlash = Move.makeMove(new Move("Fury Slash", steel, true, 15, 0.5, 5, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            uDisplay.setMoveVar(0, uDisplay.getMoveVar(0) + 1);
+                            if (uDisplay.getMoveVar(0) >= 4) {
+                                finishMove(uDisplay);
+                            } else {
+                                waitUntilNextMoveStep(uDisplay, 20);
+                            }
+                        break;
+                    }
+                }
+            });
+            Move cut = Move.makeMove(new Move("Cut", steel, true, 10, 0.7, 15, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -396,6 +456,17 @@ public class DuffelMon extends ApplicationAdapter {
             });
             // steadys the mon on the ground preparing to be hit, raises defense
             Move steady = Move.makeMove(new Move("Steady", earth, false, 0, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Defense"), 5);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move devour = Move.makeMove(new Move("Devour", earth, true, 40, .8, 10, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -617,6 +688,17 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move waterBucket = Move.makeMove(new Move("Water Bucket", water, true, 30, 1, 15, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             // shields the water dufflemon in a water bubble
             Move bubbleShield = Move.makeMove(new Move("Bubble Shield", water, false, 0, 1, 10, 0) {
                 @Override
@@ -746,5 +828,57 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(bugBite, 7);
             moveset.put(massage, 10);
             Species.makeSpecies("Massant", new BaseStats(50, 20, 40, 40), bug, moveset);
+           
+            
+            moveset = new HashMap<Move,Integer>();
+            moveset.put(furySlash, 1);
+            moveset.put(swipe, 4);
+            moveset.put(punch, 7);
+            moveset.put(cut, 10);
+            Species.makeSpecies("Swordface", new BaseStats(40, 30, 40, 40), steel, moveset);
+            types[0] = bug;
+            types[1] = air;
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(harden, 1);
+            moveset.put(bugBite, 4);
+            moveset.put(gust, 7);
+            moveset.put(liftoff, 10);
+            Species.makeSpecies("Margarinefree", new BaseStats(50, 20, 50, 30), types, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(punch, 1);
+            moveset.put(slap, 4);
+            moveset.put(investigate, 7);
+            moveset.put(kick, 10);
+            Species.makeSpecies("Vincemaughn", new BaseStats(50, 20, 40, 40), normal, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(steady, 4);
+            moveset.put(devour, 7);
+            moveset.put(bodyslam, 10);
+            Species.makeSpecies("Colbear", new BaseStats(50, 20, 30, 50), earth, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(bubbleShield, 1);
+            moveset.put(hydrate, 4);
+            moveset.put(waterBucket, 7);
+            moveset.put(tackle, 10);
+            Species.makeSpecies("Spongerob", new BaseStats(50, 20, 30, 50), water, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(devour, 1);
+            moveset.put(punch, 4);
+            moveset.put(slap, 7);
+            moveset.put(kick, 10);
+            Species.makeSpecies("Prince Paw", new BaseStats(50, 20, 40, 40), earth, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(flash, 1);
+            moveset.put(gammaBurst, 4);
+            moveset.put(lightningStrike, 7);
+            moveset.put(tackle, 10);
+            Species.makeSpecies("Flashlamp", new BaseStats(40, 20, 40, 50), light, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(iceBlast, 1);
+            moveset.put(blizzard, 4);
+            moveset.put(coldTouch, 7);
+            moveset.put(tackle, 10);
+            Species.makeSpecies("Ice Pyramid", new BaseStats(40, 30, 40, 40), ice, moveset);  
         }
 }
