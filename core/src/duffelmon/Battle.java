@@ -83,7 +83,7 @@ public class Battle extends GameObject {
             }
             return Move.getMove("Struggle");
         } else if (aType.equals("MONS")) {
-            return null;
+            return Move.getMove("ChangeMons");
         } else if (aType.equals("ITEM")) {
             int numItem = Integer.parseInt(action.substring(4));
             if (actor.getItem(numItem) != null) {
@@ -126,6 +126,8 @@ public class Battle extends GameObject {
         String message;
         if (moveName.length() >= 5 && moveName.substring(0, 5).equals("Item_")) {
             message = user.getCurrentMon().getName() + " used a " + moveName.substring(5) + "!";
+        } else if (moveName.equals("ChangeMons")) {
+            message = user.getTrainer().getName() + " recalled " + user.getCurrentMon().getName() + "!";
         } else {
             message = user.getCurrentMon().getName() + " used " + moveName + "!";
         }

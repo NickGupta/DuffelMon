@@ -197,7 +197,7 @@ public class DuffelMon extends ApplicationAdapter {
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
-                            uDisplay.addMoveMessage(uDisplay.getMon().getName() + " tried to use an item, but it couldn't find it!");
+                            uDisplay.addMoveMessage(uDisplay.getMon().getName() + " tried to change mons, but it wasn't implemented yet!");
                             finishMove(uDisplay);
                             break;
                     }
