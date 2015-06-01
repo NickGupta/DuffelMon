@@ -509,8 +509,9 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            
             // does a little but of damage, but has a high chance of applying a DOT
-            Move poisonDart = Move.makeMove(new Move("Poison Dart", poison, true, 12.5, 1, 8, 0) {
+            Move indigestion = Move.makeMove(new Move("Indigestion", poison, true, 25, 1, 5, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -836,6 +837,33 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move taxi = Move.makeMove(new Move("Taxi", flying, false, 0, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            inflictStatusEffect(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move seed = Move.makeMove(new Move("Seed", plant, true, 20, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            uDisplay.setMoveVar(0, uDisplay.getMoveVar(0) + 1);
+                            if (uDisplay.getMoveVar(0) >= 2) {
+                                finishMove(uDisplay);
+                            } else {
+                                waitUntilNextMoveStep(uDisplay, 30);
+                            }
+                        break;
+                    }
+                }
+            });
             
             //Mons
             HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();
@@ -923,6 +951,20 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(segway, 4);
             moveset.put(tase, 7);
             moveset.put(slap, 10);
-            Species.makeSpecies("Paul Blart: Mall Cop", new BaseStats(40, 50, 30, 30), electric, moveset);
+            Species.makeSpecies("Paul Blart", new BaseStats(40, 50, 30, 30), electric, moveset);
+            types[0] = poison;
+            types[1] = flying;
+            moveset = new HashMap<Move,Integer>();
+            moveset.put(indigestion, 1);
+            moveset.put(sting, 4);
+            moveset.put(taxi, 7);
+            moveset.put(slap, 10);
+            Species.makeSpecies("Taco Snail", new BaseStats(40, 50, 30, 30), types, moveset);
+            moveset = new HashMap<Move,Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(seed, 4);
+            moveset.put(bodySlam, 7);
+            moveset.put(slap, 10);
+            Species.makeSpecies("Cabbage Head", new BaseStats(40, 50, 30, 30), plant, moveset);
         }
 }
