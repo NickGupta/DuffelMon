@@ -66,7 +66,7 @@ public class Combatant {
         return monsPos;
     }
     
-    public void setMonsPos(int pos) {
+    public void setMon(int pos) {
         monsPos = pos;
         monDisplay.setMon(mons[pos]);
     }

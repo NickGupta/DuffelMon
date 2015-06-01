@@ -79,9 +79,9 @@ public class GameMenu extends Menu{
                 player.addItem(new Item("Potion"));
                 GlobalData.setPlayer(player);
                 
-                Mon enemy = new Mon(null, Species.getSpecies("Kingdra"), 8);
                 Trainer enemyTrainer = new Trainer("Bob", "Hiker", 500, new RandomMoveAI());
-                enemyTrainer.addMon(enemy);
+                enemyTrainer.addMon(new Mon(null, Species.getSpecies("Kingdra"), 8));
+                enemyTrainer.addMon(new Mon(null, Species.getSpecies("Massant"), 8));
                 Battle.startBattle(player, enemyTrainer);
             }
         }

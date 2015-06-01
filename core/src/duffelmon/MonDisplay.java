@@ -76,6 +76,21 @@ public class MonDisplay extends GameObject {
         privateSetMon(m);
     }
     
+    public void becomeDuffelBag() {
+        Texture t;
+        if (front > 0) {
+            t = GlobalData.getTexture("duffelBagFront");
+        } else {
+            t = GlobalData.getTexture("duffelBagBack");
+        }
+        sprite = new Sprite(t);
+        sprite.setScale(2);
+        if (front > 0) {
+            sprite.setFlip(true, false);
+        }
+        sprite.setOrigin(t.getWidth(), 0);
+    }
+    
     public Move getCurrentMove() {
         return currentMove;
     }

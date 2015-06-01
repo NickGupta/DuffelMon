@@ -97,14 +97,10 @@ public class Battle extends GameObject {
     }
     
     private int actionToMoveSlot(Combatant actor, String action) {
-        String aType = action.substring(0, 4);
-        if (aType.equals("MOVE")) {
-            int numMove = Integer.parseInt(action.substring(4));
-            if (actor.getCurrentMon().getPowerPoints(numMove) > 0) {
-                return numMove;
-            }
+        if (action.substring(0, 4).equals("ESCP")) {
+            return -1;
         }
-        return -1;
+        return Integer.parseInt(action.substring(4));
     }
     
     private double monToPriority(Mon mon) {
@@ -124,15 +120,19 @@ public class Battle extends GameObject {
     private void useMove(Combatant user, Combatant target) {
         String moveName = user.getMoveToUse().getName();
         String message;
+        boolean isNormalMove = false;
         if (moveName.length() >= 5 && moveName.substring(0, 5).equals("Item_")) {
             message = user.getCurrentMon().getName() + " used a " + moveName.substring(5) + "!";
         } else if (moveName.equals("ChangeMons")) {
-            message = user.getTrainer().getName() + " recalled " + user.getCurrentMon().getName() + "!";
-        } else {
+            message = user.getTrainer().getName() + " sent out " + user.getMon(user.getMoveSlotToUse()).getName() + "!";
+        } else if (user.getMoveSlotToUse() >= 0) {
             message = user.getCurrentMon().getName() + " used " + moveName + "!";
+            isNormalMove = true;
+        } else {
+            message = "Escape message here";
         }
         textBox = new TextBox(message, false);
-        if (user.getMoveSlotToUse() != -1) {
+        if (isNormalMove) {
             user.getCurrentMon().decrementPowerPoints(user.getMoveSlotToUse());
         }
         user.getCurrentMon().decrementStatusEffects();

@@ -41,6 +41,8 @@ public class DuffelMon extends ApplicationAdapter {
             GlobalData.initialize(new Stage(), new BitmapFont());
             
             //Textures
+            GlobalData.makeTexture("duffelBagFront", "duffelbag_front.png");
+            GlobalData.makeTexture("duffelBagBack", "duffelbag_back.png");
             GlobalData.makeTexture("largeImpact", "movesprites/largeimpact.png");
             
             //Types
@@ -197,7 +199,16 @@ public class DuffelMon extends ApplicationAdapter {
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
                         case 0:
-                            uDisplay.addMoveMessage(uDisplay.getMon().getName() + " tried to change mons, but it wasn't implemented yet!");
+                            nextMoveStep(uDisplay);
+                            waitUntilNextMoveStep(uDisplay, 30);
+                            break;
+                        case 1:
+                            uDisplay.becomeDuffelBag();
+                            nextMoveStep(uDisplay);
+                            waitUntilNextMoveStep(uDisplay, 30);
+                            break;
+                        case 2:
+                            uDisplay.getCombatant().setMon(uDisplay.getCombatant().getMoveSlotToUse());
                             finishMove(uDisplay);
                             break;
                     }
@@ -914,6 +925,8 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(crush, 7);
             moveset.put(auroraLaser, 10);
             Species.makeSpecies("Auroralisk", new BaseStats(40, 30, 50, 30), light, moveset);
+            //Please keep all new species commented out until sprites are made for them.
+            /*
             moveset = new HashMap<Move,Integer>();
             moveset.put(waterGun, 1);
             moveset.put(douse, 4);
@@ -952,8 +965,8 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(tase, 7);
             moveset.put(slap, 10);
             Species.makeSpecies("Paul Blart", new BaseStats(40, 50, 30, 30), electric, moveset);
-            types[0] = poison;
-            types[1] = flying;
+            types[0] = poison; //Why is a taco snail poisonous
+            types[1] = flying; //Why does a taco snail fly
             moveset = new HashMap<Move,Integer>();
             moveset.put(indigestion, 1);
             moveset.put(sting, 4);
@@ -966,5 +979,6 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(bodySlam, 7);
             moveset.put(slap, 10);
             Species.makeSpecies("Cabbage Head", new BaseStats(40, 50, 30, 30), plant, moveset);
+            */
         }
 }
