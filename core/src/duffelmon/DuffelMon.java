@@ -77,7 +77,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double attackEffect() {
-                    return 4.0/3.0;
+                    return 3.0/2.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Attack") {
@@ -87,7 +87,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double attackEffect() {
-                    return 3.0/4.0;
+                    return 2.0/3.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Defense") {
@@ -97,7 +97,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double defenseEffect() {
-                    return 4.0/3.0;
+                    return 3.0/2.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Defense") {
@@ -107,7 +107,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double defenseEffect() {
-                    return 3.0/4.0;
+                    return 2.0/3.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Speed") {
@@ -117,7 +117,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double speedEffect() {
-                    return 4.0/3.0;
+                    return 3.0/2.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Speed") {
@@ -127,7 +127,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double speedEffect() {
-                    return 3.0/4.0;
+                    return 2.0/3.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Attitude") {
@@ -137,7 +137,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double attitudeEffect() {
-                    return 4.0/3.0;
+                    return 3.0/2.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Decrease Attitude") {
@@ -147,7 +147,7 @@ public class DuffelMon extends ApplicationAdapter {
                 }
                 @Override
                 public double attitudeEffect() {
-                    return 3.0/4.0;
+                    return 2.0/3.0;
                 }
             });
             StatusEffectType.makeEffectType(new StatusEffectType("Increase Accuracy") {
@@ -282,6 +282,18 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move crush = Move.makeMove(new Move("Crush", normal, true, 12.5, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            inflictStatusEffectAttempt(uDisplay, tDisplay, StatusEffectType.getEffectType("Decrease Speed"), 5, 0.5);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move charge = Move.makeMove(new Move("Charge", normal, true, 40, 0.8, 5, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
@@ -294,6 +306,17 @@ public class DuffelMon extends ApplicationAdapter {
                 }
             });
             Move swipe = Move.makeMove(new Move("Swipe", steel, true, 20, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move bite = Move.makeMove(new Move("Bite", steel, true, 20, 1, 10, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -556,7 +579,7 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
-            Move thunderBolt = Move.makeMove(new Move("Thunder Bolt", electric, true, 50, 1, 10, 0) {
+            Move thunderBolt = Move.makeMove(new Move("Thunder Bolt", electric, true, 40, 1, 5, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {
@@ -686,6 +709,17 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move auroraLaser = Move.makeMove(new Move("Aurora Laser", light, true, 40, 1, 5, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            basicDamageAttempt(uDisplay, tDisplay);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move gammaBurst = Move.makeMove(new Move("Gamma Burst", light, true, 25, 0.75, 5, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
@@ -746,5 +780,11 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(bugBite, 7);
             moveset.put(massage, 10);
             Species.makeSpecies("Massant", new BaseStats(50, 20, 40, 40), bug, moveset);
+            moveset = new HashMap<Move,Integer>();
+            moveset.put(bite, 1);
+            moveset.put(flash, 4);
+            moveset.put(crush, 7);
+            moveset.put(auroraLaser, 10);
+            Species.makeSpecies("Auroralisk", new BaseStats(40, 30, 50, 30), light, moveset);
         }
 }

@@ -73,7 +73,7 @@ public class GameMenu extends Menu{
                 GameObject.makeDependent(this);
                 
                 Player player = new Player("Joe");
-                player.addMon(new Mon(null, Species.getSpecies("Charmander"), 10));
+                player.addMon(new Mon(null, Species.getSpecies("Auroralisk"), 10));
                 player.addItem(new Item("Potion"));
                 GlobalData.setPlayer(player);
                 
