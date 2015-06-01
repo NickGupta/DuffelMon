@@ -74,6 +74,8 @@ public class GameMenu extends Menu{
                 
                 Player player = new Player("Joe");
                 player.addMon(new Mon(null, Species.getSpecies("Charmander"), 10));
+                player.addMon(new Mon(null, Species.getSpecies("Pulsect"), 10));
+                player.addMon(new Mon(null, Species.getSpecies("Scythera"), 10));
                 player.addItem(new Item("Potion"));
                 GlobalData.setPlayer(player);
                 
