@@ -400,7 +400,7 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
-            Move furySlash = Move.makeMove(new Move("Fury Slash", steel, true, 15, 0.5, 5, 0) {
+            Move furySlash = Move.makeMove(new Move("Fury Slash", steel, true, 20, 0.5, 5, 0) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
                     switch(step) {

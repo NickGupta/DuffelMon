@@ -17,12 +17,14 @@ public class Battle extends GameObject {
     private static Battle battle;
     
     private enum States {
-        INTRO, TRAINERMOVE, ENEMYSEND, PLAYERSEND, BEFORE, TURN1, BETWEEN, TURN2, AFTER, FAINTED
+        INTRO, TRAINERMOVE, ENEMYSEND, PLAYERSEND, BEFORE, TURN1, BETWEEN,
+        TURN2, AFTER, FAINTED, SELECTLIVEMON, SENDLIVEMON, AFTERSENDLIVE,
+        TRAINERMOVEBACK, PLAYERWIN, PLAYERLOSE
     }
     private Combatant player;
     private Combatant enemy;
     private States state;
-    private BattleMenu menu = null;
+    private Menu menu = null;
     private TextBox textBox = null;
     private TrainerDisplay trainer = null;
     private ArrayList<MoveEffect> moveEffects = new ArrayList<MoveEffect>();
@@ -120,27 +122,24 @@ public class Battle extends GameObject {
     private void useMove(Combatant user, Combatant target) {
         String moveName = user.getMoveToUse().getName();
         String message;
-        boolean isNormalMove = false;
         if (moveName.length() >= 5 && moveName.substring(0, 5).equals("Item_")) {
             message = user.getCurrentMon().getName() + " used a " + moveName.substring(5) + "!";
+            user.useItem(user.getMoveSlotToUse());
         } else if (moveName.equals("ChangeMons")) {
             message = user.getTrainer().getName() + " sent out " + user.getMon(user.getMoveSlotToUse()).getName() + "!";
         } else if (user.getMoveSlotToUse() >= 0) {
             message = user.getCurrentMon().getName() + " used " + moveName + "!";
-            isNormalMove = true;
+            user.getCurrentMon().decrementPowerPoints(user.getMoveSlotToUse());
         } else {
             message = "Escape message here";
         }
         textBox = new TextBox(message, false);
-        if (isNormalMove) {
-            user.getCurrentMon().decrementPowerPoints(user.getMoveSlotToUse());
-        }
-        user.getCurrentMon().decrementStatusEffects();
         user.getMoveToUse().useInBattle(user.getMonDisplay(), target.getMonDisplay());
     }
     
     private void finishMove(Combatant c) {
         c.getMonDisplay().setMoveFinished(false);
+        c.getCurrentMon().decrementStatusEffects();
         textBox.setPressToAdvance(true);
         ArrayList<String> m = new ArrayList<String>();
         MonDisplay display = c.getMonDisplay();
@@ -162,6 +161,44 @@ public class Battle extends GameObject {
         display.resetMoveVars();
     }
     
+    private boolean switchToLiveMon(Combatant c, Combatant o) {
+        Mon mon = c.getCurrentMon();
+        if (mon.getHealth() > 0) {
+            return true;
+        }
+        boolean defeated = true;
+        for(Mon m : c.getMons()) {
+            if (m != null && m.getHealth() > 0) {
+                defeated = false;
+                break;
+            }
+        }
+        if (defeated) {
+            player.hideInfoDisplay();
+            enemy.hideInfoDisplay();
+            textBox = new TextBox(c.getTrainer().getName() + " was defeated!", false);
+            state = States.TRAINERMOVEBACK;
+            trainer.setVisible(true);
+            trainer.setXSpeed(-4);
+            setTimer("trainerStop", 45);
+            return false;
+        }
+        toMoveFirst = c;
+        toMoveSecond = o;
+        if (c.isPlayer()) {
+            menu = new MonMenu(256, 288, c.getMons());
+            state = States.SELECTLIVEMON;
+        } else {
+            c.getAI().chooseMon(c, o);
+            String output = c.getAI().getOutput();
+            c.setMoveToUse(actionToMove(c, output));
+            c.setMoveSlotToUse(actionToMoveSlot(c, output));
+            useMove(c, o);
+            state = States.SENDLIVEMON;
+        }
+        return false;
+    }
+    
     private void waitAfterTurnForTextBox() {
         if (getTimer("waitAfterTurn") == -1 && (textBox == null || textBox.getOutput() != null)) {
             textBox = null;
@@ -170,7 +207,7 @@ public class Battle extends GameObject {
     }
     
     private void faintCurrentMon(Combatant c) {
-        c.getMonDisplay().faint();
+        c.hideMonDisplay();
     }
     
     @Override
@@ -282,7 +319,31 @@ public class Battle extends GameObject {
             waitAfterTurnForTextBox();
         }
         if (state == States.FAINTED) {
-            
+            if (textBox == null || textBox.getOutput() != null) {
+                textBox = null;
+                if (switchToLiveMon(enemy, player) && switchToLiveMon(player, enemy)) {
+                    startNewTurn();
+                }
+            }
+        }
+        if (state == States.SELECTLIVEMON) {
+            String output = menu.getOutput();
+            if (output != null) {
+                menu = null;
+                toMoveFirst.setMoveToUse(actionToMove(toMoveFirst, output));
+                toMoveFirst.setMoveSlotToUse(actionToMoveSlot(toMoveFirst, output));
+                useMove(toMoveFirst, toMoveSecond);
+                state = States.SENDLIVEMON;
+            }
+        }
+        if (state == States.SENDLIVEMON) {
+            if (toMoveFirst.getMonDisplay().getMoveFinished()) {
+                finishMove(toMoveFirst);
+                state = States.AFTERSENDLIVE;
+            }
+        }
+        if (state == States.AFTERSENDLIVE) {
+            waitAfterTurnForTextBox();
         }
     }
     
@@ -313,41 +374,49 @@ public class Battle extends GameObject {
     public void triggerTimer(String s) {
         if (s.equals("trainerStop")) {
             trainer.setXSpeed(0);
-            trainer.setVisible(false);
-            enemy.showMonDisplay();
-            enemy.showInfoDisplay();
-            textBox = new TextBox(enemy.getTrainer().getName() + " sent out " + enemy.getCurrentMon().getName() + "!", true);
-            state = States.ENEMYSEND;
+            if (state == States.TRAINERMOVE) {
+                trainer.setVisible(false);
+                enemy.showMonDisplay();
+                enemy.showInfoDisplay();
+                textBox = new TextBox(enemy.getTrainer().getName() + " sent out " + enemy.getCurrentMon().getName() + "!", true);
+                state = States.ENEMYSEND;
+            } else if (state == States.TRAINERMOVEBACK) {
+                
+            }
         } else if (s.equals("waitAfterTurn")) {
-            Mon playerMon = player.getCurrentMon();
-            Mon enemyMon = enemy.getCurrentMon();
-            boolean playerFainted = false;
-            boolean enemyFainted = false;
-            if (playerMon.getHealth() == 0) {
-                faintCurrentMon(player);
-                playerFainted = true;
-            }
-            if (enemyMon.getHealth() == 0) {
-                faintCurrentMon(enemy);
-                enemyFainted = true;
-            }
-            if (playerFainted || enemyFainted) {
+            if (state == States.AFTERSENDLIVE) {
                 state = States.FAINTED;
-                String message = null;
-                if (playerFainted && enemyFainted) {
-                    message = "Both mons fainted!";
-                } else if (playerFainted) {
-                    message = playerMon.getName() + " fainted!";
-                } else if (enemyFainted) {
-                    message = enemyMon.getName() + " fainted!";
-                }
-                textBox = new TextBox(message, true);
             } else {
-                if (state == States.BETWEEN) {
-                    state = States.TURN2;
-                    useMove(toMoveSecond, toMoveFirst);
-                } else if (state == States.AFTER) {
-                    startNewTurn();
+                Mon playerMon = player.getCurrentMon();
+                Mon enemyMon = enemy.getCurrentMon();
+                boolean playerFainted = false;
+                boolean enemyFainted = false;
+                if (playerMon.getHealth() == 0) {
+                    faintCurrentMon(player);
+                    playerFainted = true;
+                }
+                if (enemyMon.getHealth() == 0) {
+                    faintCurrentMon(enemy);
+                    enemyFainted = true;
+                }
+                if (playerFainted || enemyFainted) {
+                    state = States.FAINTED;
+                    String message = null;
+                    if (playerFainted && enemyFainted) {
+                        message = "Both mons fainted!";
+                    } else if (playerFainted) {
+                        message = playerMon.getName() + " fainted!";
+                    } else if (enemyFainted) {
+                        message = enemyMon.getName() + " fainted!";
+                    }
+                    textBox = new TextBox(message, true);
+                } else {
+                    if (state == States.BETWEEN) {
+                        state = States.TURN2;
+                        useMove(toMoveSecond, toMoveFirst);
+                    } else if (state == States.AFTER) {
+                        startNewTurn();
+                    }
                 }
             }
         }
