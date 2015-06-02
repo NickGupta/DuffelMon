@@ -28,7 +28,7 @@ public class MonStats {
         defense = d;
         speed = spd;
         attitude = tude;
-        level = MonStats.getLevelFromStatTotal(s, attack + defense + speed + attitude);
+        level = MonStats.getLevelFromStatTotal(attack + defense + speed + attitude);
     }
     
     public MonStats(Species s, double a, double d, double spd, double tude) {
@@ -49,24 +49,24 @@ public class MonStats {
         this(s, new Chromosome(), new Chromosome(), l);
     }
     
-    public static int getLevelFromStatTotal(Species s, double t) {
-        return (int)Math.sqrt((Math.max(t - 25, 0))) + 1;
+    public static int getLevelFromStatTotal(double t) {
+        return 1 + (int)Math.floor(GlobalData.logBase(1.15, t/20.0));
     }
     
     public static double getLevel1Attack(Species s, Chromosome c1, Chromosome c2) {
-        return s.getAttack()*(25/s.getStatTotal())*c1.getAttack()*c2.getAttack();
+        return s.getAttack()*(20/s.getStatTotal())*c1.getAttack()*c2.getAttack();
     }
     
     public static double getLevel1Defense(Species s, Chromosome c1, Chromosome c2) {
-        return s.getDefense()*(25/s.getStatTotal())*c1.getDefense()*c2.getDefense();
+        return s.getDefense()*(20/s.getStatTotal())*c1.getDefense()*c2.getDefense();
     }
     
     public static double getLevel1Speed(Species s, Chromosome c1, Chromosome c2) {
-        return s.getSpeed()*(25/s.getStatTotal())*c1.getSpeed()*c2.getSpeed();
+        return s.getSpeed()*(20/s.getStatTotal())*c1.getSpeed()*c2.getSpeed();
     }
     
     public static double getLevel1Attitude(Species s, Chromosome c1, Chromosome c2) {
-        return s.getAttitude()*(25/s.getStatTotal())*c1.getAttitude()*c2.getAttitude();
+        return s.getAttitude()*(20/s.getStatTotal())*c1.getAttitude()*c2.getAttitude();
     }
     
     private MonStats privateGetCopy() {
@@ -111,7 +111,7 @@ public class MonStats {
         defense += gainFactor*(species.getDefense()*speciesStatRatio + m.getDefense()*chromosome1.getDefense()*chromosome2.getDefense());
         speed += gainFactor*(species.getSpeed()*speciesStatRatio + m.getSpeed()*chromosome1.getSpeed()*chromosome2.getSpeed());
         attitude += gainFactor*(species.getAttitude()*speciesStatRatio + m.getAttitude()*chromosome1.getAttitude()*chromosome2.getAttitude());
-        level = MonStats.getLevelFromStatTotal(species, getStatTotal());
+        level = MonStats.getLevelFromStatTotal(getStatTotal());
     }
     
     private void privateGainExperience(MonStats m) {

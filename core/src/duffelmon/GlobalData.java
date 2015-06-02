@@ -115,4 +115,9 @@ public class GlobalData {
     public static boolean keyReleased(Inputs i) {
         return inputs.get(i) == InputStatus.RELEASED;
     }
+    
+    public static double logBase(double base, double num) {
+        return Math.log(num)/Math.log(base);
+    }
+    
 }

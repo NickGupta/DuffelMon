@@ -69,6 +69,7 @@ public class Combatant {
     public void setMon(int pos) {
         monsPos = pos;
         monDisplay.setMon(mons[pos]);
+        showInfoDisplay();
     }
     
     public Item[] getItems() {

@@ -77,6 +77,7 @@ public class MonDisplay extends GameObject {
     }
     
     public void becomeDuffelBag() {
+        combatant.hideInfoDisplay();
         Texture t;
         if (front > 0) {
             t = GlobalData.getTexture("duffelBagFront");
