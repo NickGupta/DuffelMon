@@ -17,7 +17,7 @@ public class Battle extends GameObject {
     private static Battle battle;
     
     private enum States {
-        INTRO, TRAINERMOVE, ENEMYSEND, PLAYERSEND, BEFORE, TURN1, BETWEEN, TURN2, AFTER
+        INTRO, TRAINERMOVE, ENEMYSEND, PLAYERSEND, BEFORE, TURN1, BETWEEN, TURN2, AFTER, FAINTED
     }
     private Combatant player;
     private Combatant enemy;
@@ -173,34 +173,6 @@ public class Battle extends GameObject {
         c.getMonDisplay().faint();
     }
     
-    private boolean faintDeadMons() {
-        Mon playerMon = player.getCurrentMon();
-        Mon enemyMon = enemy.getCurrentMon();
-        boolean playerFainted = false;
-        boolean enemyFainted = false;
-        if (playerMon.getHealth() == 0) {
-            faintCurrentMon(player);
-            playerFainted = true;
-        }
-        if (enemyMon.getHealth() == 0) {
-            faintCurrentMon(enemy);
-            enemyFainted = true;
-        }
-        String message = null;
-        if (playerFainted && enemyFainted) {
-            message = "Both mons fainted!";
-        } else if (playerFainted) {
-            message = playerMon.getName() + " fainted!";
-        } else if (enemyFainted) {
-            message = enemyMon.getName() + " fainted!";
-        }
-        if (playerFainted || enemyFainted) {
-            textBox = new TextBox(message, false);
-            return true;
-        }
-        return false;
-    }
-    
     @Override
     public void draw(Batch batch, float alpha) {
         if (trainer != null) {
@@ -309,6 +281,9 @@ public class Battle extends GameObject {
         if (state == States.AFTER) {
             waitAfterTurnForTextBox();
         }
+        if (state == States.FAINTED) {
+            
+        }
     }
     
     @Override
@@ -344,7 +319,30 @@ public class Battle extends GameObject {
             textBox = new TextBox(enemy.getTrainer().getName() + " sent out " + enemy.getCurrentMon().getName() + "!", true);
             state = States.ENEMYSEND;
         } else if (s.equals("waitAfterTurn")) {
-            if (!faintDeadMons()) {
+            Mon playerMon = player.getCurrentMon();
+            Mon enemyMon = enemy.getCurrentMon();
+            boolean playerFainted = false;
+            boolean enemyFainted = false;
+            if (playerMon.getHealth() == 0) {
+                faintCurrentMon(player);
+                playerFainted = true;
+            }
+            if (enemyMon.getHealth() == 0) {
+                faintCurrentMon(enemy);
+                enemyFainted = true;
+            }
+            if (playerFainted || enemyFainted) {
+                state = States.FAINTED;
+                String message = null;
+                if (playerFainted && enemyFainted) {
+                    message = "Both mons fainted!";
+                } else if (playerFainted) {
+                    message = playerMon.getName() + " fainted!";
+                } else if (enemyFainted) {
+                    message = enemyMon.getName() + " fainted!";
+                }
+                textBox = new TextBox(message, true);
+            } else {
                 if (state == States.BETWEEN) {
                     state = States.TURN2;
                     useMove(toMoveSecond, toMoveFirst);
