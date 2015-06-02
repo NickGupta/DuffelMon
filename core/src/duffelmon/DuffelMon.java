@@ -926,19 +926,21 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(auroraLaser, 10);
             Species.makeSpecies("Auroralisk", new BaseStats(40, 30, 50, 30), light, moveset);
             //Please keep all new species commented out until sprites are made for them.
-            /*
+            
             moveset = new HashMap<Move,Integer>();
             moveset.put(waterGun, 1);
             moveset.put(douse, 4);
             moveset.put(hydrate, 7);
             moveset.put(tackle, 10);
             Species.makeSpecies("Spongerob", new BaseStats(30, 40, 40, 40), water, moveset);
+            
             moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             moveset.put(steady, 4);
             moveset.put(bodySlam, 7);
             moveset.put(slap, 10);
             Species.makeSpecies("Vince Mon", new BaseStats(40, 40, 50, 20), earth, moveset);
+            /*
             moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             moveset.put(bite, 4);
@@ -978,7 +980,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(seed, 4);
             moveset.put(bodySlam, 7);
             moveset.put(slap, 10);
-            Species.makeSpecies("Cabbage Head", new BaseStats(40, 50, 30, 30), plant, moveset);
+            Species.makeSpecies("Cabbage Face", new BaseStats(40, 50, 30, 30), plant, moveset);
             */
         }
 }
