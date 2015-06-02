@@ -875,6 +875,88 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move squeak = Move.makeMove(new Move("Squeak", normal, true, 0, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Decrease Accuracy"), 5);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move tailWhirl = Move.makeMove(new Move("Tail Whirl", normal, true, 15, 1, 10, 1) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move scratch = Move.makeMove(new Move("Scratch", normal, true, 25, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move impale = Move.makeMove(new Move("Impale", bug, true, 30, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move bobAndWeave = Move.makeMove(new Move("BobAndWeave", flying, false, 0, 1, 10, 2) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            inflictStatusEffect(uDisplay, uDisplay, StatusEffectType.getEffectType("Increase Evasion"), 5);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move shellSmash = Move.makeMove(new Move("Shell Smash", normal, true, 5, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move airFist = Move.makeMove(new Move("Air Fist", air, true, 15, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move diveBomb = Move.makeMove(new Move("Dive Bomb", flying, true, 30, 1, 10, 0) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             
             //Mons
             HashMap<Move,Integer> moveset = new HashMap<Move,Integer>();
@@ -979,6 +1061,68 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(bodySlam, 7);
             moveset.put(slap, 10);
             Species.makeSpecies("Cabbage Head", new BaseStats(40, 50, 30, 30), plant, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(squeack, 4);
+            moveset.put(tailWhirl, 7);
+            moveset.put(scratch, 10);
+            Species.makeSpecies("Scurrymon", new BaseStats(40, 50, 30, 30), normal, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(poisonSting, 4);
+            moveset.put(bugBite, 7);
+            moveset.put(impale, 10);
+            types[0] = bug;
+            types[1] = poison;
+            Species.makeSpecies("Scorpio", new BaseStats(40, 50, 30, 30), types, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(spark, 4);
+            moveset.put(bobAndWeave, 7);
+            moveset.put(inferno, 10);
+            types[1] = fire;
+            types[0] = flying;
+            Species.makeSpecies("pyroFly", new BaseStats(40, 50, 30, 30), types, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(guard, 4);
+            moveset.put(bite, 7);
+            moveset.put(charge, 10);
+            Species.makeSpecies("Ravageros", new BaseStats(40, 50, 30, 30), steel, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(harden, 4);
+            moveset.put(guard, 7);
+            moveset.put(shellSmash, 10);
+            types[0] = bug;
+            types[1] = steel;
+            Species.makeSpecies("rollyPolly", new BaseStats(40, 50, 30, 30), types, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(snowball, 4);
+            moveset.put(crush, 7);
+            moveset.put(charge, 10);
+            Species.makeSpecies("snowstormYeti", new BaseStats(40, 50, 30, 30), ice, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(iceShield, 4);
+            moveset.put(iceBlast, 7);
+            moveset.put(blizzard, 10);
+            Species.makeSpecies("glacierScuttler", new BaseStats(40, 50, 30, 30), ice, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(shock, 1);
+            moveset.put(lightningStrike, 4);
+            moveset.put(overCharge, 7);
+            moveset.put(thunderbolt, 10);
+            types[0] = electric;
+            types[1] = light;
+            Species.makeSpecies("ecectrode", new BaseStats(40, 50, 30, 30), types, moveset);
+            moveset = new HashMap<Move, Integer>();
+            moveset.put(tackle, 1);
+            moveset.put(gust, 4);
+            moveset.put(airFist, 7);
+            moveset.put(diveBomb, 10);
+            Species.makeSpecies("Babloon", new BaseStats(40, 50, 30, 30), air, moveset);
             */
         }
 }
