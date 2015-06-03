@@ -1026,7 +1026,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(auroraLaser, 10);
             Species.makeSpecies("Auroralisk", new BaseStats(40, 30, 50, 30), light, moveset);
             //Please keep all new species commented out until sprites are made for them.
-            /*
+            
             moveset = new HashMap<Move,Integer>();
             moveset.put(waterGun, 1);
             moveset.put(douse, 4);
@@ -1047,7 +1047,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(swat, 7);
             moveset.put(slap, 10);
             Species.makeSpecies("Prince Paw", new BaseStats(40, 40, 40, 30), normal, moveset);
-            /*
+            
             types[0] = bug;
             types[1] = flying;
             moveset = new HashMap<Move,Integer>();
@@ -1056,6 +1056,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(buzz, 7);
             moveset.put(harden, 10);
             Species.makeSpecies("Margarinefree", new BaseStats(50, 40, 50, 10), types, moveset);
+            /*
             moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             moveset.put(tase, 4);
@@ -1081,7 +1082,8 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(seed, 4);
             moveset.put(bodySlam, 7);
             moveset.put(slap, 10);
-            Species.makeSpecies("Cabbage Head", new BaseStats(40, 50, 30, 30), plant, moveset);
+            Species.makeSpecies("Cabbage 
+            face", new BaseStats(40, 50, 30, 30), plant, moveset);
             moveset = new HashMap<Move, Integer>();
             moveset.put(tackle, 1);
             moveset.put(squeack, 4);
