@@ -4,7 +4,6 @@ package duffelmon;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import java.util.ArrayList;
 
 /**
  *

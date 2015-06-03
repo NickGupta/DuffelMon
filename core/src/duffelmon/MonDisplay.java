@@ -31,10 +31,6 @@ public class MonDisplay extends GameObject {
     private ArrayList<String> moveMessages = new ArrayList<String>();
     private boolean moveFinished = false;
     private double[] customMoveVars = new double[3];
-    private enum States {
-        ALIVE, FAINTING, FAINTED
-    }
-    private States state = States.ALIVE;
     
     public MonDisplay(Combatant c, boolean f, float x, float y){
         combatant = c;
@@ -77,6 +73,7 @@ public class MonDisplay extends GameObject {
     }
     
     public void becomeDuffelBag() {
+        combatant.showMonDisplay();
         combatant.hideInfoDisplay();
         Texture t;
         if (front > 0) {
@@ -86,9 +83,6 @@ public class MonDisplay extends GameObject {
         }
         sprite = new Sprite(t);
         sprite.setScale(2);
-        if (front > 0) {
-            sprite.setFlip(true, false);
-        }
         sprite.setOrigin(t.getWidth(), 0);
     }
     
@@ -173,23 +167,11 @@ public class MonDisplay extends GameObject {
         customMoveVars = new double[customMoveVars.length];
     }
     
-    public void faint() {
-        state = States.FAINTING;
-    }
-    
     @Override
     public void draw(Batch batch, float alpha) {
         if (visible && sprite != null) {
             sprite.setPosition(getX(), getY());
             sprite.draw(batch);
-        }
-    }
-    
-    @Override
-    public void frameActions() {
-        if (state == States.FAINTING) {
-            visible = false;
-            state = States.FAINTED;
         }
     }
     

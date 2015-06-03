@@ -80,6 +80,10 @@ public class Combatant {
         return items[pos];
     }
     
+    public void useItem(int pos) {
+        items[pos] = null;
+    }
+    
     public boolean isTrainer() {
         return trainer != null;
     }

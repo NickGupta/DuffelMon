@@ -34,6 +34,11 @@ public class MonMenu extends Menu {
             }
         }
     }
+    
+    public MonMenu(float x, float y, Mon[] ms) {
+        this(null, x, y, ms);
+    }
+    
     @Override
     public void draw(Batch batch, float alpha) {
         Menu.drawBox(batch, alpha, getX(), getY() - 96*3, getX() + 256, getY());
