@@ -22,7 +22,7 @@ public class MonDisplay extends GameObject {
     private float front; //If front > 0, you're front-facing; if front < 0, back-facing
     //This can be used as a multiplier for anything that flips when the mon is facing the other way
     private Sprite sprite = null;
-    boolean visible = true;
+    boolean ranAway = false;
     private Move currentMove = null;
     private MonDisplay moveTarget = null;
     private int moveStep = 0;
@@ -84,6 +84,16 @@ public class MonDisplay extends GameObject {
         sprite = new Sprite(t);
         sprite.setScale(2);
         sprite.setOrigin(t.getWidth(), 0);
+    }
+    
+    public boolean getRanAway() {
+        return ranAway;
+    }
+    
+    public void runAway() {
+        combatant.hideMonDisplay();
+        combatant.hideInfoDisplay();
+        ranAway = true;
     }
     
     public Move getCurrentMove() {
@@ -169,7 +179,7 @@ public class MonDisplay extends GameObject {
     
     @Override
     public void draw(Batch batch, float alpha) {
-        if (visible && sprite != null) {
+        if (sprite != null) {
             sprite.setPosition(getX(), getY());
             sprite.draw(batch);
         }

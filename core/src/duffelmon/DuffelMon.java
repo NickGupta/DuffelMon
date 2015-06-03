@@ -214,6 +214,24 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move.makeMove(new Move("Escape", normal, false, 0, 1, 0, 100) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            String message;
+                            if (tDisplay.getCombatant().isTrainer()) {
+                                message = "But " + uDisplay.getMon().getName() + " can't run from a Trainer battle!";
+                            } else {
+                                message = uDisplay.getMon().getName() + " successfully escaped!";
+                                uDisplay.runAway();
+                            }
+                            uDisplay.addMoveMessage(message);
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             Move.makeMove(new Move("Item_Null", normal, false, 0, 1, 0, 100) {
                 @Override
                 public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
@@ -1008,7 +1026,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(auroraLaser, 10);
             Species.makeSpecies("Auroralisk", new BaseStats(40, 30, 50, 30), light, moveset);
             //Please keep all new species commented out until sprites are made for them.
-            
+            /*
             moveset = new HashMap<Move,Integer>();
             moveset.put(waterGun, 1);
             moveset.put(douse, 4);
