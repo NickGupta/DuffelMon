@@ -93,7 +93,7 @@ public class Battle extends GameObject {
             }
             return Move.getMove("Item_Null");
         } else if (aType.equals("ESCP")) {
-            return null;
+            return Move.getMove("Escape");
         }
         return null;
     }
@@ -107,6 +107,10 @@ public class Battle extends GameObject {
     
     private double monToPriority(Mon mon) {
         return mon.getSpeed();
+    }
+    
+    private void endBattle() {
+        GameObject.makeDependent(this);
     }
     
     private void startNewTurn() {
@@ -131,7 +135,7 @@ public class Battle extends GameObject {
             message = user.getCurrentMon().getName() + " used " + moveName + "!";
             user.getCurrentMon().decrementPowerPoints(user.getMoveSlotToUse());
         } else {
-            message = "Escape message here";
+            message = user.getCurrentMon().getName() + " tried to run away!";
         }
         textBox = new TextBox(message, false);
         user.getMoveToUse().useInBattle(user.getMonDisplay(), target.getMonDisplay());
@@ -202,7 +206,11 @@ public class Battle extends GameObject {
     private void waitAfterTurnForTextBox() {
         if (getTimer("waitAfterTurn") == -1 && (textBox == null || textBox.getOutput() != null)) {
             textBox = null;
-            setTimer("waitAfterTurn", 30);
+            if (player.getMonDisplay().getRanAway() || enemy.getMonDisplay().getRanAway()) {
+                endBattle();
+            } else {
+                setTimer("waitAfterTurn", 30);
+            }
         }
     }
     

@@ -113,7 +113,7 @@ public class BattleMenu extends Menu {
                     m = "Fight"; 
                 }
                 else if(x1 == 100 && y1 == 60){
-                    m = "Run"; 
+                    setOutput("ESCP");
                 }
                 else if(x1 == 220 && y1 == 60){
                     //setServant(new ItemMenu(this, xItem, yItem));
