@@ -1022,13 +1022,14 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(bodySlam, 7);
             moveset.put(slap, 10);
             Species.makeSpecies("Vince Mon", new BaseStats(40, 40, 50, 20), earth, moveset);
-            /*
+            
             moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             moveset.put(bite, 4);
             moveset.put(swat, 7);
             moveset.put(slap, 10);
             Species.makeSpecies("Prince Paw", new BaseStats(40, 40, 40, 30), normal, moveset);
+            /*
             types[0] = bug;
             types[1] = flying;
             moveset = new HashMap<Move,Integer>();
