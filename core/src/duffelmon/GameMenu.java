@@ -18,7 +18,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class GameMenu extends Menu{
     private int xValue = 0;
     private int yValue = 256;
-    private int x1 = 300;
+    private int x1 = 100;
     private int y1 = 256;
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
@@ -34,9 +34,9 @@ public class GameMenu extends Menu{
         sprite.setX(xValue);
         sprite.setY(yValue);
         font.setColor(fontColor);
-        font.draw(batch, "Hunt for Wild DuffelMon", xValue, yValue);
-        xValue -= 200;
         font.draw(batch, "Battle Trainer", xValue, yValue);
+        xValue -= 200;
+        font.draw(batch, "Hunt for Wild DuffelMon", xValue, yValue);
         xValue += 200;
         yValue-=128;
         font.draw(batch, "Shop at DuffelMart", xValue, yValue);
@@ -72,17 +72,11 @@ public class GameMenu extends Menu{
             if(x1 == 300 && y1 == 256){
                 GameObject.makeDependent(this);
                 
-                Player player = new Player("Joe");
-                player.addMon(new Mon(null, Species.getSpecies("Charmander"), 10));
-                player.addMon(new Mon(null, Species.getSpecies("Pulsect"), 10));
-                player.addMon(new Mon(null, Species.getSpecies("Scythera"), 10));
-                player.addItem(new Item("Potion"));
-                GlobalData.setPlayer(player);
-                
                 Trainer enemyTrainer = new Trainer("Bob", "Hiker", 500, new RandomMoveAI());
-                enemyTrainer.addMon(new Mon(null, Species.getSpecies("Kingdra"), 8));
+                enemyTrainer.addMon(new Mon(null, Species.getSpecies("Pawprince"), 8));
                 enemyTrainer.addMon(new Mon(null, Species.getSpecies("Massant"), 8));
-                Battle.startBattle(player, enemyTrainer);
+                enemyTrainer.addMon(new Mon(null, Species.getSpecies("Auroralisk"), 8));
+                Battle.startBattle(GlobalData.getPlayer(), enemyTrainer);
             }
         }
     }
