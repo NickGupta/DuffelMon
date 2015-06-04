@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  */
 public class MonMenu extends Menu {
     
+    private Combatant combatant;
     private Mon[] mons;
     private Sprite[] monSprites;
     private int selection = 0;
@@ -23,9 +24,10 @@ public class MonMenu extends Menu {
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
     
-    public MonMenu(Menu m, float x, float y, Mon[] ms) {
+    public MonMenu(Menu m, float x, float y, Combatant c) {
         super(m, x, y);
-        mons = ms;
+        combatant = c;
+        mons = combatant.getMons();
         monSprites = new Sprite[mons.length];
         for(int i = 0; i < mons.length; i++) {
             if (mons[i] != null) {
@@ -35,8 +37,8 @@ public class MonMenu extends Menu {
         }
     }
     
-    public MonMenu(float x, float y, Mon[] ms) {
-        this(null, x, y, ms);
+    public MonMenu(float x, float y, Combatant c) {
+        this(null, x, y, c);
     }
     
     @Override
@@ -59,8 +61,10 @@ public class MonMenu extends Menu {
                 font.draw(batch, "_____", getX() + 96, yPos - 28);
                 if (mons[i] != null) {
                     if (mons[i].getHealth() == 0){
-                        font.draw(batch, "That Mon Has Fainted", 60, 120);
-                    } else  if (true) {/* if ( current mon is in the battle ) */
+                        font.draw(batch, "Mon has fainted", 60, 120);
+                    } else if (i == combatant.getMonsPos()) {
+                        font.draw(batch, "Mon is already in battle", 60, 120);
+                    } else {
                         font.draw(batch, mons[i].getName(), 12, 236);
                         font.draw(batch, "Level: " + mons[i].getLevel(), 12, 212);
                         font.draw(batch, "Health: " + (int)Math.ceil(mons[i].getHealth()) + "%", 24, 120);
@@ -73,9 +77,9 @@ public class MonMenu extends Menu {
                         sprite.setScale(2);
                         sprite.draw(batch);
                         sprite.setScale(1);
-                    } else {
-                            font.draw(batch, "No Mon Selected", 75, 120);
                     }
+                } else {
+                    font.draw(batch, "No mon selected", 75, 120);
                 }
             }
             yPos -= 96;
