@@ -120,7 +120,7 @@ public class BattleMenu extends Menu {
                     setServant(new ItemMenu(this, xItem, yItem, combatant.getItems()));
                 }
                 else if(x1 == 220 && y1 == 100){
-                    setServant(new MonMenu(this, xMon, yMon, combatant.getMons()));
+                    setServant(new MonMenu(this, xMon, yMon, combatant));
                 }
             }
         } else if (m.equals("Fight")) {

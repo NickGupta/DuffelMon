@@ -190,7 +190,7 @@ public class Battle extends GameObject {
         toMoveFirst = c;
         toMoveSecond = o;
         if (c.isPlayer()) {
-            menu = new MonMenu(256, 288, c.getMons());
+            menu = new MonMenu(256, 288, c);
             state = States.SELECTLIVEMON;
         } else {
             c.getAI().chooseMon(c, o);
