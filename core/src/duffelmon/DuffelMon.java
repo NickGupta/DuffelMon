@@ -1056,19 +1056,21 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(buzz, 7);
             moveset.put(harden, 10);
             Species.makeSpecies("Margarinefree", new BaseStats(50, 40, 50, 10), types, moveset);
-            /*
+            
             moveset = new HashMap<Move,Integer>();
             moveset.put(tackle, 1);
             moveset.put(tase, 4);
             moveset.put(melanoma, 7);
             moveset.put(slap, 10);
             Species.makeSpecies("Lamp Face", new BaseStats(40, 50, 30, 30), light, moveset);
+            
             moveset = new HashMap<Move,Integer>();
             moveset.put(slap, 1);
             moveset.put(segway, 4);
             moveset.put(tase, 7);
             moveset.put(slap, 10);
             Species.makeSpecies("Paul Blart", new BaseStats(40, 50, 30, 30), electric, moveset);
+            /*
             types[0] = poison; //Why is a taco snail poisonous
             types[1] = flying; //Why does a taco snail fly
             moveset = new HashMap<Move,Integer>();
@@ -1082,8 +1084,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(seed, 4);
             moveset.put(bodySlam, 7);
             moveset.put(slap, 10);
-            Species.makeSpecies("Cabbage 
-            face", new BaseStats(40, 50, 30, 30), plant, moveset);
+            Species.makeSpecies("Cabbageface", new BaseStats(40, 50, 30, 30), plant, moveset);
             moveset = new HashMap<Move, Integer>();
             moveset.put(tackle, 1);
             moveset.put(squeack, 4);
