@@ -1167,7 +1167,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(bite, 7);
             moveset.put(charge, 10);
             Species.makeSpecies("Ravageros", new BaseStats(60, 70, 50, 50), steel, moveset);
-            
+            */
             moveset = new HashMap<Move, Integer>();
             moveset.put(tackle, 1);
             moveset.put(harden, 4);
@@ -1179,11 +1179,11 @@ public class DuffelMon extends ApplicationAdapter {
             
             moveset = new HashMap<Move, Integer>();
             moveset.put(tackle, 1);
-            moveset.put(snowball, 4);
+            moveset.put(snowBall, 4);
             moveset.put(crush, 7);
             moveset.put(charge, 10);
-            Species.makeSpecies("Snowstorm Yeti", new BaseStats(60, 70, 50, 50), ice, moveset);
-            
+            Species.makeSpecies("Yeti", new BaseStats(60, 70, 50, 50), ice, moveset);
+            /*
             moveset = new HashMap<Move, Integer>();
             moveset.put(tackle, 1);
             moveset.put(iceShield, 4);
