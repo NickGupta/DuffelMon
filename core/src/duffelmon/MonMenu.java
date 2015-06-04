@@ -58,20 +58,24 @@ public class MonMenu extends Menu {
                 font.setColor(fontColor);
                 font.draw(batch, "_____", getX() + 96, yPos - 28);
                 if (mons[i] != null) {
-                    font.draw(batch, mons[i].getName(), 12, 236);
-                    font.draw(batch, "Level: " + mons[i].getLevel(), 12, 212);
-                    font.draw(batch, "Health: " + (int)Math.ceil(mons[i].getHealth()) + "%", 24, 120);
-                    font.draw(batch, "Attack: " + Math.round(mons[i].getAttack()), 140, 120);
-                    font.draw(batch, "Defense: " + Math.round(mons[i].getDefense()), 24, 80);
-                    font.draw(batch, "Speed: " + Math.round(mons[i].getSpeed()), 140, 80);
-                    font.draw(batch, "Attitude: " + Math.round(mons[i].getAttitude()), 24, 40);
-                    Sprite sprite = monSprites[i];
-                    sprite.setCenter(160, 190);
-                    sprite.setScale(2);
-                    sprite.draw(batch);
-                    sprite.setScale(1);
-                } else {
-                    font.draw(batch, "No Mon Selected", 75, 120);
+                    if (mons[i].getHealth() == 0){
+                        font.draw(batch, "That Mon Has Fainted", 60, 120);
+                    } else  if (true) {/* if ( current mon is in the battle ) */
+                        font.draw(batch, mons[i].getName(), 12, 236);
+                        font.draw(batch, "Level: " + mons[i].getLevel(), 12, 212);
+                        font.draw(batch, "Health: " + (int)Math.ceil(mons[i].getHealth()) + "%", 24, 120);
+                        font.draw(batch, "Attack: " + Math.round(mons[i].getAttack()), 140, 120);
+                        font.draw(batch, "Defense: " + Math.round(mons[i].getDefense()), 24, 80);
+                        font.draw(batch, "Speed: " + Math.round(mons[i].getSpeed()), 140, 80);
+                        font.draw(batch, "Attitude: " + Math.round(mons[i].getAttitude()), 24, 40);
+                        Sprite sprite = monSprites[i];
+                        sprite.setCenter(160, 190);
+                        sprite.setScale(2);
+                        sprite.draw(batch);
+                        sprite.setScale(1);
+                    } else {
+                            font.draw(batch, "No Mon Selected", 75, 120);
+                    }
                 }
             }
             yPos -= 96;
