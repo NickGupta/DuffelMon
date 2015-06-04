@@ -1110,7 +1110,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(tase, 4);
             moveset.put(melanoma, 7);
             moveset.put(slap, 10);
-            Species.makeSpecies("Lamp Face", new BaseStats(40, 50, 30, 30), light, moveset);
+            Species.makeSpecies("Lampface", new BaseStats(40, 50, 30, 30), light, moveset);
             
             moveset = new HashMap<Move,Integer>();
             moveset.put(slap, 1);
