@@ -107,7 +107,8 @@ public class MonMenu extends Menu {
                 selection = 0;
             }
         }
-        if (GlobalData.keyPressed(GlobalData.Inputs.SELECT) && mons[selection] != null) {
+        if (GlobalData.keyPressed(GlobalData.Inputs.SELECT)
+            && mons[selection] != null && mons[selection].getHealth() > 0) {
             setOutput("MONS" + selection);
         }
     }

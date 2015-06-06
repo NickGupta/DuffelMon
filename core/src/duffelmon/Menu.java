@@ -128,8 +128,7 @@ public abstract class Menu extends GameObject {
             if (servantOutput != null && readServantOutput(servantOutput)) {
                 servant = null;
             }
-        }
-        if (servant == null) {
+        } else {
             super.doFrame();
         }
     }

@@ -25,7 +25,7 @@ public class GlobalData {
     private static Texture whiteTexture, blackTexture;
 
     public enum Inputs {
-        UP, DOWN, LEFT, RIGHT, SELECT, BACK, MENU
+        UP, DOWN, LEFT, RIGHT, SELECT, BACK
     }
     private enum InputStatus {
         NOTHELD, PRESSED, HELD, RELEASED
@@ -45,7 +45,6 @@ public class GlobalData {
         inputKeys.put(Inputs.RIGHT, Input.Keys.RIGHT);
         inputKeys.put(Inputs.SELECT, Input.Keys.Z);
         inputKeys.put(Inputs.BACK, Input.Keys.X);
-        inputKeys.put(Inputs.MENU, Input.Keys.ENTER);
     }
     
     public static Player getPlayer() {

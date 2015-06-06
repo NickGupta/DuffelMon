@@ -68,6 +68,10 @@ public class MainMenu extends Menu{
                 player.addMon(new Mon(null, Species.getSpecies("Pulsect"), 10));
                 player.addMon(new Mon(null, Species.getSpecies("Scythera"), 10));
                 player.addItem(new Item("Potion"));
+                player.addItem(new Item("Panacea"));
+                player.addItem(new Item("Super Potion"));
+                player.addItem(new Item("Duffel Bag"));
+                player.addItem(new Item("Duffel Bag"));
                 GameMenu g = new GameMenu();
                 GameObject.makeIndependent(g);
             }

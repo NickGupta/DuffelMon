@@ -299,6 +299,41 @@ public class DuffelMon extends ApplicationAdapter {
                     }
                 }
             });
+            Move.makeMove(new Move("Item_Panacea", normal, false, 0, 1, 0, 100) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            uDisplay.getMon().removeStatusEffects();
+                            uDisplay.addMoveMessage(uDisplay.getMon().getName() + " lost all status changes!");
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move.makeMove(new Move("Item_Super Potion", normal, false, 0, 1, 0, 100) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            uDisplay.getMon().increaseHealth(100);
+                            uDisplay.addMoveMessage(uDisplay.getMon().getName() + "'s health was completely restored!");
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
+            Move.makeMove(new Move("Item_Duffel Bag", normal, false, 0, 1, 0, 100) {
+                @Override
+                public void doMoveStep(MonDisplay uDisplay, MonDisplay tDisplay, int step) {
+                    switch(step) {
+                        case 0:
+                            uDisplay.addMoveMessage("placeholder");
+                            finishMove(uDisplay);
+                            break;
+                    }
+                }
+            });
             
             //Moves (Note: Feel free to override the frameActions() and triggerTimer() methods in any move effects you create)
             Move struggle = Move.makeMove(new Move("Struggle", normal, true, 12.5, 0.5, 0, 0) {

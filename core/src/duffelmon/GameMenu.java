@@ -30,7 +30,7 @@ public class GameMenu extends Menu{
     }
     
     @Override
-    public void draw(Batch batch, float alpha){
+    public void draw(Batch batch, float alpha) {
         sprite.setX(xValue);
         sprite.setY(yValue);
         font.setColor(fontColor);
@@ -46,12 +46,11 @@ public class GameMenu extends Menu{
         font.draw(batch, "_________", x1, y1);
         xValue = 300;
         yValue = 256;
+        super.draw(batch, alpha);
     }
     
     @Override
     public void frameActions() {
-        
-        
         if(GlobalData.keyPressed(GlobalData.Inputs.RIGHT)||GlobalData.keyPressed(GlobalData.Inputs.LEFT)){
                 if(x1 == 300){
                     x1 -= 200; 
@@ -59,7 +58,6 @@ public class GameMenu extends Menu{
                     x1 += 200;
                 }
         }
-        
         if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
                 if(y1 == 256){
                     y1 -= 128; 
@@ -67,16 +65,16 @@ public class GameMenu extends Menu{
                     y1 += 128;
                 }
         }
-        
         if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)) {
-            if(x1 == 300 && y1 == 256){
+            if(x1 == 300 && y1 == 256) {
                 GameObject.makeDependent(this);
-                
                 Trainer enemyTrainer = new Trainer("Bob", "Hiker", 500, new RandomMoveAI());
                 enemyTrainer.addMon(new Mon(null, Species.getSpecies("Pawprince"), 8));
                 enemyTrainer.addMon(new Mon(null, Species.getSpecies("Massant"), 8));
                 enemyTrainer.addMon(new Mon(null, Species.getSpecies("Auroralisk"), 8));
                 Battle.startBattle(GlobalData.getPlayer(), enemyTrainer);
+            } else if (x1 == 300 && y1 == 128) {
+                setServant(new ShopMenu(this));
             }
         }
     }

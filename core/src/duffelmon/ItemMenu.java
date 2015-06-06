@@ -22,20 +22,9 @@ public class ItemMenu extends Menu {
     }
     
     @Override
-    public void draw(Batch batch, float alpha){
-        int yOffset = 20;
-        Menu.drawBox(batch, alpha, getX(), getY() - (yOffset*5 + 8), getX() + 128, getY());
-        font.setColor(fontColor);
-        for(int i = 0; i < items.length; i++) {
-            String itemInfo;
-            if (items[i] != null) {
-                itemInfo = items[i].getName();
-            } else {
-                itemInfo = "---";
-            }
-            font.draw(batch, itemInfo, getX() + 4, getY() - ((i * yOffset) + 4));
-        }
-        font.draw(batch, "______", getX(), getY() - ((selection * yOffset) + 4));
+    public void draw(Batch batch, float alpha) {
+        Menu.drawBox(batch, alpha, getX(), getY() - 108, getX() + 128, getY());
+        Item.drawItems(batch, alpha, font, fontColor, getX() + 4, getY() - 4, items, selection);
     }
     
     @Override
@@ -55,7 +44,7 @@ public class ItemMenu extends Menu {
             }
         }
         if (GlobalData.keyPressed(GlobalData.Inputs.SELECT) && items[selection] != null) {
-                setOutput("ITEM" + selection);
+            setOutput("ITEM" + selection);
         }
     }
     
