@@ -25,7 +25,7 @@ public class Player extends Trainer {
     }
     
     public void giveMoney(int m) {
-        money += m;
+        money = Math.min(money + m, 1000000);
     }
     
     public void takeMoney(int m) {

@@ -31,6 +31,10 @@ public class Trainer {
         return name;
     }
     
+    public void setName(String n) {
+        name = n;
+    }
+    
     public String getType() {
         return type;
     }

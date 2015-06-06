@@ -60,26 +60,30 @@ public class MonMenu extends Menu {
                 font.setColor(fontColor);
                 font.draw(batch, "_____", getX() + 96, yPos - 28);
                 if (mons[i] != null) {
-                    if (mons[i].getHealth() == 0){
-                        font.draw(batch, "Mon has fainted", 60, 120);
-                    } else if (i == combatant.getMonsPos()) {
-                        font.draw(batch, "Mon is already in battle", 60, 120);
-                    } else {
-                        font.draw(batch, mons[i].getName(), 12, 236);
-                        font.draw(batch, "Level: " + mons[i].getLevel(), 12, 212);
-                        font.draw(batch, "Health: " + (int)Math.ceil(mons[i].getHealth()) + "%", 24, 120);
-                        font.draw(batch, "Attack: " + Math.round(mons[i].getAttack()), 140, 120);
-                        font.draw(batch, "Defense: " + Math.round(mons[i].getDefense()), 24, 80);
-                        font.draw(batch, "Speed: " + Math.round(mons[i].getSpeed()), 140, 80);
-                        font.draw(batch, "Attitude: " + Math.round(mons[i].getAttitude()), 24, 40);
-                        Sprite sprite = monSprites[i];
-                        sprite.setCenter(160, 190);
-                        sprite.setScale(2);
-                        sprite.draw(batch);
-                        sprite.setScale(1);
+                    font.draw(batch, mons[i].getName(), 136, 240);
+                    if (mons[i].getNickname() != null) {
+                        font.draw(batch, "Species: " + mons[i].getSpecies().getName(), 136, 220); 
                     }
+                    font.draw(batch, "Level: " + mons[i].getLevel(), 136, 200);
+                    if (mons[i].getHealth() == 0) {
+                        font.draw(batch, "Fainted", 136, 180); 
+                    } else {
+                        font.draw(batch, "Health: " + (int)Math.ceil(mons[i].getHealth()) + "%", 136, 180);
+                    }
+                    if (i == combatant.getMonsPos()) {
+                        font.draw(batch, "Already in battle", 136, 160); 
+                    }
+                    font.draw(batch, "Attack: " + Math.round(mons[i].getAttack()), 24, 100);
+                    font.draw(batch, "Defense: " + Math.round(mons[i].getDefense()), 128, 100);
+                    font.draw(batch, "Speed: " + Math.round(mons[i].getSpeed()), 24, 80);
+                    font.draw(batch, "Attitude: " + Math.round(mons[i].getAttitude()), 128, 80);
+                    Sprite sprite = monSprites[i];
+                    sprite.setCenter(68, 188);
+                    sprite.setScale(2);
+                    sprite.draw(batch);
+                    sprite.setScale(1);
                 } else {
-                    font.draw(batch, "No mon selected", 75, 120);
+                    font.draw(batch, "No DuffelMon selected", 64, 128);
                 }
             }
             yPos -= 96;

@@ -52,6 +52,14 @@ public class Mon {
         return name;
     }
     
+    public String getNickname() {
+        return name;
+    }
+    
+    public Species getSpecies() {
+        return species;
+    }
+    
     public Type[] getTypes() {
         return species.getTypes();
     }
