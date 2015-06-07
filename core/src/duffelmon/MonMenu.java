@@ -25,10 +25,10 @@ public class MonMenu extends Menu {
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
     
-    public MonMenu(Menu m, float x, float y, Combatant c, boolean ca) {
+    public MonMenu(Menu m, float x, float y, Combatant c, Mon[] mo, boolean ca) {
         super(m, x, y);
         combatant = c;
-        mons = combatant.getMons();
+        mons = mo;
         monSprites = new Sprite[mons.length];
         for(int i = 0; i < mons.length; i++) {
             if (mons[i] != null) {
@@ -39,12 +39,12 @@ public class MonMenu extends Menu {
         canSelect = ca;
     }
     
-    public MonMenu(float x, float y, Combatant c, boolean ca) {
-        this(null, x, y, c, ca);
+    public MonMenu(float x, float y, Combatant c, Mon[] mo, boolean ca) {
+        this(null, x, y, c, mo, ca);
     }
     
-    public MonMenu(Menu m, float x, float y, boolean ca) {
-        this(m, x, y, null, ca);
+    public MonMenu(Menu m, float x, float y, Mon[] mo, boolean ca) {
+        this(m, x, y, null, mo, ca);
     }
     
     @Override
@@ -79,10 +79,19 @@ public class MonMenu extends Menu {
                     if (combatant != null && i == combatant.getMonsPos()) {
                         font.draw(batch, "Already in battle", 136, 160); 
                     }
-                    font.draw(batch, "Attack: " + Math.round(mons[i].getAttack()), 24, 100);
-                    font.draw(batch, "Defense: " + Math.round(mons[i].getDefense()), 128, 100);
-                    font.draw(batch, "Speed: " + Math.round(mons[i].getSpeed()), 24, 80);
-                    font.draw(batch, "Attitude: " + Math.round(mons[i].getAttitude()), 128, 80);
+                    Type[] types = mons[i].getTypes();
+                    String typeList = "Type: ";
+                    for (int t = 0; t < types.length; t++) {
+                        typeList += types[t].getName();  
+                        if (t < types.length - 1) {
+                            typeList += " / ";
+                        }
+                    }
+                    font.draw(batch, typeList, 24, 100);
+                    font.draw(batch, "Attack: " + Math.round(mons[i].getAttack()), 24, 80);
+                    font.draw(batch, "Defense: " + Math.round(mons[i].getDefense()), 128, 80);
+                    font.draw(batch, "Speed: " + Math.round(mons[i].getSpeed()), 24, 60);
+                    font.draw(batch, "Attitude: " + Math.round(mons[i].getAttitude()), 128, 60);
                     Sprite sprite = monSprites[i];
                     sprite.setCenter(68, 188);
                     sprite.setScale(2);
