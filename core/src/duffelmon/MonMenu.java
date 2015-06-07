@@ -68,7 +68,7 @@ public class MonMenu extends Menu {
                 if (mons[i] != null) {
                     font.draw(batch, mons[i].getName(), 136, 240);
                     if (mons[i].getNickname() != null) {
-                        font.draw(batch, "Species: " + mons[i].getSpecies().getName(), 136, 220); 
+                        font.draw(batch, mons[i].getSpecies().getName(), 136, 220); 
                     }
                     font.draw(batch, "Level: " + mons[i].getLevel(), 136, 200);
                     if (mons[i].getHealth() == 0) {

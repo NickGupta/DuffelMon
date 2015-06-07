@@ -184,14 +184,14 @@ public class Battle extends GameObject {
             player.hideInfoDisplay();
             enemy.hideMonDisplay();
             enemy.hideInfoDisplay();
-            if (c.getTrainer() == null) {
-                beginOutro(o, c);
-            } else {
+            if (enemy.isTrainer()) {
                 textBox = new TextBox(c.getTrainer().getName() + " was defeated!", false);
                 state = States.TRAINERMOVEBACK;
                 trainer.setVisible(true);
                 trainer.setXSpeed(-4);
                 setTimer("trainerStop", 45);
+            } else {
+                beginOutro(o, c);
             }
             return false;
         }

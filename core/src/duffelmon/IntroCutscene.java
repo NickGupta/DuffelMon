@@ -44,14 +44,52 @@ public class IntroCutscene extends Menu {
     }
     
     @Override
+    public void frameActions() {
+        if (state == States.NAME) {
+            if (getServant() == null) {
+                setServant(new NameMenu(this));
+            }
+        } else if (state == States.BEFORESTARTER) {
+            ArrayList<String> messages = new ArrayList<String>();
+            messages.add("Pleasure to meet you, " + GlobalData.getPlayer().getName() + "!");
+            messages.add("This world is inhabited by creatures called DuffelMon.");
+            messages.add("Some people use them as pets...");
+            messages.add("...and some use them for battles!");
+            messages.add("Why are they called DuffelMon? Because we keep them in duffel bags.");
+            messages.add("...no, I don't think there's a better way to store them.");
+            messages.add("If we could teleport them around or keep them in our pockets,");
+            messages.add("that'd be great, but I'm afraid we can't.");
+            messages.add("Anyway, to start you on your journey, I'll let you pick one DuffelMon to keep.");
+            messages.add("Which one will it be?");
+            setServant(new TextBox(messages, true));
+        } else if (state == States.STARTER) {
+            if (getServant() == null) {
+                setServant(new StarterMenu(this));
+            }
+        } else if (state == States.AFTERSTARTER) {
+            ArrayList<String> messages = new ArrayList<String>();
+            messages.add("Excellent! So you've chosen a " + GlobalData.getPlayer().getMon(0).getSpecies().getName() + "!");
+            messages.add("I wish you the best of luck on your journey!");
+            setServant(new TextBox(messages, true));
+        }
+    }
+    
+    @Override
     public boolean readServantOutput(String o) {
         if (state == States.BEFORENAME) {
             state = States.NAME;
         } else if (state == States.NAME) {
+            GlobalData.getPlayer().setName(o);
             state = States.BEFORESTARTER;
         } else if (state == States.BEFORESTARTER) {
             state = States.STARTER;
         } else if (state == States.STARTER) {
+            int slashIndex = o.indexOf("/");
+            String name = o.substring(0, slashIndex);
+            if (name.equals("")) {
+                name = null;
+            }
+            GlobalData.getPlayer().addMon(new Mon(name, Species.getSpecies(o.substring(slashIndex + 1)), 5));
             state = States.AFTERSTARTER;
         } else if (state == States.AFTERSTARTER) {
             GameObject.makeDependent(this);
