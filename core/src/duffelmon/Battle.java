@@ -6,6 +6,7 @@
 package duffelmon;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
@@ -474,13 +475,29 @@ public class Battle extends GameObject {
                     state = States.FAINTED;
                     String message = null;
                     if (playerFainted && enemyFainted) {
-                        message = "Both mons fainted!";
+                        message = "Both DuffelMon fainted!";
                     } else if (playerFainted) {
                         message = playerMon.getName() + " fainted!";
                     } else if (enemyFainted) {
                         message = enemyMon.getName() + " fainted!";
                     }
                     textBox = new TextBox(message, true);
+                    if (enemyFainted && !playerFainted) {
+                        int levelBefore = player.getCurrentMon().getLevel();
+                        player.getCurrentMon().getStats().gainExperience(enemy.getCurrentMon().getStats());
+                        int levelAfter = player.getCurrentMon().getLevel();
+                        if (levelAfter > levelBefore) {
+                            textBox.addMessage(player.getCurrentMon().getName() + " grew to level " + levelAfter + "!");
+                            HashMap<Move,Integer> moveMap = player.getCurrentMon().getSpecies().getMoveMap();
+                            for(Move m : moveMap.keySet()) {
+                                int moveLevel = moveMap.get(m);
+                                if (moveLevel > levelBefore && moveLevel < levelAfter) {
+                                    player.getCurrentMon().learnMove(m);
+                                    textBox.addMessage(player.getCurrentMon().getName() + " learned " + m.getName() + "!");
+                                }
+                            }
+                        }
+                    }
                 } else {
                     if (state == States.BETWEEN) {
                         state = States.TURN2;
