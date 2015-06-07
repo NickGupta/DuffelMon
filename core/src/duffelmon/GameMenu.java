@@ -5,6 +5,7 @@
  */
 package duffelmon;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -32,8 +33,8 @@ public class GameMenu extends Menu {
         font.draw(batch, "Shop at DuffelMart", 300, 192);
         font.draw(batch, "Store DuffelMon", 100, 128);
         font.draw(batch, "Store Items", 300, 128);
-        font.draw(batch, "Save", 100, 64);
-        font.draw(batch, "Quit", 300, 64);
+        font.draw(batch, "Save Game", 100, 64);
+        font.draw(batch, "Quit Game", 300, 64);
         font.draw(batch, "_________", 100 + selectionX * 200, 256 - selectionY * 64);
         super.draw(batch, alpha);
     }
@@ -77,9 +78,21 @@ public class GameMenu extends Menu {
                 }
             } else if (selectionY == 1) {
                 if (selectionX == 0) {
-                    setServant(new MonMenu(this, 256, 288, GlobalData.getPlayer().getMons(), false));
+                    
                 } else if (selectionX == 1) {
-                    setServant(new ShopMenu(this));
+                    
+                }
+            } else if (selectionY == 2) {
+                if (selectionX == 0) {
+                    
+                } else if (selectionX == 1) {
+                    
+                }
+            } else if (selectionY == 3) {
+                if (selectionX == 0) {
+                    
+                } else if (selectionX == 1) {
+                    Gdx.app.exit();
                 }
             }
         }

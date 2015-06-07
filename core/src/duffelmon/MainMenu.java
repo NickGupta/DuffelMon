@@ -32,14 +32,11 @@ public class MainMenu extends Menu{
         sprite.draw(batch);
         xValue = 120;
         yValue = 100;
-        
         font.setColor(fontColor);
         font.draw(batch, "New Game", xValue, yValue);
-        xValue += 200;
-        font.draw(batch, "Load", xValue, yValue);
+        xValue += 180;
+        font.draw(batch, "Load Game", xValue, yValue);
         font.draw(batch, "_________", x1, y1);
-        
-        
         xValue = 0;
         yValue = 260;
     }
@@ -58,8 +55,8 @@ public class MainMenu extends Menu{
                 GameObject.makeDependent(this);
                 Player player = new Player("");
                 GlobalData.setPlayer(player);
-                GameMenu g = new GameMenu();
-                GameObject.makeIndependent(g);
+                IntroCutscene i = new IntroCutscene();
+                GameObject.makeIndependent(i);
             } else if (x1 == 300) {
                 GameObject.makeDependent(this);
                 Player player = new Player("Joe");

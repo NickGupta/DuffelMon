@@ -14,24 +14,26 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  */
 public abstract class Menu extends GameObject {
     
-    private Menu master = null;
+    private Menu master;
     private Menu servant = null;
     private String output = null;
     
-    public Menu() {}
+    public Menu(Menu m, float x, float y) {
+        setX(x);
+        setY(y);
+        master = m;
+    }
     
     public Menu(Menu m) {
-        master = m;
+        this(m, 0, 0);
     }
     
     public Menu(float x, float y) {
-        setX(x);
-        setY(y);
+        this(null, x, y);
     }
     
-    public Menu(Menu m, float x, float y) {
-        this(x, y);
-        master = m;
+    public Menu() {
+        this(null);
     }
     
     /**
