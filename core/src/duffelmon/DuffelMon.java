@@ -1080,6 +1080,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(furySlash, 10);
             Species.makeSpecies("Scythera", new BaseStats(60, 40, 70, 60), normal, moveset);
             
+            types = new Type[2];
             types[0] = ice;
             types[1] = flying;
             moveset = new HashMap<Move,Integer>();
@@ -1131,6 +1132,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(slap, 10);
             Species.makeSpecies("Pawprince", new BaseStats(60, 60, 60, 50), normal, moveset);
             
+            types = new Type[2];
             types[0] = bug;
             types[1] = flying;
             moveset = new HashMap<Move,Integer>();
@@ -1154,6 +1156,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(slap, 10);
             Species.makeSpecies("Sublart", new BaseStats(40, 50, 30, 30), electric, moveset);
             
+            types = new Type[2];
             types[0] = fire;
             types[1] = poison;
             moveset = new HashMap<Move,Integer>();
@@ -1185,6 +1188,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(scratch, 10);
             Species.makeSpecies("Scurrymon", new BaseStats(60, 70, 50, 50), normal, moveset);
             
+            types = new Type[2];
             types[0] = bug;
             types[1] = poison;
             moveset = new HashMap<Move, Integer>();
@@ -1194,6 +1198,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(impale, 10);
             Species.makeSpecies("Scorpio", new BaseStats(60, 70, 50, 50), types, moveset);
             
+            types = new Type[2];
             types[0] = fire;
             types[1] = flying;
             moveset = new HashMap<Move, Integer>();
@@ -1210,6 +1215,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(charge, 10);
             Species.makeSpecies("Ravageros", new BaseStats(60, 70, 50, 50), steel, moveset);
             
+            types = new Type[2];
             types[0] = bug;
             types[1] = steel;
             moveset = new HashMap<Move, Integer>();
@@ -1226,6 +1232,7 @@ public class DuffelMon extends ApplicationAdapter {
             moveset.put(blizzard, 10);
             Species.makeSpecies("Glacier Scuttler", new BaseStats(60, 70, 50, 50), ice, moveset);
             
+            types = new Type[2];
             types[0] = electric;
             types[1] = light;
             moveset = new HashMap<Move, Integer>();

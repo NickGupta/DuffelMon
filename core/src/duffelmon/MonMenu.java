@@ -19,12 +19,13 @@ public class MonMenu extends Menu {
     private Combatant combatant;
     private Mon[] mons;
     private Sprite[] monSprites;
+    boolean canSelect;
     private int selection = 0;
     
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
     
-    public MonMenu(Menu m, float x, float y, Combatant c) {
+    public MonMenu(Menu m, float x, float y, Combatant c, boolean ca) {
         super(m, x, y);
         combatant = c;
         mons = combatant.getMons();
@@ -35,10 +36,15 @@ public class MonMenu extends Menu {
                 monSprites[i] = s;
             }
         }
+        canSelect = ca;
     }
     
-    public MonMenu(float x, float y, Combatant c) {
-        this(null, x, y, c);
+    public MonMenu(float x, float y, Combatant c, boolean ca) {
+        this(null, x, y, c, ca);
+    }
+    
+    public MonMenu(Menu m, float x, float y, boolean ca) {
+        this(m, x, y, null, ca);
     }
     
     @Override
@@ -70,7 +76,7 @@ public class MonMenu extends Menu {
                     } else {
                         font.draw(batch, "Health: " + (int)Math.ceil(mons[i].getHealth()) + "%", 136, 180);
                     }
-                    if (i == combatant.getMonsPos()) {
+                    if (combatant != null && i == combatant.getMonsPos()) {
                         font.draw(batch, "Already in battle", 136, 160); 
                     }
                     font.draw(batch, "Attack: " + Math.round(mons[i].getAttack()), 24, 100);
@@ -107,7 +113,7 @@ public class MonMenu extends Menu {
                 selection = 0;
             }
         }
-        if (GlobalData.keyPressed(GlobalData.Inputs.SELECT)
+        if (canSelect && GlobalData.keyPressed(GlobalData.Inputs.SELECT)
             && mons[selection] != null && mons[selection].getHealth() > 0) {
             setOutput("MONS" + selection);
         }

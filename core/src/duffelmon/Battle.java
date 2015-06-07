@@ -19,7 +19,7 @@ public class Battle extends GameObject {
     private enum States {
         INTRO, TRAINERMOVE, ENEMYSEND, PLAYERSEND, BEFORE, TURN1, BETWEEN,
         TURN2, AFTER, FAINTED, SELECTLIVEMON, SENDLIVEMON, AFTERSENDLIVE,
-        TRAINERMOVEBACK, PLAYERWIN, PLAYERLOSE
+        TRAINERMOVEBACK, OUTRO
     }
     private Combatant player;
     private Combatant enemy;
@@ -35,6 +35,8 @@ public class Battle extends GameObject {
         player = Combatant.makeCombatant(pM, pI, pT, pA, false);
         enemy = Combatant.makeCombatant(eM, eI, eT, eA, true);
         if (eT == null) {
+            enemy.showMonDisplay();
+            enemy.showInfoDisplay();
             textBox = new TextBox("A wild " + enemy.getCurrentMon().getName() + " appeared!", true);
             state = States.ENEMYSEND;
         } else {
@@ -178,19 +180,25 @@ public class Battle extends GameObject {
             }
         }
         if (defeated) {
+            player.hideMonDisplay();
             player.hideInfoDisplay();
+            enemy.hideMonDisplay();
             enemy.hideInfoDisplay();
-            textBox = new TextBox(c.getTrainer().getName() + " was defeated!", false);
-            state = States.TRAINERMOVEBACK;
-            trainer.setVisible(true);
-            trainer.setXSpeed(-4);
-            setTimer("trainerStop", 45);
+            if (c.getTrainer() == null) {
+                beginOutro(o, c);
+            } else {
+                textBox = new TextBox(c.getTrainer().getName() + " was defeated!", false);
+                state = States.TRAINERMOVEBACK;
+                trainer.setVisible(true);
+                trainer.setXSpeed(-4);
+                setTimer("trainerStop", 45);
+            }
             return false;
         }
         toMoveFirst = c;
         toMoveSecond = o;
         if (c.isPlayer()) {
-            menu = new MonMenu(256, 288, c);
+            menu = new MonMenu(256, 288, c, true);
             state = States.SELECTLIVEMON;
         } else {
             c.getAI().chooseMon(c, o);
@@ -216,6 +224,30 @@ public class Battle extends GameObject {
     
     private void faintCurrentMon(Combatant c) {
         c.hideMonDisplay();
+    }
+    
+    private void beginOutro(Combatant w, Combatant l) {
+        state = States.OUTRO;
+        if (w.isPlayer()) {
+            
+        } else {
+            
+        }
+    }
+    
+    private void beginOutro() {
+        boolean enemyDefeated = true;
+        for (int i = 0; i < enemy.getMons().length; i++) {
+            if (enemy.getMon(i).getHealth() > 0) {
+                enemyDefeated = false;
+                break;
+            }
+        }
+        if (enemyDefeated) {
+            beginOutro(player, enemy);
+        } else {
+            beginOutro(enemy, player);
+        }
     }
     
     @Override
@@ -389,7 +421,7 @@ public class Battle extends GameObject {
                 textBox = new TextBox(enemy.getTrainer().getName() + " sent out " + enemy.getCurrentMon().getName() + "!", true);
                 state = States.ENEMYSEND;
             } else if (state == States.TRAINERMOVEBACK) {
-                
+                beginOutro();
             }
         } else if (s.equals("waitAfterTurn")) {
             if (state == States.AFTERSENDLIVE) {

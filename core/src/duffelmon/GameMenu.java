@@ -6,24 +6,18 @@
 package duffelmon;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
  *
  * @author csstudent
  */
-public class GameMenu extends Menu{
-    private int xValue = 0;
-    private int yValue = 256;
-    private int x1 = 100;
-    private int y1 = 256;
+public class GameMenu extends Menu {
+    private int selectionX = 0;
+    private int selectionY = 0;
     private BitmapFont font = GlobalData.getFont();
     private Color fontColor = Color.BLACK;
-    Texture tex = new Texture("Duffelmon.png");
-    private Sprite sprite = new Sprite(tex);
     
     public GameMenu(){
         
@@ -31,50 +25,62 @@ public class GameMenu extends Menu{
     
     @Override
     public void draw(Batch batch, float alpha) {
-        sprite.setX(xValue);
-        sprite.setY(yValue);
         font.setColor(fontColor);
-        font.draw(batch, "Battle Trainer", xValue, yValue);
-        xValue -= 200;
-        font.draw(batch, "Hunt for Wild DuffelMon", xValue, yValue);
-        xValue += 200;
-        yValue-=128;
-        font.draw(batch, "Shop at DuffelMart", xValue, yValue);
-        xValue -= 200;
-        font.draw(batch, "Save", xValue, yValue);
-        yValue += 128;
-        font.draw(batch, "_________", x1, y1);
-        xValue = 300;
-        yValue = 256;
+        font.draw(batch, "Hunt for Wild DuffelMon", 100, 256);
+        font.draw(batch, "Battle Trainer", 300, 256);
+        font.draw(batch, "View DuffelMon", 100, 192);
+        font.draw(batch, "Shop at DuffelMart", 300, 192);
+        font.draw(batch, "Store DuffelMon", 100, 128);
+        font.draw(batch, "Store Items", 300, 128);
+        font.draw(batch, "Save", 100, 64);
+        font.draw(batch, "Quit", 300, 64);
+        font.draw(batch, "_________", 100 + selectionX * 200, 256 - selectionY * 64);
         super.draw(batch, alpha);
     }
     
     @Override
     public void frameActions() {
-        if(GlobalData.keyPressed(GlobalData.Inputs.RIGHT)||GlobalData.keyPressed(GlobalData.Inputs.LEFT)){
-                if(x1 == 300){
-                    x1 -= 200; 
-                }else if(x1 == 100){
-                    x1 += 200;
-                }
+        if (GlobalData.keyPressed(GlobalData.Inputs.RIGHT)) {
+            selectionX++;
+            if (selectionX > 1) {
+                selectionX = 0;
+            }
+        } else if (GlobalData.keyPressed(GlobalData.Inputs.LEFT)) {
+            selectionX--;
+            if (selectionX < 0) {
+                selectionX = 1;
+            }
         }
-        if(GlobalData.keyPressed(GlobalData.Inputs.UP)||GlobalData.keyPressed(GlobalData.Inputs.DOWN)){
-                if(y1 == 256){
-                    y1 -= 128; 
-                }else if(y1 == 128){
-                    y1 += 128;
-                }
+        if (GlobalData.keyPressed(GlobalData.Inputs.DOWN)) {
+            selectionY++;
+            if (selectionY > 3) {
+                selectionY = 0;
+            }
+        } else if (GlobalData.keyPressed(GlobalData.Inputs.UP)) {
+            selectionY--;
+            if (selectionY < 0) {
+                selectionY = 3;
+            }
         }
         if(GlobalData.keyPressed(GlobalData.Inputs.SELECT)) {
-            if(x1 == 300 && y1 == 256) {
-                GameObject.makeDependent(this);
-                Trainer enemyTrainer = new Trainer("Bob", "Hiker", 500, new RandomMoveAI());
-                enemyTrainer.addMon(new Mon(null, Species.getSpecies("Pawprince"), 8));
-                enemyTrainer.addMon(new Mon(null, Species.getSpecies("Massant"), 8));
-                enemyTrainer.addMon(new Mon(null, Species.getSpecies("Auroralisk"), 8));
-                Battle.startBattle(GlobalData.getPlayer(), enemyTrainer);
-            } else if (x1 == 300 && y1 == 128) {
-                setServant(new ShopMenu(this));
+            if(selectionY == 0) {
+                if (selectionX == 0) {
+                    GameObject.makeDependent(this);
+                    Battle.startBattle(GlobalData.getPlayer(), new Mon(null, Species.getSpecies("Spongerob"), 8), new RandomMoveAI());
+                } else if (selectionX == 1) {
+                    GameObject.makeDependent(this);
+                    Trainer enemyTrainer = new Trainer("Bob", "Hiker", 500, new RandomMoveAI());
+                    enemyTrainer.addMon(new Mon(null, Species.getSpecies("Pawprince"), 8));
+                    enemyTrainer.addMon(new Mon(null, Species.getSpecies("Massant"), 8));
+                    enemyTrainer.addMon(new Mon(null, Species.getSpecies("Auroralisk"), 8));
+                    Battle.startBattle(GlobalData.getPlayer(), enemyTrainer);
+                }
+            } else if (selectionY == 1) {
+                if (selectionX == 0) {
+                    setServant(new MonMenu(this, 256, 288, false));
+                } else if (selectionX == 1) {
+                    setServant(new ShopMenu(this));
+                }
             }
         }
     }
