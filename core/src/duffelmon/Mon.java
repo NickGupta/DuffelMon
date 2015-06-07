@@ -225,12 +225,30 @@ public class Mon {
         powerPoints[pos] = Math.max(powerPoints[pos] - 1, 0);
     }
     
+    public void restorePowerPoints() {
+        for (int i = 0; i < powerPoints.length; i++) {
+            if (moves[i] != null) {
+                powerPoints[i] = moves[i].getPowerPoints();
+            }
+        }
+    }
+    
     public void decreaseHealth(double d){
         health = Math.max(health - d, 0);
     }
     
     public void increaseHealth(double h) {
         health = Math.min(health + h, getMaxHealth());
+    }
+    
+    public void restoreHealth() {
+        health = getMaxHealth();
+    }
+    
+    public void restore() {
+        restoreHealth();
+        removeStatusEffects();
+        restorePowerPoints();
     }
     
     /**

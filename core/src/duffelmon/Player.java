@@ -24,11 +24,20 @@ public class Player extends Trainer {
         return money;
     }
     
-    public void giveMoney(int m) {
-        money = Math.min(money + m, 1000000);
+    public int giveMoney(int m) {
+        int given = Math.min(m, 1000000 - money);
+        money += given;
+        return given;
     }
     
-    public void takeMoney(int m) {
-        money = Math.max(money - m, 0);
+    public int takeMoney(int m) {
+        int taken = Math.max(m, -money);
+        money -= taken;
+        return taken;
+    }
+    
+    @Override
+    public int getMoneyToGive() {
+        return money/2;
     }
 }

@@ -72,6 +72,14 @@ public class Combatant {
         showInfoDisplay();
     }
     
+    public void restoreMons() {
+        for(Mon m : mons) {
+            if (m != null) {
+                m.restore();
+            }
+        }
+    }
+    
     public Item[] getItems() {
         return items;
     }

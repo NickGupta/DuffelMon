@@ -78,9 +78,9 @@ public class GameMenu extends Menu {
                 }
             } else if (selectionY == 1) {
                 if (selectionX == 0) {
-                    
+                    setServant(new MonMenu(this, 256, 288, GlobalData.getPlayer().getMons(), false));
                 } else if (selectionX == 1) {
-                    
+                    setServant(new ShopMenu(this));
                 }
             } else if (selectionY == 2) {
                 if (selectionX == 0) {

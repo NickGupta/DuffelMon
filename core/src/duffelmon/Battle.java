@@ -111,10 +111,6 @@ public class Battle extends GameObject {
         return mon.getSpeed();
     }
     
-    private void endBattle() {
-        GameObject.makeDependent(this);
-    }
-    
     private void startNewTurn() {
         state = States.BEFORE;
         if (player.isPlayer()) {
@@ -228,10 +224,31 @@ public class Battle extends GameObject {
     
     private void beginOutro(Combatant w, Combatant l) {
         state = States.OUTRO;
-        if (w.isPlayer()) {
-            
+        if (enemy.isTrainer()) {
+            textBox.setPressToAdvance(true);
         } else {
-            
+            String message;
+            if (w.isTrainer()) {
+                message = w.getTrainer().getName() + " defeated the wild DuffelMon!";
+            } else if (l.isTrainer()) {
+                message = l.getTrainer().getName() + " was defeated by the wild DuffelMon!";
+            } else {
+                message = w.getMon(0).getName() + " defeated the enemy DuffelMon!";
+            }
+            textBox = new TextBox(message, true);
+        }
+        if (l.isTrainer()) {
+            if (w.isPlayer()) {
+                int moneyGiven = GlobalData.getPlayer().giveMoney(l.getTrainer().getMoneyToGive());
+                if (moneyGiven > 0) {
+                    textBox.addMessage(w.getTrainer().getName() + " earned $" + moneyGiven + " for winning!");
+                }
+            } else if (w.isTrainer()) {
+                int moneyGiven = GlobalData.getPlayer().takeMoney(l.getTrainer().getMoneyToGive());
+                if (moneyGiven > 0) {
+                    textBox.addMessage(l.getTrainer().getName() + " had to pay " + w.getTrainer().getName() + " $" + moneyGiven + " for losing!");
+                }
+            }
         }
     }
     
@@ -248,6 +265,14 @@ public class Battle extends GameObject {
         } else {
             beginOutro(enemy, player);
         }
+    }
+    
+    private void endBattle() {
+        GameObject.makeDependent(this);
+        player.restoreMons();
+        enemy.restoreMons();
+        GameMenu g = new GameMenu();
+        GameObject.makeIndependent(g);
     }
     
     @Override
@@ -384,6 +409,12 @@ public class Battle extends GameObject {
         }
         if (state == States.AFTERSENDLIVE) {
             waitAfterTurnForTextBox();
+        }
+        if (state == States.OUTRO) {
+            if (textBox == null || textBox.getOutput() != null) {
+                textBox = null;
+                endBattle();
+            }
         }
     }
     

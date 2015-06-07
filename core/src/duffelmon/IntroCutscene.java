@@ -67,8 +67,11 @@ public class IntroCutscene extends Menu {
                 setServant(new StarterMenu(this));
             }
         } else if (state == States.AFTERSTARTER) {
+            GlobalData.getPlayer().giveMoney(2000);
             ArrayList<String> messages = new ArrayList<String>();
             messages.add("Excellent! So you've chosen a " + GlobalData.getPlayer().getMon(0).getSpecies().getName() + "!");
+            messages.add("I'll also give you $2000 so you can purchase items.");
+            messages.add("You can eary more money by battling other DuffelMon trainers.");
             messages.add("I wish you the best of luck on your journey!");
             setServant(new TextBox(messages, true));
         }
