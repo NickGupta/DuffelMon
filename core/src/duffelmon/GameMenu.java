@@ -84,7 +84,7 @@ public class GameMenu extends Menu {
                 }
             } else if (selectionY == 2) {
                 if (selectionX == 0) {
-                    
+                    setServant(new MonStorageMenu(this, GlobalData.getPlayer().getMons(), GlobalData.getPlayer().getStorageMons()));
                 } else if (selectionX == 1) {
                     
                 }

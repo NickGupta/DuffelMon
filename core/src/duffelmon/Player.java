@@ -11,8 +11,8 @@ package duffelmon;
  */
 public class Player extends Trainer {
     
-    private Mon[] monsInStorage = new Mon[50];
-    private Item[] itemsInStorage = new Item[50];
+    private Mon[] monsInStorage = new Mon[64];
+    private Item[] itemsInStorage = new Item[64];
     private int money;
     
     public Player(String n) {
